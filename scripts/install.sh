@@ -250,7 +250,10 @@ install_codex() {
     log_warn "Codex ${version} install failed: the official installer could not download or resolve its release assets (exit ${_ic_rc})."
     log_warn "This is usually a transient GitHub API rate-limit or network hiccup, not a Fugu config problem."
     log_info "Nothing was deployed and your existing Codex config was not modified (any pre-switch backup is shown above)."
-    die "Codex install aborted — retry in a few minutes. More help: ${SUPPORT_URL}"
+    local _self; _self="$(cd "$(dirname "${BASH_SOURCE[0]}")" 2>/dev/null && pwd || echo .)/$(basename "${BASH_SOURCE[0]}")"
+    log_info "Wait a few minutes, then retry with:  bash ${_self}"
+    log_info "Or install Codex ${version} yourself (e.g. 'npm install -g @openai/codex@${version}', Homebrew, or the docs at https://developers.openai.com/codex), then re-run 'bash ${_self}' to deploy without the download."
+    die "Codex install aborted. More help: ${SUPPORT_URL}"
   fi
 
   hash -r 2>/dev/null || true
