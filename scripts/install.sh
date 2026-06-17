@@ -754,6 +754,7 @@ setup_api_key() {
   export "$var"="$value"
   unset value existing
   log_ok "${var} configured (stored 0600 in ${FUGU_ENV_FILE}; sourced from ${FUGU_SHELL_RC})."
+  log_info "New shells load it automatically. To use it in your current shell now, run: source ${FUGU_ENV_FILE}"
 }
 
 install_bundle_inject() {
@@ -788,7 +789,6 @@ reconfigure_bundle_key() {
     install_bundle_envkey "$entry"
   done
   log_ok "API key configuration complete."
-  log_info "New shells load it automatically. To use it in your current shell now, run: source ${FUGU_ENV_FILE}"
 }
 
 remove_bundle_file() {
