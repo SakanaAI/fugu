@@ -778,6 +778,7 @@ reconfigure_bundle_key() {
     install_bundle_envkey "$entry"
   done
   log_ok "API key configuration complete."
+  log_info "New shells load it automatically. To use it in your current shell now, run: source ${FUGU_ENV_FILE}"
 }
 
 remove_bundle_file() {
