@@ -243,7 +243,7 @@ maybe_adopt() {
   [ -n "$rec" ] || return 0
   b="$(basename "$rec" .receipt)"
   repo=""
-  for cand in "${CODEX_FUGU_REPO_DIR:-}" "$HOME/.codex-mod"; do
+  for cand in "${CODEX_FUGU_REPO_DIR:-}" "$HOME/.fugu"; do
     if [ -n "$cand" ] && git -C "$cand" rev-parse --git-dir >/dev/null 2>&1; then repo="$cand"; break; fi
   done
   [ -n "$repo" ] || return 0
