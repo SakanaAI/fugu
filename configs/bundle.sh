@@ -17,4 +17,4 @@ ENV_KEYS=(
   "SAKANA_API_KEY::https://platform.torafugu.app/api-keys::^fish_[0-9a-f]{64}\$::Sakana API"
 )
 
-BUNDLE_RUN_HINT="codex -p fugu"
+BUNDLE_RUN_HINT="codex-fugu"
