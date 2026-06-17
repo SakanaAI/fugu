@@ -238,12 +238,19 @@ install_codex() {
   export TMPDIR="${TMPDIR:-/tmp}"
   export CODEX_NON_INTERACTIVE=1
 
+  local _ic_rc=0
   if [ -n "${CODEX_INSTALLER_CMD:-}" ]; then
-    CODEX_RELEASE="$version" "$CODEX_INSTALLER_CMD" "$version"
+    CODEX_RELEASE="$version" "$CODEX_INSTALLER_CMD" "$version" || _ic_rc=$?
   elif [ "$HTTP_TOOL" = "curl" ]; then
-    curl -fsSL "$OFFICIAL_INSTALL_URL" | sh -s -- --release "$version"
+    curl -fsSL "$OFFICIAL_INSTALL_URL" | sh -s -- --release "$version" || _ic_rc=$?
   else
-    wget -qO- "$OFFICIAL_INSTALL_URL" | sh -s -- --release "$version"
+    wget -qO- "$OFFICIAL_INSTALL_URL" | sh -s -- --release "$version" || _ic_rc=$?
+  fi
+  if [ "$_ic_rc" -ne 0 ]; then
+    log_warn "Codex ${version} install failed: the official installer could not download or resolve its release assets (exit ${_ic_rc})."
+    log_warn "This is usually a transient GitHub API rate-limit or network hiccup, not a Fugu config problem."
+    log_info "Nothing was deployed and your existing Codex config was not modified (any pre-switch backup is shown above)."
+    die "Codex install aborted — retry in a few minutes. More help: ${SUPPORT_URL}"
   fi
 
   hash -r 2>/dev/null || true
