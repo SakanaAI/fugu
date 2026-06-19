@@ -7,10 +7,10 @@ This is the official repository for Sakana Fugu. It contains our technical repor
 Run this one-line command (it works from any directory and leaves your current directory unchanged):
 
 ```bash
-( git clone https://github.com/SakanaAI/fugu.git ~/.fugu && bash ~/.fugu/scripts/install.sh ) && source ~/.config/fugu/env
+( git clone https://github.com/SakanaAI/fugu.git ~/.fugu && bash ~/.fugu/scripts/install.sh )
 ```
 
-The command clones this repo to `~/.fugu`, installs and pins a tested Codex CLI version (currently 0.140.0), deploys the Fugu config that wires up the Sakana provider, and prompts once for your Sakana API key. Get an API key at https://platform.torafugu.app/api-keys. After installing, open a new shell (or run `source ~/.config/fugu/env`) so the key is loaded.
+The command clones this repo to `~/.fugu`, installs and pins a tested Codex CLI version (currently 0.140.0), deploys the Fugu config that wires up the Sakana provider, and prompts once for your Sakana API key. Get an API key at https://platform.torafugu.app/api-keys. The key is stored in `~/.codex/.env` and Codex loads it automatically, so no further setup is needed.
 
 This one-line install supports Ubuntu and macOS. On Windows, or if the install does not complete, see https://console.sakana.ai/get-started for manual configuration.
 
