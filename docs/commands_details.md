@@ -69,6 +69,18 @@ SAKANA_API_KEY=your_key bash ~/.fugu/scripts/install.sh --yes
 
 Set `CODEX_FUGU_NO_UPDATE=1` to turn update checks off for good.
 
+### Passing Codex arguments
+
+The launcher flags above are read only when they come first. From the first other argument onward, everything is forwarded unchanged to `codex -p fugu`, so any Codex command, subcommand, prompt, or flag generally works through `codex-fugu`. The commands below are just examples:
+
+```bash
+codex-fugu resume                  # codex -p fugu resume
+codex-fugu "fix the failing test"  # start a new session with a prompt
+codex-fugu --no-update resume      # skip the update check, then resume
+```
+
+Because forwarding starts at the first non-launcher argument, put any launcher flag before the Codex arguments. Plain Codex flags such as `--model` or `--help` pass straight through, since the launcher only reacts to its own flags listed above.
+
 ## Config backup, restore, and protection
 
 Before switching the Codex version or making its first edit to `config.toml`, the installer saves a timestamped copy of your existing config to `~/.codex-backups/codex-config-<timestamp>/`. This location sits outside `~/.codex`, so a backup survives even a full `rm -rf ~/.codex`. Each backup holds your `config.toml`, any `*.config.toml`, `auth.json`, other catalog `*.json`, and `*.md` files, plus a `MANIFEST.txt` and a `SHA256SUMS` for verification. The 10 most recent backups are kept. Use `CODEX_BACKUP_KEEP` and `CODEX_BACKUP_ROOT` to change the count and location, or `--no-backup` to skip the step.

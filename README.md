@@ -20,13 +20,13 @@ Then launch it with:
 codex-fugu
 ```
 
-See the [command reference](docs/commands_details.md) for additional flags and options.
+See the [command reference](docs/commands_details.md) for additional flags and options. The one-line install supports Ubuntu and macOS. On Windows, or if the install does not complete, follow the Manually Setting Up Codex section [here](https://console.sakana.ai/get-started).
 
 <br clear="all">
 
 ## Superior performance via intelligent coordination
 
-Sakana Fugu achieves superior performance by dynamically coordinating and orchestrating a diverse pool of powerful models.
+Sakana Fugu achieves superior performance by dynamically coordinating and orchestrating a diverse pool of powerful models. For evaluation details, check [our technical report](Fugu_technical_report.pdf).
 
 <p align="center">
   <img src="assets/figures/performance_1.png" alt="Sakana Fugu performance" width="820">
