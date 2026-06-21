@@ -69,6 +69,6 @@ Since publication, we have made several enhancements. The full technical report 
 
 ## Support
 
-For issues or bugs while using Sakana Fugu, please email a description of the problem, the relevant logs, and your environment details to fugu-support@sakana.ai.
+Please contact us at https://fugu.sakana.ai for issues or bugs while using Sakana Fugu.
 
 
