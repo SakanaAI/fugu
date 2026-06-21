@@ -20,7 +20,7 @@ Then launch it with:
 codex-fugu
 ```
 
-See the [command reference](docs/commands_details.md) for additional flags and options. The one-line install supports Ubuntu and macOS. On Windows, or if the install does not complete, follow the Manually Setting Up Codex section [here](https://console.sakana.ai/get-started).
+See the [command reference](docs/commands_details.md) for additional flags and options. The one-line install supports Ubuntu and macOS. On Windows, or if the install does not complete, follow the guide [here](https://console.sakana.ai/get-started#manually-setting-up-codex).
 
 <br clear="all">
 
