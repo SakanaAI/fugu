@@ -102,6 +102,10 @@ confirm_yn() {
   if IFS= read -r r; then :; else r=""; fi
   case "$r" in [Yy]|[Yy][Ee][Ss]) return 0 ;; *) return 1 ;; esac
 }
+prompt_continue_into_codex() {
+  printf 'Press Enter to continue into Codex... ' >&2
+  if IFS= read -r _; then :; else :; fi
+}
 
 read_remote_target() {
   git -C "$REPO_DIR" show "origin/$BRANCH:configs/bundle.sh" 2>/dev/null \
@@ -170,6 +174,7 @@ show_update_notes() {
   done <<EOF
 $files
 EOF
+  prompt_continue_into_codex
   return 0
 }
 apply_rollback() {
