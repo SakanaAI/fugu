@@ -202,6 +202,7 @@ decide_and_apply() {
     case "$REPLY_IDX" in
       1)
         if [ "$needs_bump" = 1 ]; then
+          fug_warn "Switching Codex versions changes which past sessions 'codex resume' lists. Your transcripts are kept and the session index is saved to the backup."
           if confirm_yn "This will switch Codex ${INSTALLED} -> ${REMOTE_TARGET}. Proceed?"; then
             apply_update 1
           else
@@ -222,6 +223,7 @@ decide_and_apply() {
     local method; method="$(st_get install_method)"
     case "$method" in
       standalone)
+        fug_warn "Rolling Codex back changes which past sessions 'codex resume' lists. Your transcripts are kept and the session index is saved to the backup."
         SAFE_IDX=2
         ask_choice "Reconcile the mismatch?" "Roll Codex back to ${DEPLOYED_TARGET}" "Not now" "Don't ask again while Codex stays ${INSTALLED}"
         case "$REPLY_IDX" in

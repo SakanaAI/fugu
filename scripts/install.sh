@@ -282,6 +282,8 @@ or per file:
   cp -p "${dest}"/*.config.toml "${CODEX_HOME}/"      2>/dev/null || true
   cp -p "${dest}"/*.json "${CODEX_HOME}/"             2>/dev/null || true
   cp -p "${dest}/auth.json" "${CODEX_HOME}/" && chmod 600 "${CODEX_HOME}/auth.json"
+To restore the session/resume index (so 'codex resume' lists your pre-switch sessions again):
+  cp -p "${dest}"/*.sqlite* "${CODEX_HOME}/"          2>/dev/null || true
 Then verify:  codex doctor      (expect: config.toml parse: ok)
 More help: docs/install_guide.md (section 4) or ${SUPPORT_URL}
 EOF
@@ -326,7 +328,7 @@ backup_codex_config() {
   done
   chmod 700 "$dest" 2>/dev/null || true
 
-  local f bn copied=0
+  local f bn copied=0 idx_copied=0
   for f in \
     "$CODEX_HOME"/config.toml \
     "$CODEX_HOME"/*.config.toml \
@@ -342,7 +344,19 @@ backup_codex_config() {
     copied=$((copied + 1))
   done
 
-  if [ "$copied" -eq 0 ]; then
+  for f in \
+    "$CODEX_HOME"/state_*.sqlite* \
+    "$CODEX_HOME"/memories_*.sqlite* \
+    "$CODEX_HOME"/goals_*.sqlite*
+  do
+    [ -f "$f" ] || continue
+    bn="$(basename "$f")"
+    [ -e "$dest/$bn" ] && continue
+    cp -pL "$f" "$dest/$bn" 2>/dev/null || cp -p "$f" "$dest/$bn"
+    copied=$((copied + 1)); idx_copied=$((idx_copied + 1))
+  done
+
+  if [ $((copied + idx_copied)) -eq 0 ]; then
     rmdir "$dest" 2>/dev/null || true
     log_info "Nothing to back up (no user config found in ${CODEX_HOME}); skipping backup."
     return 0
@@ -371,7 +385,8 @@ backup_codex_config() {
   fi
 
   LAST_BACKUP_DIR="$dest"
-  log_ok "Backed up ${copied} config file(s) to ${dest}"
+  log_ok "Backed up ${copied} file(s) to ${dest}"
+  [ "$idx_copied" -gt 0 ] && log_info "Included ${idx_copied} Codex session-index file(s) (state/memories/goals) so 'codex resume' history stays recoverable across the switch."
   print_restore_instructions "$dest"
   prune_old_backups "$root"
   return 0
@@ -990,6 +1005,11 @@ remove_config_bundle() {
   log_ok "Config bundle '${name}' removed."
 }
 
+note_resume_caveat() {
+  log_warn "Switching Codex versions changes which past sessions 'codex resume' lists (Codex keeps a per-version session index)."
+  log_warn "Your transcripts are not deleted. The current session index is saved to the backup below. To list older sessions again, run the Codex version that wrote them or restore the saved index."
+}
+
 ensure_codex_version() {
   local pinned="$1" installed=""
 
@@ -1005,6 +1025,7 @@ ensure_codex_version() {
 
   if [ -z "$installed" ]; then
     log_warn "Codex is present but its version could not be determined (it may be broken)."
+    note_resume_caveat
     if confirm "Reinstall/repair Codex ${pinned} now?"; then
       backup_codex_config "unknown" "$pinned"
       install_codex "$pinned"
@@ -1034,13 +1055,17 @@ ensure_codex_version() {
   local do_switch=0 human_declined=0
   if [ "${FORCE:-0}" = "1" ]; then
     log_warn "--force: switching Codex ${installed} -> ${pinned} non-interactively."
+    note_resume_caveat
     do_switch=1
   elif [ "${ASSUME_YES:-0}" = "1" ]; then
     log_warn "Not switching Codex under --yes (that would change your binary). Re-run interactively to be prompted, or pass --force."
-  elif confirm "Fugu models are optimized for Codex ${pinned}, but you currently have ${installed}. Switch to Codex ${pinned} now?"; then
-    do_switch=1
   else
-    human_declined=1
+    note_resume_caveat
+    if confirm "Fugu models are optimized for Codex ${pinned}, but you currently have ${installed}. Switch to Codex ${pinned} now?"; then
+      do_switch=1
+    else
+      human_declined=1
+    fi
   fi
   if [ "$do_switch" = "1" ]; then
     backup_codex_config "$installed" "$pinned"

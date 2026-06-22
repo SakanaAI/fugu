@@ -81,9 +81,21 @@ codex-fugu --no-update resume      # skip the update check, then resume
 
 Because forwarding starts at the first non-launcher argument, put any launcher flag before the Codex arguments. Plain Codex flags such as `--model` or `--help` pass straight through, since the launcher only reacts to its own flags listed above.
 
+## Codex version management and session resume
+
+`codex-fugu` and the installer also manage your Codex version. The Fugu configs are verified against a specific Codex version, so on a mismatch the installer offers to switch your Codex binary to that version, and the launcher offers the same reconcile at most once a day. A switch happens only with your consent, either an interactive yes or `--force`.
+
+Codex keeps a per-version session index, so `codex resume` lists different past sessions after a version switch. Your session transcripts under `~/.codex/sessions` are never deleted by a switch. Only which sessions `codex resume` enumerates changes.
+
+Before any switch the installer saves your current session index (the `state`, `memories`, and `goals` `.sqlite` files) into the backup described below. To bring back your earlier `codex resume` list you can either run the Codex version that wrote those sessions, or restore the saved index from a backup:
+
+```bash
+cp -p ~/.codex-backups/codex-config-<timestamp>/*.sqlite* ~/.codex/
+```
+
 ## Config backup, restore, and protection
 
-Before switching the Codex version or making its first edit to `config.toml`, the installer saves a timestamped copy of your existing config to `~/.codex-backups/codex-config-<timestamp>/`. This location sits outside `~/.codex`, so a backup survives even a full `rm -rf ~/.codex`. Each backup holds your `config.toml`, any `*.config.toml`, `auth.json`, other catalog `*.json`, and `*.md` files, plus a `MANIFEST.txt` and a `SHA256SUMS` for verification. The 10 most recent backups are kept. Use `CODEX_BACKUP_KEEP` and `CODEX_BACKUP_ROOT` to change the count and location, or `--no-backup` to skip the step.
+Before switching the Codex version or making its first edit to `config.toml`, the installer saves a timestamped copy of your existing config to `~/.codex-backups/codex-config-<timestamp>/`. This location sits outside `~/.codex`, so a backup survives even a full `rm -rf ~/.codex`. Each backup holds your `config.toml`, any `*.config.toml`, `auth.json`, other catalog `*.json`, and `*.md` files, the session index (`state`, `memories`, and `goals` `.sqlite` files), plus a `MANIFEST.txt` and a `SHA256SUMS` for verification. The 10 most recent backups are kept. Use `CODEX_BACKUP_KEEP` and `CODEX_BACKUP_ROOT` to change the count and location, or `--no-backup` to skip the step.
 
 To restore a backup, copy it back over your config directory and re-check it:
 
