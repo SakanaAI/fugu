@@ -1027,7 +1027,7 @@ ensure_codex_version() {
   local dtgt="${BUNDLE_CODEX_VERSION:-$pinned}"
   if [ "${FORCE:-0}" != "1" ] && mismatch_declined "$installed" "$dtgt"; then
     log_warn "You previously chose to keep Codex ${installed} for this mismatch; not asking again."
-    log_warn "Run 'codex-fugu --recheck' to clear that choice and be prompted again."
+    log_warn "Run 'codex-fugu --recheck' to clear that choice and be prompted again, or re-run with --force to switch now."
     RESULT_STATUS="declined"
     return 0
   fi
@@ -1049,7 +1049,7 @@ ensure_codex_version() {
     RESULT_STATUS="switched"
   else
     log_warn "Keeping Codex ${installed}. Fugu models are tuned for ${pinned}; you may see degraded behavior."
-    [ "$human_declined" = "1" ] && record_mismatch_decision "$installed" "$dtgt"
+    [ "$human_declined" = "1" ] && [ -f "$(_state_path)" ] && record_mismatch_decision "$installed" "$dtgt"
     RESULT_STATUS="declined"
   fi
   return 0
@@ -1062,7 +1062,7 @@ deploy_gate_ok() {
   local got; got="$(get_installed_version)"
   [ "$got" = "$BUNDLE_CODEX_VERSION" ] && return 0
   log_error "Refusing to deploy bundle '${CONFIG_NAME}': Codex is '${got:-unreadable}', but the bundle targets ${BUNDLE_CODEX_VERSION}."
-  log_warn  "Switch Codex to ${BUNDLE_CODEX_VERSION} (re-run interactively to be prompted, or pass --force), then retry."
+  log_warn  "Switch Codex to ${BUNDLE_CODEX_VERSION} by re-running with --force (or re-run interactively, which prompts again unless you previously declined), then retry."
   log_warn  "See ${SUPPORT_URL}"
   return 1
 }
