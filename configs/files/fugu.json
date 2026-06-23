@@ -8,6 +8,10 @@
         {
           "effort": "high",
           "description": "Deep reasoning for complex problems"
+        },
+        {
+          "effort": "xhigh",
+          "description": "Go Brrrr for complex problems"
         }
       ],
       "shell_type": "shell_command",
@@ -39,6 +43,10 @@
         {
           "effort": "high",
           "description": "Deep reasoning for complex problems"
+        },
+        {
+          "effort": "xhigh",
+          "description": "Go Brrrr for complex problems"
         }
       ],
       "shell_type": "shell_command",
