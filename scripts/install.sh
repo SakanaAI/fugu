@@ -1073,7 +1073,7 @@ ensure_codex_version() {
     log_ok "Switched to Codex ${pinned}."
     RESULT_STATUS="switched"
   else
-    log_warn "Keeping Codex ${installed}. Fugu models are tuned for ${pinned}; you may see degraded behavior."
+    log_warn "Keeping Codex ${installed}. These Fugu configs are built for ${pinned}; on a different Codex they may not be fully applied."
     [ "$human_declined" = "1" ] && [ -f "$(_state_path)" ] && record_mismatch_decision "$installed" "$dtgt"
     RESULT_STATUS="declined"
   fi
@@ -1086,8 +1086,13 @@ deploy_gate_ok() {
   [ -n "${BUNDLE_CODEX_VERSION:-}" ] || return 0
   local got; got="$(get_installed_version)"
   [ "$got" = "$BUNDLE_CODEX_VERSION" ] && return 0
-  log_error "Refusing to deploy bundle '${CONFIG_NAME}': Codex is '${got:-unreadable}', but the bundle targets ${BUNDLE_CODEX_VERSION}."
-  log_warn  "Switch Codex to ${BUNDLE_CODEX_VERSION} by re-running with --force (or re-run interactively, which prompts again unless you previously declined), then retry."
+  if [ -n "$got" ] && _ver_lt "$BUNDLE_CODEX_VERSION" "$got"; then
+    log_error "Refusing to deploy bundle '${CONFIG_NAME}': your Codex ${got} is newer than this bundle's target ${BUNDLE_CODEX_VERSION} (configs are verified for an exact Codex version)."
+    log_warn  "To deploy these configs, downgrade Codex to ${BUNDLE_CODEX_VERSION} by re-running with --force, or update to configs that target ${got} (when available)."
+  else
+    log_error "Refusing to deploy bundle '${CONFIG_NAME}': Codex is '${got:-unreadable}', but the bundle targets ${BUNDLE_CODEX_VERSION}."
+    log_warn  "Switch Codex to ${BUNDLE_CODEX_VERSION} by re-running with --force (or re-run interactively, which prompts again unless you previously declined), then retry."
+  fi
   log_warn  "See ${SUPPORT_URL}"
   return 1
 }
@@ -1113,7 +1118,8 @@ print_success() {
   local pinned="$1"
   case "${RESULT_STATUS:-}" in
     declined | proceed_warn)
-      log_warn "Bootstrap finished, but Codex is NOT at the pinned version ${pinned}."
+      local got; got="$(get_installed_version 2>/dev/null || true)"
+      log_warn "Bootstrap finished: the config bundle was not deployed because Codex ${got:-(unreadable)} does not match the configs' target ${pinned}."
       log_ok   "Fugu bootstrap complete (with warnings)."
       ;;
     *)

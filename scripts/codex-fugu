@@ -174,7 +174,13 @@ apply_update() {
   local -a args=(--yes)
   [ "$bump" = 1 ] && args+=(--force)
   if "$REPO_DIR/scripts/install.sh" "${args[@]}"; then
-    fug_ok "updated configs (bundle=${BUNDLE}, ref=${newref})."
+    local now_ver; now_ver="$(codex_version_of "${REAL_CODEX:-codex}" 2>/dev/null || true)"
+    if [ -n "$REMOTE_TARGET" ] && [ -n "$now_ver" ] && [ "$now_ver" != "$REMOTE_TARGET" ]; then
+      fug_warn "Configs not updated: this Fugu update targets Codex ${REMOTE_TARGET} but you have ${now_ver}, so the config bundle was not redeployed (only the launcher was refreshed)."
+      fug_info "To apply it, downgrade Codex to ${REMOTE_TARGET} by re-running the installer with --force. Or keep Codex ${now_ver}; your current Fugu setup keeps working."
+    else
+      fug_ok "updated configs (bundle=${BUNDLE}, ref=${newref})."
+    fi
     show_update_notes "$old_ref" || true
   else
     fug_warn "install.sh did not complete cleanly; review the messages above."
@@ -268,7 +274,11 @@ decide_and_apply() {
         esac
         ;;
       *)
-        fug_info "Reconcile by re-running the installer:  install.sh  (it detects your install type)."
+        if ver_gt "$INSTALLED" "$DEPLOYED_TARGET"; then
+          fug_info "Your Codex ${INSTALLED} is newer than these configs (target ${DEPLOYED_TARGET}); re-running the installer will not change this. To match, downgrade Codex to ${DEPLOYED_TARGET} with the installer's --force, or update to Fugu configs that target ${INSTALLED} (when available)."
+        else
+          fug_info "Reconcile by re-running the installer:  install.sh  (it detects your install type)."
+        fi
         SAFE_IDX=1
         ask_choice "Reconcile the mismatch?" "Not now" "Don't ask again while Codex stays ${INSTALLED}"
         case "$REPLY_IDX" in
