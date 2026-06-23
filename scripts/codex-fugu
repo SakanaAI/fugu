@@ -9,7 +9,11 @@ STATE_FILE="$STATE_DIR/state"
 DECISIONS_FILE="$STATE_DIR/decisions"
 LASTCHECK_FILE="$STATE_DIR/last_check"
 LOCK_FILE="$STATE_DIR/.lock"
+NOTICES_FILE="$STATE_DIR/notices"
 THROTTLE_SECS="${CODEX_FUGU_CHECK_INTERVAL:-86400}"
+
+NOTICE_ID="fugu-default-model-2026-06"
+NOTICE_MSG="Fugu is designed to provide the best balance of cost and performance, it is the go-to model in codex-fugu. Choose Fugu Ultra only for complex tasks where quality is your top priority."
 
 DO_STATUS=0; DO_RECHECK=0; DO_CHECK=0; DO_NO_UPDATE=0; DO_SET_KEY=0
 CODEX_ARGS=()
@@ -30,6 +34,13 @@ dec_add() {
   mkdir -p "$STATE_DIR" 2>/dev/null; chmod 700 "$STATE_DIR" 2>/dev/null || true
   if ! grep -qxF -- "$*" "$DECISIONS_FILE" 2>/dev/null; then printf '%s\n' "$*" >> "$DECISIONS_FILE"; fi
   chmod 600 "$DECISIONS_FILE" 2>/dev/null || true
+}
+
+notice_dismissed() { [ -f "$NOTICES_FILE" ] && grep -qxF -- "$*" "$NOTICES_FILE"; }
+notice_dismiss() {
+  mkdir -p "$STATE_DIR" 2>/dev/null; chmod 700 "$STATE_DIR" 2>/dev/null || true
+  if ! grep -qxF -- "$*" "$NOTICES_FILE" 2>/dev/null; then printf '%s\n' "$*" >> "$NOTICES_FILE"; fi
+  chmod 600 "$NOTICES_FILE" 2>/dev/null || true
 }
 
 throttle_elapsed() {
@@ -105,6 +116,16 @@ confirm_yn() {
 prompt_continue_into_codex() {
   printf 'Press Enter to continue into Codex... ' >&2
   if IFS= read -r _; then :; else :; fi
+}
+show_notice() {
+  [ "${CODEX_FUGU_NO_NOTICE:-0}" = 1 ] && return 0
+  [ -n "$NOTICE_ID" ] || return 0
+  notice_dismissed "$NOTICE_ID" && return 0
+  printf '\n%s-- Fugu notice --%s\n' "$_Y" "$_N" >&2
+  printf '%s\n\n' "$NOTICE_MSG" >&2
+  SAFE_IDX=1
+  ask_choice "How would you like to proceed?" "acknowledge and continue" "acknowledge and never remind me again"
+  [ "$REPLY_IDX" = 2 ] && notice_dismiss "$NOTICE_ID"
 }
 
 read_remote_target() {
@@ -384,6 +405,7 @@ main() {
   fi
 
   decide_and_apply
+  show_notice
   exec_codex
 }
 

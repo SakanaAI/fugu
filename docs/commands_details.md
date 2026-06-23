@@ -69,6 +69,10 @@ SAKANA_API_KEY=your_key bash ~/.fugu/scripts/install.sh --yes
 
 Set `CODEX_FUGU_NO_UPDATE=1` to turn update checks off for good.
 
+### Launch notices
+
+Now and then the launcher shows a short notice before it starts Codex, with two choices: "acknowledge and continue" (the default) and "acknowledge and never remind me again". Choosing the second one hides that notice for good. There is at most one notice at a time. Set `CODEX_FUGU_NO_NOTICE=1` to turn notices off entirely.
+
 ### Passing Codex arguments
 
 The launcher flags above are read only when they come first. From the first other argument onward, everything is forwarded unchanged to `codex -p fugu`, so any Codex command, subcommand, prompt, or flag generally works through `codex-fugu`. The commands below are just examples:
