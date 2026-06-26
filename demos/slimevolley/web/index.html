@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Slime Volley · agentically-evolved policies, playing</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Agentically-evolved policies · Slime Volley</p>
+  <h1>Slime Volley</h1>
+  <p class="sub">Interpretable control policies, written as code by a few agentic models, playing the solid-net
+     game. Pick any two for the <b style="color:#0f9e85">mint</b> and <b style="color:#dd3c77">magenta</b> slimes,
+     watch them rally, and see which lines of their logic fire each frame. Or jump in yourself.</p>
+  <div class="jumpcallout">&#9654;&#65039; <span><b>Play it yourself:</b> press <kbd>&larr;</kbd> <kbd>&rarr;</kbd>
+     (or <kbd>A</kbd>/<kbd>D</kbd>) to take the <b style="color:#dd3c77">magenta</b> slime on the right,
+     <kbd>&uarr;</kbd>/<kbd>Space</kbd> to jump, and <kbd>Q</kbd> to hand it back to the policy. It self-plays
+     until you jump in. &nbsp;<kbd>P</kbd> pause · <kbd>R</kbd> reset.</span></div>
+  <div class="card">
+    <canvas id="cv" width="720" height="300"></canvas>
+    <div class="picks">
+      <label class="sel mint"><span class="seldot ai"></span>Mint<select id="selL" aria-label="Mint (left) policy"></select></label>
+      <label class="sel magenta"><select id="selR" aria-label="Magenta (right) policy"></select>Magenta<span class="seldot you"></span></label>
+    </div>
+    <div class="controls">
+      <button class="btn" id="pause">⏸ pause</button>
+      <button class="btn" id="reset">↺ reset</button>
+    </div>
+    <div class="hud">
+      <div class="scoreline">
+        <span class="side"><span class="sdot ai"></span><b class="opp" id="leftName">…</b><span class="kind" id="leftKind"></span><span class="sscore" id="leftScore"></span></span>
+        <span class="tally" id="tally">0 : 0</span>
+        <span class="side r"><span class="sscore" id="rightScore"></span><span class="kind" id="rightKind"></span><b class="opp" id="rightName">…</b><span class="sdot you"></span></span>
+      </div>
+      <div class="mode" id="mode">● SELF-PLAY</div>
+      <div class="panels">
+        <div class="codepanel" id="panelL"></div>
+        <div class="codepanel" id="panelR"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="module" src="app.js"></script>
+</body>
+</html>

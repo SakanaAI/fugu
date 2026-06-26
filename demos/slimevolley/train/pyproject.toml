@@ -1,0 +1,10 @@
+[project]
+name = "slimevolley-train"
+version = "0.1.0"
+description = "Reproduce a Slime Volley (solid-net) learning run with an agentic model."
+requires-python = ">=3.11"
+dependencies = ["numpy", "gym==0.26.2", "opencv-python-headless"]
+
+[tool.ruff]
+line-length = 110
+extend-exclude = ["env"]  # the vendored slimevolleygym is copied verbatim; never lint or reformat it
