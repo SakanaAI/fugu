@@ -1,0 +1,23 @@
+.DS_Store
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+*/.venv/
+
+# Local logs and temporary files
+*.log
+*.tmp
+tmp/
+temp/
+
+# MuJoCo/runtime scratch files
+*.mjb
+
+# Keep local videos out of GitHub; README uses GIF previews instead.
+*.mp4
+*_thumb.png
