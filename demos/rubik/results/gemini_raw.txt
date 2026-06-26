@@ -1,0 +1,391 @@
+```python
+import time
+import math
+
+corners = [
+    (8, 9, 20), (6, 18, 38), (0, 36, 47), (2, 45, 11),
+    (29, 15, 26), (27, 24, 44), (33, 42, 53), (35, 51, 17)
+]
+solved_corner_colors = [
+    (0,1,2), (0,2,4), (0,4,5), (0,5,1),
+    (3,1,2), (3,2,4), (3,4,5), (3,5,1)
+]
+
+edges = [
+    (5, 10), (7, 19), (3, 37), (1, 46),
+    (32, 16), (28, 25), (30, 43), (34, 52),
+    (23, 12), (21, 41), (50, 39), (48, 14)
+]
+solved_edge_colors = [
+    (0,1), (0,2), (0,4), (0,5),
+    (3,1), (3,2), (3,4), (3,5),
+    (2,1), (2,4), (5,4), (5,1)
+]
+piece_primary = [0, 0, 0, 0, 3, 3, 3, 3, 2, 2, 5, 5]
+
+fact = [1, 1, 2, 6, 24, 120, 720, 5040, 40320]
+p2_moves = [0, 1, 2, 4, 7, 9, 10, 11, 13, 16]
+
+INITIALIZED = False
+
+co_trans = []
+eo_trans = []
+ud_trans = []
+cp_trans = []
+ep8_trans = []
+ud2_trans = []
+
+prune_co_ud = None
+prune_eo_ud = None
+prune_cp_ud2 = None
+prune_ep8_ud2 = None
+moves = []
+
+def cycle(p, c):
+    p[c[0]], p[c[1]], p[c[2]], p[c[3]] = p[c[3]], p[c[0]], p[c[1]], p[c[2]]
+
+def apply_move(p, move):
+    if move == 0:
+        for c in [(0,2,8,6), (1,5,7,3), (47,11,20,38), (46,10,19,37), (45,9,18,36)]: cycle(p, c)
+    elif move == 1:
+        for c in [(9,11,17,15), (10,14,16,12), (8,45,35,26), (5,48,32,23), (2,51,29,20)]: cycle(p, c)
+    elif move == 2:
+        for c in [(18,20,26,24), (19,23,25,21), (6,9,29,44), (7,12,28,41), (8,15,27,38)]: cycle(p, c)
+    elif move == 3:
+        for c in [(27,29,35,33), (28,32,34,30), (24,15,51,42), (25,16,52,43), (26,17,53,44)]: cycle(p, c)
+    elif move == 4:
+        for c in [(36,38,44,42), (37,41,43,39), (0,18,27,53), (3,21,30,50), (6,24,33,47)]: cycle(p, c)
+    elif move == 5:
+        for c in [(45,47,53,51), (46,50,52,48), (2,36,33,17), (1,39,34,14), (0,42,35,11)]: cycle(p, c)
+
+def get_state(p):
+    cp, co, ep, eo = [0]*8, [0]*8, [0]*12, [0]*12
+    for i in range(8):
+        c_colors = (p[corners[i][0]], p[corners[i][1]], p[corners[i][2]])
+        for j in range(8):
+            if set(c_colors) == set(solved_corner_colors[j]):
+                cp[i] = j
+                if c_colors[0] == solved_corner_colors[j][0]: co[i] = 0
+                elif c_colors[1] == solved_corner_colors[j][0]: co[i] = 1
+                else: co[i] = 2
+                break
+    for i in range(12):
+        e_colors = (p[edges[i][0]], p[edges[i][1]])
+        for j in range(12):
+            if set(e_colors) == set(solved_edge_colors[j]):
+                ep[i] = j
+                eo[i] = 0 if e_colors[0] == piece_primary[j] else 1
+                break
+    return tuple(cp), tuple(co), tuple(ep), tuple(eo)
+
+def get_co_coord(co):
+    c = 0
+    for i in range(7): c = c * 3 + co[i]
+    return c
+
+def get_eo_coord(eo):
+    c = 0
+    for i in range(11): c = (c << 1) | eo[i]
+    return c
+
+def get_ud_coord(ep):
+    c = 0
+    k = 0
+    for i in range(12):
+        if ep[i] >= 8:
+            c += math.comb(i, k + 1)
+            k += 1
+    return c
+
+def get_cp_coord(cp):
+    c = 0
+    for i in range(7):
+        k = 0
+        for j in range(i + 1, 8):
+            if cp[i] > cp[j]: k += 1
+        c += k * fact[7 - i]
+    return c
+
+def get_ep8_coord(ep):
+    c = 0
+    for i in range(7):
+        k = 0
+        for j in range(i + 1, 8):
+            if ep[i] > ep[j]: k += 1
+        c += k * fact[7 - i]
+    return c
+
+def get_ud2_coord(ep):
+    c = 0
+    for i in range(8, 11):
+        k = 0
+        for j in range(i + 1, 12):
+            if ep[i] > ep[j]: k += 1
+        c += k * fact[11 - i]
+    return c
+
+def set_perm_coord(c, n):
+    perm = []
+    items = list(range(n))
+    for i in range(n):
+        f = fact[n - 1 - i]
+        idx = c // f
+        c %= f
+        perm.append(items.pop(idx))
+    return perm
+
+def init_all():
+    global INITIALIZED, co_trans, eo_trans, ud_trans, cp_trans, ep8_trans, ud2_trans
+    global prune_co_ud, prune_eo_ud, prune_cp_ud2, prune_ep8_ud2, moves
+    if INITIALIZED: return
+    INITIALIZED = True
+
+    solved_p = [0]*9 + [1]*9 + [2]*9 + [3]*9 + [4]*9 + [5]*9
+    for move in range(6):
+        p = list(solved_p)
+        m1 = []
+        for _ in range(3):
+            apply_move(p, move)
+            m1.append(get_state(p))
+        moves.extend(m1)
+
+    co_trans = [[0]*18 for _ in range(2187)]
+    eo_trans = [[0]*18 for _ in range(2048)]
+    ud_trans = [[0]*18 for _ in range(495)]
+    cp_trans = [[0]*10 for _ in range(40320)]
+    ep8_trans = [[0]*10 for _ in range(40320)]
+    ud2_trans = [[0]*10 for _ in range(24)]
+
+    for i in range(2187):
+        co = [0]*8
+        temp = i
+        for j in range(6, -1, -1):
+            co[j] = temp % 3
+            temp //= 3
+        co[7] = (3 - sum(co[:7]) % 3) % 3
+        for m in range(18):
+            n_co = [(co[moves[m][0][k]] + moves[m][1][k]) % 3 for k in range(8)]
+            co_trans[i][m] = get_co_coord(n_co)
+
+    for i in range(2048):
+        eo = [0]*12
+        temp = i
+        for j in range(10, -1, -1):
+            eo[j] = temp & 1
+            temp >>= 1
+        eo[11] = sum(eo[:11]) % 2
+        for m in range(18):
+            n_eo = [(eo[moves[m][2][k]] + moves[m][3][k]) % 2 for k in range(12)]
+            eo_trans[i][m] = get_eo_coord(n_eo)
+
+    ud_trans_local = [[-1]*18 for _ in range(495)]
+    solved_ep = list(range(12))
+    q_ep = [solved_ep]
+    visited = {494: solved_ep}
+    head = 0
+    while head < len(q_ep):
+        ep_state = q_ep[head]; head += 1
+        u = get_ud_coord(ep_state)
+        for m in range(18):
+            n_ep = [ep_state[moves[m][2][k]] for k in range(12)]
+            nu = get_ud_coord(n_ep)
+            ud_trans_local[u][m] = nu
+            if nu not in visited:
+                visited[nu] = n_ep
+                q_ep.append(n_ep)
+    for i in range(495):
+        for m in range(18):
+            ud_trans[i][m] = ud_trans_local[i][m]
+
+    for i in range(40320):
+        cp = set_perm_coord(i, 8)
+        ep8 = set_perm_coord(i, 8)
+        for m_idx, m in enumerate(p2_moves):
+            n_cp = [cp[moves[m][0][k]] for k in range(8)]
+            cp_trans[i][m_idx] = get_cp_coord(n_cp)
+            n_ep8 = [ep8[moves[m][2][k]] for k in range(8)]
+            ep8_trans[i][m_idx] = get_ep8_coord(n_ep8)
+            
+    for i in range(24):
+        ud2 = [x + 8 for x in set_perm_coord(i, 4)]
+        for m_idx, m in enumerate(p2_moves):
+            n_ud2 = [ud2[moves[m][2][k] - 8] for k in range(8, 12)]
+            ud2_trans[i][m_idx] = get_ud2_coord(n_ud2)
+
+    prune_co_ud = bytearray([255] * 1082565)
+    q = [0] * 1082565
+    prune_co_ud[494] = 0
+    q[0] = 494
+    head, tail = 0, 1
+    while head < tail:
+        curr = q[head]; head += 1
+        co = curr // 495; ud = curr % 495
+        d = prune_co_ud[curr] + 1
+        for m in range(18):
+            nxt = co_trans[co][m] * 495 + ud_trans[ud][m]
+            if prune_co_ud[nxt] == 255:
+                prune_co_ud[nxt] = d
+                q[tail] = nxt
+                tail += 1
+
+    prune_eo_ud = bytearray([255] * 1013760)
+    q = [0] * 1013760
+    prune_eo_ud[494] = 0
+    q[0] = 494
+    head, tail = 0, 1
+    while head < tail:
+        curr = q[head]; head += 1
+        eo = curr // 495; ud = curr % 495
+        d = prune_eo_ud[curr] + 1
+        for m in range(18):
+            nxt = eo_trans[eo][m] * 495 + ud_trans[ud][m]
+            if prune_eo_ud[nxt] == 255:
+                prune_eo_ud[nxt] = d
+                q[tail] = nxt
+                tail += 1
+
+    prune_cp_ud2 = bytearray([255] * 967680)
+    q = [0] * 967680
+    prune_cp_ud2[0] = 0
+    q[0] = 0
+    head, tail = 0, 1
+    while head < tail:
+        curr = q[head]; head += 1
+        c = curr // 24; u = curr % 24
+        d = prune_cp_ud2[curr] + 1
+        for m_idx in range(10):
+            nxt = cp_trans[c][m_idx] * 24 + ud2_trans[u][m_idx]
+            if prune_cp_ud2[nxt] == 255:
+                prune_cp_ud2[nxt] = d
+                q[tail] = nxt
+                tail += 1
+
+    prune_ep8_ud2 = bytearray([255] * 967680)
+    q = [0] * 967680
+    prune_ep8_ud2[0] = 0
+    q[0] = 0
+    head, tail = 0, 1
+    while head < tail:
+        curr = q[head]; head += 1
+        e = curr // 24; u = curr % 24
+        d = prune_ep8_ud2[curr] + 1
+        for m_idx in range(10):
+            nxt = ep8_trans[e][m_idx] * 24 + ud2_trans[u][m_idx]
+            if prune_ep8_ud2[nxt] == 255:
+                prune_ep8_ud2[nxt] = d
+                q[tail] = nxt
+                tail += 1
+
+def solve(facelet: str) -> str:
+    init_all()
+    start_time = time.time()
+    
+    centers = [facelet[4], facelet[13], facelet[22], facelet[31], facelet[40], facelet[49]]
+    color_map = {c: i for i, c in enumerate(centers)}
+    p = [color_map[c] for c in facelet]
+    cp, co, ep, eo = get_state(p)
+    
+    start_co = get_co_coord(co)
+    start_eo = get_eo_coord(eo)
+    start_ud = get_ud_coord(ep)
+    
+    if start_co == 0 and start_eo == 0 and start_ud == 494:
+        if get_cp_coord(cp) == 0 and get_ep8_coord(ep) == 0 and get_ud2_coord(ep) == 0:
+            return ""
+
+    best_solution = None
+    best_length = 25
+    
+    def dfs2(cp_c, ep8_c, ud2_c, depth, last_move, path):
+        if depth == 0:
+            if cp_c == 0 and ep8_c == 0 and ud2_c == 0:
+                return list(path)
+            return None
+            
+        h2 = max(prune_cp_ud2[cp_c * 24 + ud2_c], prune_ep8_ud2[ep8_c * 24 + ud2_c])
+        if h2 > depth: return None
+            
+        for m_idx, m in enumerate(p2_moves):
+            f1 = last_move // 3
+            f2 = m // 3
+            if last_move != -1:
+                if f1 == f2: continue
+                if f1 - 3 == f2: continue
+                
+            ncp = cp_trans[cp_c][m_idx]
+            nep8 = ep8_trans[ep8_c][m_idx]
+            nud2 = ud2_trans[ud2_c][m_idx]
+            
+            path.append(m)
+            res = dfs2(ncp, nep8, nud2, depth - 1, m, path)
+            if res is not None:
+                return res
+            path.pop()
+        return None
+
+    def dfs1(co_c, eo_c, ud_c, depth, last_move, path):
+        if depth == 0:
+            if co_c == 0 and eo_c == 0 and ud_c == 494:
+                yield list(path)
+            return
+        
+        if max(prune_co_ud[co_c * 495 + ud_c], prune_eo_ud[eo_c * 495 + ud_c]) > depth:
+            return
+        
+        for m in range(18):
+            f1 = last_move // 3
+            f2 = m // 3
+            if last_move != -1:
+                if f1 == f2: continue
+                if f1 - 3 == f2: continue
+                
+            nco = co_trans[co_c][m]
+            neo = eo_trans[eo_c][m]
+            nud = ud_trans[ud_c][m]
+            
+            path.append(m)
+            yield from dfs1(nco, neo, nud, depth - 1, m, path)
+            path.pop()
+
+    for depth1 in range(20):
+        if best_solution is not None and time.time() - start_time > 2.0:
+            break
+            
+        for path1 in dfs1(start_co, start_eo, start_ud, depth1, -1, []):
+            if best_solution is not None and len(path1) >= best_length:
+                break
+            
+            curr_cp = list(cp)
+            curr_ep = list(ep)
+            for m in path1:
+                curr_cp = [curr_cp[moves[m][0][k]] for k in range(8)]
+                curr_ep = [curr_ep[moves[m][2][k]] for k in range(12)]
+            
+            cp_c = get_cp_coord(curr_cp)
+            ep8_c = get_ep8_coord(curr_ep)
+            ud2_c = get_ud2_coord(curr_ep)
+            
+            max_depth2 = best_length - len(path1) - 1
+            if max_depth2 < 0: continue
+            
+            h2 = max(prune_cp_ud2[cp_c * 24 + ud2_c], prune_ep8_ud2[ep8_c * 24 + ud2_c])
+            if h2 > max_depth2: continue
+            
+            for depth2 in range(h2, max_depth2 + 1):
+                res2 = dfs2(cp_c, ep8_c, ud2_c, depth2, path1[-1] if path1 else -1, [])
+                if res2 is not None:
+                    best_solution = path1 + res2
+                    best_length = len(best_solution)
+                    break
+            
+            if best_solution is not None and best_length <= 20:
+                break
+                
+        if best_solution is not None and best_length <= 20:
+            break
+            
+    move_names = ["U", "U2", "U'", "R", "R2", "R'", "F", "F2", "F'", "D", "D2", "D'", "L", "L2", "L'", "B", "B2", "B'"]
+    if best_solution is None:
+        return ""
+    return " ".join(move_names[m] for m in best_solution)
+```

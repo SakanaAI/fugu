@@ -1,0 +1,42 @@
+Write a complete, self-contained Python module that solves a Rubik's cube.
+It must define exactly this function:
+
+    def solve(facelet: str) -> str
+
+which takes a scrambled cube as a 54-character facelet string and returns a
+sequence of moves that solves it, as a single space-separated string.
+
+FACELET STRING FORMAT (input)
+  54 characters, the six faces concatenated in this order: U R F D L B.
+  Each face is 9 characters read row-major (top-left to bottom-right) in the
+  standard unfolded-net orientation. Each character is the face letter whose
+  colour that facelet shows (one of U R F D L B). Index ranges:
+    U = 0..8   R = 9..17   F = 18..26   D = 27..35   L = 36..44   B = 45..53
+  A SOLVED cube is therefore:
+    UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB
+  Centres never move, so the centre of each face (indices 4,13,22,31,40,49)
+  always equals that face's solved colour.
+
+MOVE NOTATION (output)
+  Use standard WCA notation. A bare letter (U D L R F B) is a 90-degree
+  CLOCKWISE turn of that face viewed from OUTSIDE the cube. A prime (U')
+  is counter-clockwise. A 2 (U2) is a 180-degree turn. Return the moves as
+  one space-separated string, e.g.  "R U R' U2 F D' L2".
+  An empty string means "already solved".
+
+OBJECTIVE
+  Return a CORRECT solution using AS FEW TURNS AS POSSIBLE (every token --
+  X, X', or X2 -- counts as one turn). Any cube is solvable in at most 20
+  turns (God's number), so aim low. Correctness first, then minimise turns.
+
+CONSTRAINTS
+  - Use ONLY the Python standard library. Do NOT import numpy or any
+    third-party package, and in particular NO Rubik's cube / solver library
+    (no kociemba, pycuber, twophase, RubikTwoPhase, magiccube, etc.).
+    Implement the cube model and the solving algorithm yourself.
+  - solve() must be a pure function of its argument: do not read stdin,
+    argv, files, or the network. We import your module and call solve()
+    directly, once per cube, on many different scrambles.
+  - It should be reasonably fast (we cap each solve at a wall-clock limit).
+
+Output ONLY the Python code. No explanation, no markdown code fences.

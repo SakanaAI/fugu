@@ -1,0 +1,2402 @@
+[
+  {
+    "id": 0,
+    "hero": true,
+    "seed": 2026,
+    "scramble_moves": "D R' B' D L' B2 F' B2 F2 L' U D R D F2 U B R' L F L2 R2 F B' U2",
+    "scramble_len": 25,
+    "facelet": "RLURURBBURULRRBLBBURFBFFFUDRLFFDULFUBDLLLDBDDFDDLBFRUD"
+  },
+  {
+    "id": 1,
+    "hero": false,
+    "seed": 2027,
+    "scramble_moves": "D F2 U2 R' F D2 F D2 R2 D2 L2 R U2 R' U2 L2 F' B' L' D2 R' L' F D2 F2",
+    "scramble_len": 25,
+    "facelet": "FLBFULRDLFDLRRLRRUURDBFFDDFRBDBDUDFFLLBULRLUBUBUUBFRDB"
+  },
+  {
+    "id": 2,
+    "hero": false,
+    "seed": 2028,
+    "scramble_moves": "R2 D2 U R2 L2 D2 U L R B' U B' U' L U R B D' R L' F' B' F2 U2 B",
+    "scramble_len": 25,
+    "facelet": "UULBUDDLLBBFFRFDUBRDUFFRULFBBLLDRFDDRRBFLLDURUBFUBDLRR"
+  },
+  {
+    "id": 3,
+    "hero": false,
+    "seed": 2029,
+    "scramble_moves": "B D2 F' B' D' R B' F B L' U B' D B D2 L U' L' U D F R L2 B2 R",
+    "scramble_len": 25,
+    "facelet": "URUFUDRFFRRBBRBDBBULDLFRFFLURBUDDLURFDBBLDDLRLULLBUDFF"
+  },
+  {
+    "id": 4,
+    "hero": false,
+    "seed": 2030,
+    "scramble_moves": "R F R2 B' U B F2 D' R U2 F' U' B' L F2 B' F R2 L' B' F D' L' F L2",
+    "scramble_len": 25,
+    "facelet": "UDLFUFDLRFUBURRBUURUUDFBFRLDFURDRFLRFLBBLFDDLDLLBBDBBR"
+  },
+  {
+    "id": 5,
+    "hero": false,
+    "seed": 2031,
+    "scramble_moves": "D2 R' L2 F2 L B R F U2 B2 D2 L F' U' L2 R2 U' F' L' F' L2 D R' L R'",
+    "scramble_len": 25,
+    "facelet": "DUBBUUDLRDLRRRDRRUBBFDFDUFBLUUFDBFDLLULFLLRLBDRFFBRFBU"
+  },
+  {
+    "id": 6,
+    "hero": false,
+    "seed": 2032,
+    "scramble_moves": "U' F2 D F2 L' D2 R2 U' L F2 D' R L' F' L2 U2 D' B2 L2 D R2 F2 D' R' L",
+    "scramble_len": 25,
+    "facelet": "DBBUUFDUDBULRRBLLBLRLLFFRLFFUURDDRFURBFLLFFDUURBDBBRDD"
+  },
+  {
+    "id": 7,
+    "hero": false,
+    "seed": 2033,
+    "scramble_moves": "F' D' F B2 L F' R2 F L' F B2 D B L' F2 R' D U' L' B F R2 U D' R'",
+    "scramble_len": 25,
+    "facelet": "DFBFULLDURBRRRRBDBDRFUFFDFLFLUBDLFUULDBRLBUDRDUFBBURLL"
+  },
+  {
+    "id": 8,
+    "hero": false,
+    "seed": 2034,
+    "scramble_moves": "U2 R2 B' U' B2 D R U L U R2 L U' D2 B U L U B R2 F U F2 U L2",
+    "scramble_len": 25,
+    "facelet": "LRLBURDDUFFBURBRUBRLLBFLDRBFUULDFRBLFRBFLDUFRDDDUBDULF"
+  },
+  {
+    "id": 9,
+    "hero": false,
+    "seed": 2035,
+    "scramble_moves": "R D2 U2 B R D R2 U2 L R' B' D F D2 L2 U2 R B' R2 D B F' U' R' L",
+    "scramble_len": 25,
+    "facelet": "UBBLURBDDFUDDRLFFUDLRDFBRDUUFLLDUFRFLFRBLRLBBLUBUBRRFD"
+  },
+  {
+    "id": 10,
+    "hero": false,
+    "seed": 2036,
+    "scramble_moves": "U' F' U D' B2 U F U2 F' U2 B U2 F' D2 L D' B2 D2 L' F' U2 D' B' F D2",
+    "scramble_len": 25,
+    "facelet": "BUFUUDFDDFLLBRDURULFRBFLRDRBBBLDFUUBLFUBLRFFDDRDRBULLR"
+  },
+  {
+    "id": 11,
+    "hero": false,
+    "seed": 2037,
+    "scramble_moves": "L2 B2 U' R F2 D' U' F D L2 F' L2 D2 R B' F' B2 U2 R L B R' F D2 L'",
+    "scramble_len": 25,
+    "facelet": "BRDLUDBDDFRBFRRBDLLLRUFDULUFBRUDBUUDUFDFLFFLLRULBBRFBR"
+  },
+  {
+    "id": 12,
+    "hero": false,
+    "seed": 2038,
+    "scramble_moves": "U2 B U2 D B2 U L' D2 R2 U' R D R' F' B' U B F2 R' B2 R2 U2 R2 U2 F'",
+    "scramble_len": 25,
+    "facelet": "BFFUULBRDLFUURURFFRBFLFRUFDRDBDDUUBDLBURLBBLFLRDLBDRDL"
+  },
+  {
+    "id": 13,
+    "hero": false,
+    "seed": 2039,
+    "scramble_moves": "B2 F U B2 L2 R U F2 L R D' R U B2 F U' L F L2 R2 B U' F U2 F'",
+    "scramble_len": 25,
+    "facelet": "UULRURLBBLFFFRFRUBFDDBFLDRFRBDBDRULLBDDDLUFLBUFRDBLUUR"
+  },
+  {
+    "id": 14,
+    "hero": false,
+    "seed": 2040,
+    "scramble_moves": "F B2 R' B F' B' R2 D2 U' L' F2 U2 R2 U2 R' D2 U L2 F2 D2 U D2 L' R U2",
+    "scramble_len": 25,
+    "facelet": "UFBDURFFUFURRRLDLUDRLUFBULLRBBDDFFURLBLFLBDRFDUBDBDBLR"
+  },
+  {
+    "id": 15,
+    "hero": false,
+    "seed": 2041,
+    "scramble_moves": "U' F2 R D' F2 L' U2 B2 D' L2 F R' D L2 F B' F2 L2 B2 R L B' L R' B2",
+    "scramble_len": 25,
+    "facelet": "UBUBUBDRDLRLFRRDFRBDFLFLUURLLFDDRDLBRDLFLDBFBFUFUBUUBR"
+  },
+  {
+    "id": 16,
+    "hero": false,
+    "seed": 2042,
+    "scramble_moves": "R' L' B' D' R D F' U L' B F2 B' R2 B' L2 F' R D' U2 B R F B' D R",
+    "scramble_len": 25,
+    "facelet": "DRURUDFLLURBLRURRFDDFFFBBUULBFDDFBUDRULDLLUBDLBBLBFRFR"
+  },
+  {
+    "id": 17,
+    "hero": false,
+    "seed": 2043,
+    "scramble_moves": "B L' B2 F' D' F2 L2 B' D' F2 R2 F' L2 B2 D F2 L2 R' F2 U' B2 R' B2 L' F2",
+    "scramble_len": 25,
+    "facelet": "DBRLURFLULDUFRFBDBDDBLFRUFRFDDUDBRUDFULLLBBBLFRRUBFLRU"
+  },
+  {
+    "id": 18,
+    "hero": false,
+    "seed": 2044,
+    "scramble_moves": "D R' D B' L2 B U' D F U2 B' F2 L B2 L F2 R B F2 L2 F U L2 R2 U'",
+    "scramble_len": 25,
+    "facelet": "DLUUULURBLDFLRRDUFBFDDFBLLBUURFDBLDDLFRBLBUDFRFFUBRRRB"
+  },
+  {
+    "id": 19,
+    "hero": false,
+    "seed": 2045,
+    "scramble_moves": "D' F' U' L' D R F D' L' B L B R2 B2 U2 B' R' F L' F R2 D F' L' B'",
+    "scramble_len": 25,
+    "facelet": "DBLFUFBDRDUULRURUBLRFFFDLRDUUBDDBUBULLDDLRFBFBRFLBFRLR"
+  },
+  {
+    "id": 20,
+    "hero": false,
+    "seed": 2046,
+    "scramble_moves": "B2 F R' F' R L D B D2 L2 F2 R' U R D2 U F B' R' B' U F U2 L' U",
+    "scramble_len": 25,
+    "facelet": "UBRRUFLUBDLFDRLDFUBFRUFLDDLLFBLDRURRFDUULBFBFDDLUBRBBR"
+  },
+  {
+    "id": 21,
+    "hero": false,
+    "seed": 2047,
+    "scramble_moves": "L' B D' F' U' F U' D R D2 L' F' U2 B2 U' F2 U2 R2 F2 D' F2 B' F D2 F",
+    "scramble_len": 25,
+    "facelet": "UFBRUBBLLFLULRDLLULFDBFUFFURDBRDDDRFFFDBLRBDDRULBBURUR"
+  },
+  {
+    "id": 22,
+    "hero": false,
+    "seed": 2048,
+    "scramble_moves": "R B F B' R2 L' R' U D U' D' U2 L F' R F2 D F2 L' U B' R' F R' L'",
+    "scramble_len": 25,
+    "facelet": "RLFFURBBFLBRBRRDDRRDUBFULLLFFBRDRUDFBUULLLBFDUUDUBDDFL"
+  },
+  {
+    "id": 23,
+    "hero": false,
+    "seed": 2049,
+    "scramble_moves": "B' L2 D F' U D F' R2 B2 F' D2 F D2 F2 R U L' B' U' R U L' R2 B2 R'",
+    "scramble_len": 25,
+    "facelet": "LBRDUBDLLDUBRRFBDRLBBBFFRLLDUUFDLDRUURFLLRBUFUDFDBFFUR"
+  },
+  {
+    "id": 24,
+    "hero": false,
+    "seed": 2050,
+    "scramble_moves": "R' L F L2 R2 F' R2 F U2 L' U2 B F' R2 U' L2 B' R2 F' L2 R' B L2 U2 F'",
+    "scramble_len": 25,
+    "facelet": "DFFBUFRLFDDRURULLRUDLRFBLUBULDRDBBFFRDBRLDLUFURBFBBDLU"
+  },
+  {
+    "id": 25,
+    "hero": false,
+    "seed": 2051,
+    "scramble_moves": "L F' B2 F2 R' U2 D B2 F' D' R' D F2 B' U' R' F2 R2 F2 B U' R2 U B L'",
+    "scramble_len": 25,
+    "facelet": "FFURUBRUUBDLURLLLBBFRUFLDUBLRDBDDFBLRFDDLBRLFFDDFBRURU"
+  },
+  {
+    "id": 26,
+    "hero": false,
+    "seed": 2052,
+    "scramble_moves": "R' B' F B2 U L' U2 F D B' F B D L U R' L F L U' R' L2 B' F' L",
+    "scramble_len": 25,
+    "facelet": "FRUFUUDRLDLBRRBDFULUBBFBFRBRDRBDDRLRLUFFLLUUDLFUDBLBDF"
+  },
+  {
+    "id": 27,
+    "hero": false,
+    "seed": 2053,
+    "scramble_moves": "R L2 U' D' L B D L2 B U L2 B' D' L2 R D' U2 D' U R U B L F2 U2",
+    "scramble_len": 25,
+    "facelet": "BDBDURLFDLFDLRBBLUUUFFFBRBUBDRUDUFRFURFFLLDBDLLLRBDRUR"
+  },
+  {
+    "id": 28,
+    "hero": false,
+    "seed": 2054,
+    "scramble_moves": "L B2 D R2 B2 L' R2 D2 B' L' R2 U B' D2 U F' R B' D2 F2 U' F' U' B2 D'",
+    "scramble_len": 25,
+    "facelet": "RFUBULFLBLBLDRDDLFDDDRFRBRBRURFDUBBDFRLULFLLUFDUBBFRUU"
+  },
+  {
+    "id": 29,
+    "hero": false,
+    "seed": 2055,
+    "scramble_moves": "D2 L2 D2 F2 D U2 D2 R' B L U2 F2 B2 D U2 B D2 B' R' U' D2 R F B R'",
+    "scramble_len": 25,
+    "facelet": "DFFUULBRDRDRRRBLFLRDBLFBUBDFDFUDDBFBFLUULBLRLULRUBFDRU"
+  },
+  {
+    "id": 30,
+    "hero": false,
+    "seed": 2056,
+    "scramble_moves": "B' L2 B' F' L D2 U F L' U2 F2 U R' B2 L2 R B F D2 B L' R2 D U' L'",
+    "scramble_len": 25,
+    "facelet": "RDDRUULRLDFBRRBFRFUBBDFDULDRBRUDUBLLUFFFLBLLFRFBUBLDDU"
+  },
+  {
+    "id": 31,
+    "hero": false,
+    "seed": 2057,
+    "scramble_moves": "F2 L2 U' D' B2 D F D' U L2 R' L2 R L' R2 D2 L2 U' D U B2 F' D' R2 F2",
+    "scramble_len": 25,
+    "facelet": "DBUUUUUUBLBBDRFUBUFRDLFFBFRDRBBDDRDFLLLDLFFLRLRFUBLRRD"
+  },
+  {
+    "id": 32,
+    "hero": false,
+    "seed": 2058,
+    "scramble_moves": "D' U' D F' L R' D' L F2 L2 F B L' F' U L2 U F2 R U R' L B2 R2 U2",
+    "scramble_len": 25,
+    "facelet": "BUUDULFFLFFFDRUURBRUDLFFUDLLRFBDFDBRRBDLLDLLBRBURBUDRB"
+  },
+  {
+    "id": 33,
+    "hero": false,
+    "seed": 2059,
+    "scramble_moves": "F' U2 F2 L2 F2 L D' B D L' R L2 D2 L R U2 F' U2 L' D B2 F2 B2 L R",
+    "scramble_len": 25,
+    "facelet": "DLBRUFUULDDLFRRFLDBFBBFRUBRFUUBDBFUBFURFLRLDLUDRDBLRLD"
+  },
+  {
+    "id": 34,
+    "hero": false,
+    "seed": 2060,
+    "scramble_moves": "R U2 B U B2 U F B2 U2 F' L2 R B' D2 R2 L2 B2 L F' U' B' F2 B2 R F",
+    "scramble_len": 25,
+    "facelet": "UUDDUUULULRBDRFFFDBUBRFBUDLRRDBDRDLRFFRLLBLUFRFLLBBFDB"
+  },
+  {
+    "id": 35,
+    "hero": false,
+    "seed": 2061,
+    "scramble_moves": "R2 B D R' U2 F' D B L U2 F L U F' R2 L' R L R' L R B' R' U' F",
+    "scramble_len": 25,
+    "facelet": "DRRLUFFBLBDBFRDBDFLDUUFRDRRBBDUDRDFRLBUULLRFLUUFLBBULF"
+  },
+  {
+    "id": 36,
+    "hero": false,
+    "seed": 2062,
+    "scramble_moves": "R' F2 B' D2 B' F2 U B2 R' D' F2 U' L2 F2 L2 B' L R' B L2 D' R D U' F",
+    "scramble_len": 25,
+    "facelet": "RURLUBDLULRBDRFLLBBFBDFBFFFRDURDBDDRFULBLRFFDURUUBUDLL"
+  },
+  {
+    "id": 37,
+    "hero": false,
+    "seed": 2063,
+    "scramble_moves": "D' B' R2 D L' U2 L B R' D' L' F2 R U2 B F' R' B R' F U2 R2 B2 L F",
+    "scramble_len": 25,
+    "facelet": "UBFDUDFLLDBDRRULFULUBBFDBBDDLFFDDRRRLLUULRULRRUBRBFBFF"
+  },
+  {
+    "id": 38,
+    "hero": false,
+    "seed": 2064,
+    "scramble_moves": "R U2 F2 B R' F2 U' L R L2 B2 L R' U D' U2 R' U' F2 B D R' U L2 F'",
+    "scramble_len": 25,
+    "facelet": "RRBUUDLBDRBDDRBBLLUUBDFFURLBBUFDUUDDDFFRLLFLRLUFLBFFRR"
+  },
+  {
+    "id": 39,
+    "hero": false,
+    "seed": 2065,
+    "scramble_moves": "L2 U2 L D2 U2 L' U' F D2 R B' L' F2 B' U' D' R' L U2 B2 L B2 F2 U F2",
+    "scramble_len": 25,
+    "facelet": "BFLBUBFRLFDFFRLBLRUUDDFDBFDDULBDBRFFURRDLLBURULLUBRDRU"
+  },
+  {
+    "id": 40,
+    "hero": false,
+    "seed": 2066,
+    "scramble_moves": "D R L F U' F' R2 U B' F2 L' R2 F L' B' R2 B L' D' B L2 D' F L D2",
+    "scramble_len": 25,
+    "facelet": "FBRUUFFDUFRULRULFDDLLUFFLDUDRBBDDBBBRFLULBURBFLDRBLRDR"
+  },
+  {
+    "id": 41,
+    "hero": false,
+    "seed": 2067,
+    "scramble_moves": "U2 B' L U' B2 L' B' F2 D2 L' D B D2 R2 D U F2 R' U' L' U D U' B2 R",
+    "scramble_len": 25,
+    "facelet": "UDLUURFDULBBDRDFRLRFBLFBUBLRLDUDFRFFBFDULUDBFDRRLBRULB"
+  },
+  {
+    "id": 42,
+    "hero": false,
+    "seed": 2068,
+    "scramble_moves": "U2 B D F2 U' D L' D F B2 D U R2 L' R D2 L' B2 U' R2 F' L2 B R2 L2",
+    "scramble_len": 25,
+    "facelet": "DBBDUDFFRFLUFRLDDLLUUBFRRRRBUFRDBDUUBFUFLRFDDRULBBLBLL"
+  },
+  {
+    "id": 43,
+    "hero": false,
+    "seed": 2069,
+    "scramble_moves": "R2 L2 B2 R L2 U2 L' R' B2 L' B2 D2 L2 U2 B2 F' L2 B D' B2 L U D' L2 D'",
+    "scramble_len": 25,
+    "facelet": "UBDFUDUUFLRRURDBRULRURFBBBRLLDUDFLLRRLBLLBDFDFDFFBDBUF"
+  },
+  {
+    "id": 44,
+    "hero": false,
+    "seed": 2070,
+    "scramble_moves": "F D U2 R' B' U2 B' U2 D2 U2 D U2 B' F' B' U2 F2 R U R U' R B L' F",
+    "scramble_len": 25,
+    "facelet": "LDRUURDLRFFDDRLRUULDUBFFRUFURDFDLBULBFFRLDDLBBRUBBBFBL"
+  },
+  {
+    "id": 45,
+    "hero": false,
+    "seed": 2071,
+    "scramble_moves": "U D' L' D U2 B' R' D F2 R D' F2 R' L' R' L2 R' L' U B R U L2 F D",
+    "scramble_len": 25,
+    "facelet": "LDBUUFFUFRDDFRUBRFLBDLFRLLUFFRDDUDBRBLULLDBBDLRUFBBURR"
+  },
+  {
+    "id": 46,
+    "hero": false,
+    "seed": 2072,
+    "scramble_moves": "R2 L' F B' F' L2 B F B F2 B L R' F' R2 L' R2 B2 F U' R2 B F D B",
+    "scramble_len": 25,
+    "facelet": "RLBUUFDLBUDDBRULFLRBLBFRDLDFFFRDRBUFFBBRLDUURLDUFBDULR"
+  },
+  {
+    "id": 47,
+    "hero": false,
+    "seed": 2073,
+    "scramble_moves": "L B' U' L D L2 F' R2 D2 F2 U L' R U' F R2 L2 D2 R2 L' U B2 U2 B' F",
+    "scramble_len": 25,
+    "facelet": "DRULUFUFUBUFDRRFUBLDRFFBFUURBLFDLLDRBBBDLLDRDRULBBRDLF"
+  },
+  {
+    "id": 48,
+    "hero": false,
+    "seed": 2074,
+    "scramble_moves": "L2 B' L' U' R2 U D' L U F2 U2 R B2 L2 U2 B2 L D' U' R2 D F' D R B'",
+    "scramble_len": 25,
+    "facelet": "DFRUURUUDBUDBRUFBFLBLFFLBRRRDUBDRDLULFBFLDRDUBLFLBRLDF"
+  },
+  {
+    "id": 49,
+    "hero": false,
+    "seed": 2075,
+    "scramble_moves": "R' F B L' F2 U2 B2 D U' B' L D' L' R2 F D2 F' B2 R L2 U2 L2 F' U D'",
+    "scramble_len": 25,
+    "facelet": "LLDUUBBRLFRBLRURBUUDDDFFFFBRRUUDDUUFDRLLLFLBDRBBLBDRFF"
+  },
+  {
+    "id": 50,
+    "hero": false,
+    "seed": 2076,
+    "scramble_moves": "L B' U2 L2 R' B' D2 B U2 F D2 L2 B' U R2 B' D2 F2 L F2 R' L' U2 D' L2",
+    "scramble_len": 25,
+    "facelet": "LFDUUUDLRFLLRRUDBBRBUFFFUBRFDFRDRBRUFFBLLDLULBLDBBDRDU"
+  },
+  {
+    "id": 51,
+    "hero": false,
+    "seed": 2077,
+    "scramble_moves": "R2 U2 R U' F U2 R' B D2 B2 D2 U' B L2 F' R F L D' U B2 R2 B D U'",
+    "scramble_len": 25,
+    "facelet": "RDFFUFDUBRRUURFDLLBBUDFRBRFDDLRDBRLUDULLLLUBRLBFDBUBFF"
+  },
+  {
+    "id": 52,
+    "hero": false,
+    "seed": 2078,
+    "scramble_moves": "U' L U' B R2 U2 R2 B2 R2 D' U' B D2 R2 L2 R2 D2 F R' B L U2 R' U' L2",
+    "scramble_len": 25,
+    "facelet": "UBLLUDULDFLDRRDUBRFFRDFFLFBDULUDRDBBRULLLFBRBFDFRBBUUR"
+  },
+  {
+    "id": 53,
+    "hero": false,
+    "seed": 2079,
+    "scramble_moves": "F2 L D2 F L' B2 L' U L U2 B' R' U' F' D2 L D2 F2 R F2 D' L' D2 L F'",
+    "scramble_len": 25,
+    "facelet": "BRUBURDLBUBRDRRLDLFFLBFLUFDRUFUDFBFFLURBLDRLFBUDDBLURD"
+  },
+  {
+    "id": 54,
+    "hero": false,
+    "seed": 2080,
+    "scramble_moves": "U' F B R' D2 F' L' D' R L F' L B2 R' L2 D' F' R2 U L R U2 R' U F2",
+    "scramble_len": 25,
+    "facelet": "RDUUURLDULBLBRLBUFDBBUFLFURRRDRDLUDLFFBFLBRFDFRUDBLDFB"
+  },
+  {
+    "id": 55,
+    "hero": false,
+    "seed": 2081,
+    "scramble_moves": "B L U' F2 U2 B2 F' D2 F' L R2 D2 R D2 R B' F R F2 R D' F' B D U",
+    "scramble_len": 25,
+    "facelet": "UBFLUBLRRFUDURFBFUDUURFLLURBFDRDLLLRFBBRLBDFURDLDBDBDF"
+  },
+  {
+    "id": 56,
+    "hero": false,
+    "seed": 2082,
+    "scramble_moves": "D U2 F' U D2 R' L2 D2 B' R2 D U2 D' R' D' B2 U2 F B D L F2 B2 D' B2",
+    "scramble_len": 25,
+    "facelet": "BUDBURFLLUFBFRUFRLRFFDFUFDRDFULDDLBURUDBLLBBLRRULBRBDD"
+  },
+  {
+    "id": 57,
+    "hero": false,
+    "seed": 2083,
+    "scramble_moves": "U D U L2 U' D2 R' D' F2 U' B U2 R' L' F2 U D2 B2 F' L2 F' B D2 B F'",
+    "scramble_len": 25,
+    "facelet": "DUFBUULLURFLFRLFBLDUFFFDBDDRRRRDDURFRLBRLLBBUDBBDBFUUL"
+  },
+  {
+    "id": 58,
+    "hero": false,
+    "seed": 2084,
+    "scramble_moves": "F' L2 R' F L B F U' D B2 D' R2 D2 B2 R L2 B R2 L' F R2 L2 B' U2 F2",
+    "scramble_len": 25,
+    "facelet": "RDUBUFLFLFRLDRRRDRDDDFFLLUFBLDBDBUFDFUBRLLRLUFRUBBUBUB"
+  },
+  {
+    "id": 59,
+    "hero": false,
+    "seed": 2085,
+    "scramble_moves": "U2 D2 L' U' D2 L2 F' L D2 R F2 U2 R D B' U2 B L R L' U B2 L' U B2",
+    "scramble_len": 25,
+    "facelet": "RDBBUUBDLFBUFRULRFDBDRFRFLUUBBFDDBLUDRRULUDDRRLFFBLLFL"
+  },
+  {
+    "id": 60,
+    "hero": false,
+    "seed": 2086,
+    "scramble_moves": "L2 B2 F2 B' U2 D2 U2 R' B' L' R' F' L' U R2 F' D' U' D' F2 L' R2 B D' F",
+    "scramble_len": 25,
+    "facelet": "FBRDUDUBBULULRUBFDBULBFULFRFLDDDDBFRLRRULLDBDFRUFBRFRL"
+  },
+  {
+    "id": 61,
+    "hero": false,
+    "seed": 2087,
+    "scramble_moves": "D' L' D' F2 R2 B2 U2 L' B2 U2 F R2 U D F B2 R B U B2 R2 U' B2 D' U2",
+    "scramble_len": 25,
+    "facelet": "FUBRUUFRBUBRFRFRLLDDLFFRFBFULDLDUBDBLULBLDUDRDFULBRDBR"
+  },
+  {
+    "id": 62,
+    "hero": false,
+    "seed": 2088,
+    "scramble_moves": "B L F L D F B2 L U B2 U D' F R B F' L D L B' F B2 L F R2",
+    "scramble_len": 25,
+    "facelet": "RDLRURLFBRFULRUUDDDUUUFBBBFDDRLDRUFFDBBRLLLDRBFFBBULLF"
+  },
+  {
+    "id": 63,
+    "hero": false,
+    "seed": 2089,
+    "scramble_moves": "F D B' D2 B2 R2 D U2 L2 F' L D' F2 U2 L R2 D' B2 F2 D' F' D2 L' D' R'",
+    "scramble_len": 25,
+    "facelet": "FFBDUUBLDLBURRFDLRUUFRFULFLULBDDDRLURFLBLBDRFRRDUBDFBB"
+  },
+  {
+    "id": 64,
+    "hero": false,
+    "seed": 2090,
+    "scramble_moves": "L' R2 B U D' F U2 L B R' D2 F D F' R2 B F' L' B' U' B2 U' F' R2 F2",
+    "scramble_len": 25,
+    "facelet": "DUURULBBDBBRURFFFRDRLDFBFDLLFDBDLBFUFURRLLLDUBLRRBDFUU"
+  },
+  {
+    "id": 65,
+    "hero": false,
+    "seed": 2091,
+    "scramble_moves": "R F U2 D' U2 R2 B D2 L2 B2 R D2 F D' U R B R2 D R' U' D R2 B F",
+    "scramble_len": 25,
+    "facelet": "DBFRUDRULDRRURDURLUFBLFBDULRLFFDUFFULBBLLDDLBUDFFBBBRR"
+  },
+  {
+    "id": 66,
+    "hero": false,
+    "seed": 2092,
+    "scramble_moves": "F' L R2 B' R' L F D F B' U2 B2 D2 B F D' R2 D2 R F' U2 D U' B' R",
+    "scramble_len": 25,
+    "facelet": "FRDBUDRFLBRFFRRBBUURULFLDDDRBLDDUDDFLLBFLURFBLUUBBURLF"
+  },
+  {
+    "id": 67,
+    "hero": false,
+    "seed": 2093,
+    "scramble_moves": "F' B2 R2 U D' F L R' D2 F' D' B2 L U R D' B' L' B2 U' D' L2 U B2 R",
+    "scramble_len": 25,
+    "facelet": "LULBULFFFRBBFRDDUFLDDBFRDLFRULDDRBLRBRUDLUURBDFULBBUFR"
+  },
+  {
+    "id": 68,
+    "hero": false,
+    "seed": 2094,
+    "scramble_moves": "U' R U F D2 R2 U2 R2 B L' R2 D2 U' R' L2 B' R D2 R' L2 F B' D' R U2",
+    "scramble_len": 25,
+    "facelet": "DDBDULRLULUDFRFURRBDBFFUURRFDBBDBRUFLFDLLLUULLBFRBBDRF"
+  },
+  {
+    "id": 69,
+    "hero": false,
+    "seed": 2095,
+    "scramble_moves": "B2 L2 B D2 L D R2 B2 R' B F2 L' F2 B L' R' B2 L2 U2 R2 U' F' R2 B' D'",
+    "scramble_len": 25,
+    "facelet": "LUFUUUBFDLRRRRDDRDULFRFDBBBLDRUDBBDRUFLLLFUBDULFFBBFLR"
+  },
+  {
+    "id": 70,
+    "hero": false,
+    "seed": 2096,
+    "scramble_moves": "U D R B2 F' B' L R' U R U' D' L' F' L D' L2 B2 L U2 F' D2 F' L2 B'",
+    "scramble_len": 25,
+    "facelet": "UBDRUBLLRBURFRDFBDBBDLFRFFLLDDRDDUFLRUULLURDUFRFLBFBUB"
+  },
+  {
+    "id": 71,
+    "hero": false,
+    "seed": 2097,
+    "scramble_moves": "U2 F U2 L2 R2 L D2 B U2 F2 R2 F D R2 D2 L2 U' D B D2 R' D F' R' F",
+    "scramble_len": 25,
+    "facelet": "DDDUUUUBFURLBRBLFDBLRFFRUUUFLBDDDRDBLFRRLLFRLBBFUBFRLD"
+  },
+  {
+    "id": 72,
+    "hero": false,
+    "seed": 2098,
+    "scramble_moves": "L' B2 D L' F B2 L R2 U' D L B2 D' F D B D2 U' B R2 U2 R L' U' L2",
+    "scramble_len": 25,
+    "facelet": "DBUUUDRFLFFBDRDUULURDDFRFFLUUFBDLRUBFBBFLLDRRLLRBBLDRB"
+  },
+  {
+    "id": 73,
+    "hero": false,
+    "seed": 2099,
+    "scramble_moves": "F' L F L2 D U' L' F B' L F' U' F' B' L2 F' B' L2 U2 F R2 F' B U F",
+    "scramble_len": 25,
+    "facelet": "DFULURUULUDBDRLRURRRFBFFDDFBBDLDBURDLFFLLRRBLLUFUBDBFB"
+  },
+  {
+    "id": 74,
+    "hero": false,
+    "seed": 2100,
+    "scramble_moves": "R B U2 F2 U2 B2 F' R2 U' L D F R D R2 U F R' U2 R' B L2 R B2 F'",
+    "scramble_len": 25,
+    "facelet": "LLDFUBURLFLRFRDLUFFBDDFLDUBRFDRDRRURBRLULBBDBFDUFBLUBU"
+  },
+  {
+    "id": 75,
+    "hero": false,
+    "seed": 2101,
+    "scramble_moves": "R2 D2 U' L2 D' B2 U' B' L U2 F2 D2 U2 F L R2 D2 B2 F2 B' R B' D2 F' R",
+    "scramble_len": 25,
+    "facelet": "RDLDUBBLDRLFLRDUUUUFBFFUBFFLURUDRLRRDBLFLRDBDULFRBDBBF"
+  },
+  {
+    "id": 76,
+    "hero": false,
+    "seed": 2102,
+    "scramble_moves": "R B' D F2 R B' F2 U2 D2 L' U L' F U2 R' F2 B D' U2 B L' B' L2 U F2",
+    "scramble_len": 25,
+    "facelet": "DDLUULULURBUBRDFDLBUFFFRBFUDULBDBDFDFRRFLRLURBRRLBDFLB"
+  },
+  {
+    "id": 77,
+    "hero": false,
+    "seed": 2103,
+    "scramble_moves": "U2 B' R' U' F' U' L2 F' U2 B L' D' U D F2 B F R B' D' B' F' L U F'",
+    "scramble_len": 25,
+    "facelet": "BDLRUURRBRLFDRBDRBBUUDFLUUFRBLFDDFRLLFDFLBDLFUFDLBUUBR"
+  },
+  {
+    "id": 78,
+    "hero": false,
+    "seed": 2104,
+    "scramble_moves": "D2 B' L B F R2 B2 D2 F' D' R2 B R U F' D U2 F2 L2 B2 R2 F' D' R D'",
+    "scramble_len": 25,
+    "facelet": "BRLUUDDFRDFDDRUBBFRLFBFLBBDRLLRDULRRUFBFLDFBUFULLBRUDU"
+  },
+  {
+    "id": 79,
+    "hero": false,
+    "seed": 2105,
+    "scramble_moves": "D' F' U' F' U2 B U' L2 F B' R2 D U' L' U' F' B U B R2 U2 R U R2 D'",
+    "scramble_len": 25,
+    "facelet": "RLUUUBDULURBBRFBRFRLFUFUBFDRDLLDDUBLDRBDLFFDULFFRBBDLR"
+  },
+  {
+    "id": 80,
+    "hero": false,
+    "seed": 2106,
+    "scramble_moves": "F B2 L R' U B' L D L2 D' U2 B L' F' B' U' R' U' F2 L U R' L D' R2",
+    "scramble_len": 25,
+    "facelet": "ULDLUBRFLFUBRRBLURDDDLFFLLUUDBBDFBRUBBFULUDDFRFRRBRFDL"
+  },
+  {
+    "id": 81,
+    "hero": false,
+    "seed": 2107,
+    "scramble_moves": "U' L B' L2 F B' U2 D L2 U' L B' D F D' U' F2 U' D2 U2 R' D' B2 U' L",
+    "scramble_len": 25,
+    "facelet": "ULBUUBRBLDDLURDUDDULBRFBRBFBRRRDFLFRFLBDLFDUDUFLRBLFUF"
+  },
+  {
+    "id": 82,
+    "hero": false,
+    "seed": 2108,
+    "scramble_moves": "L2 D2 R2 D' L' R F' L R2 F L2 D' F' U2 F L' U' D F U2 B2 U2 F' R B",
+    "scramble_len": 25,
+    "facelet": "LBDFUBUFFDUBRRUBRDLLLRFBFBUUDRDDFBURUDBFLDDLRRLFLBUFRL"
+  },
+  {
+    "id": 83,
+    "hero": false,
+    "seed": 2109,
+    "scramble_moves": "F B2 F' R' U' R' B D L F R2 L R' L U2 B2 R' D' B' L' D R U L2 B'",
+    "scramble_len": 25,
+    "facelet": "LURUURLFBDDBFRRUUDDLRLFDFLLDBFRDRFDRBBBBLURFLUFUBBDFLU"
+  },
+  {
+    "id": 84,
+    "hero": false,
+    "seed": 2110,
+    "scramble_moves": "D L' B D2 F' D2 U D R2 B' R2 D F' U B R2 B2 D2 U' B2 U' R F2 L' B'",
+    "scramble_len": 25,
+    "facelet": "RFDLULDDLDDBURRLBBFRBUFRFFFDDUFDDULUFURBLBBRLRUUBBLRFL"
+  },
+  {
+    "id": 85,
+    "hero": false,
+    "seed": 2111,
+    "scramble_moves": "R2 B R2 F2 D F2 L' F2 U R' B2 U L' U D2 L B U' F' R' F' B' D L2 D2",
+    "scramble_len": 25,
+    "facelet": "RBLFULURDRDFRRDLUBRDBLFBDFDBLFUDLBBUDUFFLBLRLUDFFBRRUU"
+  },
+  {
+    "id": 86,
+    "hero": false,
+    "seed": 2112,
+    "scramble_moves": "D B R L2 U' D B R' L' U' B' R2 L2 R B' L' D U2 F2 U' D R2 D2 L' R",
+    "scramble_len": 25,
+    "facelet": "DFRDURBRLUBUFRLRUBUDFDFULLDDUBRDRFFUFBLULLLFBFLRBBBRDD"
+  },
+  {
+    "id": 87,
+    "hero": false,
+    "seed": 2113,
+    "scramble_moves": "U L2 B2 D2 R' B2 U2 R D2 B2 R2 D' F' B2 U B R F2 R B' F' R' B' U B'",
+    "scramble_len": 25,
+    "facelet": "DURUURLDURFBDRFLDBBLFBFFFUDLRFDDRRFDRLURLLFBUUBBUBBLLD"
+  },
+  {
+    "id": 88,
+    "hero": false,
+    "seed": 2114,
+    "scramble_moves": "L' F2 L' B' L2 U' L B2 R' U' L2 D' L U R' U2 R B L' D' U' B' L D B2",
+    "scramble_len": 25,
+    "facelet": "RFFUULRBBLFUFRLRRUFDDLFDLUBFBURDUFRBBLUFLBDBDLUDDBRLDR"
+  },
+  {
+    "id": 89,
+    "hero": false,
+    "seed": 2115,
+    "scramble_moves": "R2 B L' R' D2 U' R D2 R2 D R2 U' B' F U' D F R' L F2 L U' L D2 U",
+    "scramble_len": 25,
+    "facelet": "UBBFUFDRBRDDURBFDBLFUFFLURDLBRDDRUURFUFDLLFBBLLLUBLDRR"
+  },
+  {
+    "id": 90,
+    "hero": false,
+    "seed": 2116,
+    "scramble_moves": "D' R2 D2 F' B D2 L2 B' L2 U' D R2 L2 U2 R D' F' L D' U2 D2 L' U2 L B",
+    "scramble_len": 25,
+    "facelet": "LRFFULUBRFBULRULBBBRUFFDUDDLBFUDUFFRDRRULLDFBLDBRBLDDR"
+  },
+  {
+    "id": 91,
+    "hero": false,
+    "seed": 2117,
+    "scramble_moves": "L B F2 D' R2 D' F' D2 L2 B' F' R F' D U' F L' B L B' F D' B2 F' L",
+    "scramble_len": 25,
+    "facelet": "DLRLURLURBDBDRFLRFBRDUFBFBBDUDLDBFRRFDULLFUBLUURDBFUFL"
+  },
+  {
+    "id": 92,
+    "hero": false,
+    "seed": 2118,
+    "scramble_moves": "F' D' U B' F2 L' U L R F' B R' D2 B2 F2 D2 F B U' L' D R2 U2 F' U2",
+    "scramble_len": 25,
+    "facelet": "UBULUUDRFDBBDRDRFFBFLRFRULDBFBUDUDRRFBLDLBRLRLDLLBFUUF"
+  },
+  {
+    "id": 93,
+    "hero": false,
+    "seed": 2119,
+    "scramble_moves": "D2 L2 U B' L U' F' L2 R U D' B R2 B2 U' D' U' D2 B' L2 U L' R' U' F2",
+    "scramble_len": 25,
+    "facelet": "RDRRURDFLBFBBRDBLDFUULFRDUDLBLUDFUBBFURDLDLLFUBURBFRLF"
+  },
+  {
+    "id": 94,
+    "hero": false,
+    "seed": 2120,
+    "scramble_moves": "F2 L' D F' D' F L2 R F2 L2 R2 U' B' F' B' L' D U R' U' R2 B' U' L U2",
+    "scramble_len": 25,
+    "facelet": "DRLRULUFDLFFFRDULRBDFBFUULBRULLDBRBDBURRLUFDFUFLRBBBDD"
+  },
+  {
+    "id": 95,
+    "hero": false,
+    "seed": 2121,
+    "scramble_moves": "D2 U' R F' U R2 L' F2 D U L U L2 U' L U2 F2 B' L2 R' B2 L' U' R2 U2",
+    "scramble_len": 25,
+    "facelet": "BRULUDRFRFBBRRFBLUDUUUFDUUDFLLFDBFRRDDFFLBLRLLURLBDBBD"
+  },
+  {
+    "id": 96,
+    "hero": false,
+    "seed": 2122,
+    "scramble_moves": "F L U2 R B2 F' D R L F D' F R2 F2 L D2 L' U2 B U2 D2 F2 B' U2 L2",
+    "scramble_len": 25,
+    "facelet": "FFRFUBBRDBLFRRDRLBRDLUFFFUDDRBBDUFFLUUUDLBURLDLRBBLUDL"
+  },
+  {
+    "id": 97,
+    "hero": false,
+    "seed": 2123,
+    "scramble_moves": "F' U' F' L' B2 L2 U D2 U' F2 L D F R B' U2 L2 D U2 R2 L R U' F' D2",
+    "scramble_len": 25,
+    "facelet": "DBRRULBFBUBBRRBULBDULFFUFBLUUFDDUFLDFDRRLLLFRUDRRBFLDD"
+  },
+  {
+    "id": 98,
+    "hero": false,
+    "seed": 2124,
+    "scramble_moves": "U D' R' L' F U2 F' B' R' D' U' R F U R' U2 F B' U B L U2 D' U' F2",
+    "scramble_len": 25,
+    "facelet": "BRDUUFURBULBBRRLLFBBLUFULLDUDFFDBDBRLLRRLFRDFRUDFBDUDF"
+  },
+  {
+    "id": 99,
+    "hero": false,
+    "seed": 2125,
+    "scramble_moves": "R' U' B L' D2 B' U' D2 R' B D' R' U2 B R' D' B2 D' F' B2 R' L F2 L2 R2",
+    "scramble_len": 25,
+    "facelet": "DUFFUFULUFUDDRLRLBLDLDFFLBDFUBLDURDUBRBRLRUFDRRLBBBRBF"
+  },
+  {
+    "id": 100,
+    "hero": false,
+    "seed": 2126,
+    "scramble_moves": "L' D B' L2 F B' D L2 B D2 B' D F' B' D' L F' B D2 L' R2 B' F2 D U'",
+    "scramble_len": 25,
+    "facelet": "RRFDUBDFUBRDURLUFLBURFFLLFFBLRBDRFUDBBLBLDULURDDDBUFRL"
+  },
+  {
+    "id": 101,
+    "hero": false,
+    "seed": 2127,
+    "scramble_moves": "D R' D2 B' U2 F2 L' R' D U2 R B2 U2 B' F B2 U2 R U' R D2 R2 L2 U2 L2",
+    "scramble_len": 25,
+    "facelet": "FBBRUULLRFLUBRDUBDBFUDFRDULLRFFDDBBBRFUULLDDFRUDRBFRLL"
+  },
+  {
+    "id": 102,
+    "hero": false,
+    "seed": 2128,
+    "scramble_moves": "D L F L' R' U2 B D' U' L D2 R B2 D' R2 B L B2 U' D' R2 F D2 U B2",
+    "scramble_len": 25,
+    "facelet": "DBBLULULUFDLURLFDRBFLRFFBDRLFUBDRFBDFURFLULRDUDRBBRBUD"
+  },
+  {
+    "id": 103,
+    "hero": false,
+    "seed": 2129,
+    "scramble_moves": "D' B R D' U F' L' U' D' R2 L2 R2 D2 U2 R U' F L' D' L B D B2 D2 B2",
+    "scramble_len": 25,
+    "facelet": "LDURURUFRBBRBRDDLDFUDUFDULFRFLUDUDLRBFLDLBLRFBFURBLFBB"
+  },
+  {
+    "id": 104,
+    "hero": false,
+    "seed": 2130,
+    "scramble_moves": "L' R U F' R2 U R D' L U' D F' U R' F D2 B2 R' F' L R2 F L D' R",
+    "scramble_len": 25,
+    "facelet": "DRUFUFFURULLFRBRDRDBBFFUUDULLFLDBLRDFRLULDBBBFURRBLBDD"
+  },
+  {
+    "id": 105,
+    "hero": false,
+    "seed": 2131,
+    "scramble_moves": "F R2 L D2 F R' F R' B' L2 F R2 U F2 R F2 B' D B' U2 R2 L2 U B2 F'",
+    "scramble_len": 25,
+    "facelet": "UUFLUUBRFULDBRDDFBDBRFFLBDFRBLDDRLDDFFRULUURURRLFBBLLB"
+  },
+  {
+    "id": 106,
+    "hero": false,
+    "seed": 2132,
+    "scramble_moves": "F2 D F2 B2 U2 L2 D' U' R' L2 D' U' B2 R' U' R2 B' D2 L' U2 L' B' R' B L",
+    "scramble_len": 25,
+    "facelet": "BFDDULLBBDURLRBFRUDURDFFRDLFBDLDULFRURBLLFFBUFULRBDBRU"
+  },
+  {
+    "id": 107,
+    "hero": false,
+    "seed": 2133,
+    "scramble_moves": "U' R' B' L' U2 F2 D U' D F' B2 U2 F2 U' B' R' U2 D' F L2 F U2 F U' B",
+    "scramble_len": 25,
+    "facelet": "BDLFUUULDFFDDRFBUBLDRRFFFDUURRLDBFRRLLBLLUUURFBDRBBDBL"
+  },
+  {
+    "id": 108,
+    "hero": false,
+    "seed": 2134,
+    "scramble_moves": "F2 R' B2 F' R D' B' R' D' U R L' R' B' F2 R B2 R' D' L' D2 F' D2 R L2",
+    "scramble_len": 25,
+    "facelet": "FBURUDULFRLLRRRFUBLBDFFULBRDRUFDLDDUDDBFLDBUBFULFBLRBR"
+  },
+  {
+    "id": 109,
+    "hero": false,
+    "seed": 2135,
+    "scramble_moves": "U D2 L2 R2 B L2 D' L' D' R2 D' L' D2 U2 B' D' R2 F' L' U L' U F B2 R'",
+    "scramble_len": 25,
+    "facelet": "UBLRUUDDFRRBRRBRUULLDLFFDFBRUUDDLUUFLBFDLFLRBDLBDBFRBF"
+  },
+  {
+    "id": 110,
+    "hero": false,
+    "seed": 2136,
+    "scramble_moves": "D2 U B2 F2 L' U' L2 D L2 F2 L' F B2 F L F2 U' F2 D' F2 B F D2 U2 L",
+    "scramble_len": 25,
+    "facelet": "DRLBUDRLUFLDURDDLFDULDFRLULBFBRDBRLRRDFBLFBFUFBBRBUUFU"
+  },
+  {
+    "id": 111,
+    "hero": false,
+    "seed": 2137,
+    "scramble_moves": "R U L' F R' F D2 U2 L D2 L' U' F' U' L2 U' B U' R2 L' R2 F' U' B' F'",
+    "scramble_len": 25,
+    "facelet": "UBUDUBLLRFUBLRRDRUDBUFFFDLRLUFDDDBDLBFBULURLFLRRFBRFBD"
+  },
+  {
+    "id": 112,
+    "hero": false,
+    "seed": 2138,
+    "scramble_moves": "R2 B2 D' L R F' L F' R F U F B D' F' R2 F2 B2 R2 B F' B2 R' U' F2",
+    "scramble_len": 25,
+    "facelet": "RUUDUDUDDRFFLRFUULLLBDFBRULUBFUDLDRDDRBRLBLRBRFFLBBFFB"
+  },
+  {
+    "id": 113,
+    "hero": false,
+    "seed": 2139,
+    "scramble_moves": "L' U' B L' R L R U' D' R2 L' B' R B R2 D' L2 U' R2 F2 R' L' F U2 R",
+    "scramble_len": 25,
+    "facelet": "DLFBURBRBUFUBRLFBRLDLFFRRBRULUDDUFRDFDDLLULFBLDRFBUBUD"
+  },
+  {
+    "id": 114,
+    "hero": false,
+    "seed": 2140,
+    "scramble_moves": "B2 R2 L2 U F' L2 U D2 L U2 D2 L R U D2 F2 D' F2 U R F D' B' U2 F2",
+    "scramble_len": 25,
+    "facelet": "FLFFULDRBRBUURUURFLDUBFBBUBLFLBDFBRDULFFLDRRDLDRLBDRUD"
+  },
+  {
+    "id": 115,
+    "hero": false,
+    "seed": 2141,
+    "scramble_moves": "F B2 L' F' R L' B U' D L B' U' F' B D' F' R2 B' F U F2 L' F D2 B",
+    "scramble_len": 25,
+    "facelet": "UFBLUULRDFFRURBDBUBURLFBFDLULBFDRDDRFUUFLBFLRDRLDBDBRL"
+  },
+  {
+    "id": 116,
+    "hero": false,
+    "seed": 2142,
+    "scramble_moves": "D2 U2 L D2 U' B2 R D2 B R L R2 L R' D2 F' R' B' F' R' U' R U' R' U2",
+    "scramble_len": 25,
+    "facelet": "RRULUUDFLBBFRRRLDBBLUFFDULDFBFFDBDFUDDLULDBRLRUFBBLRUR"
+  },
+  {
+    "id": 117,
+    "hero": false,
+    "seed": 2143,
+    "scramble_moves": "B' L U R' F2 D' L' B' U2 B2 D' F D2 U' R' F2 U2 L F2 B2 R2 D' R D F",
+    "scramble_len": 25,
+    "facelet": "BLDDUDLRRUFLBRFFDFFBBBFUBDUULLRDRFLDDBDRLLRULBURUBFRFU"
+  },
+  {
+    "id": 118,
+    "hero": false,
+    "seed": 2144,
+    "scramble_moves": "F' R2 L' B F2 D' F' L' D' F2 L R D2 B2 L2 B2 R U2 D' B D R' D' B U2",
+    "scramble_len": 25,
+    "facelet": "DDBUUBRLBLLUDRBDDLFFDDFBDURRRFBDLFLULFUFLRUUBRFFRBRBUL"
+  },
+  {
+    "id": 119,
+    "hero": false,
+    "seed": 2145,
+    "scramble_moves": "F B' U' F' B' R' D' L2 F' R2 B2 R2 U R B2 R' B' F2 R' D F B D2 R' U'",
+    "scramble_len": 25,
+    "facelet": "DUBBUUUFRULDDRDFRFLLBBFBRFLFDDRDBFFURUBLLLDUULFBRBDLRR"
+  },
+  {
+    "id": 120,
+    "hero": false,
+    "seed": 2146,
+    "scramble_moves": "D2 R' F2 R U' L2 U D2 F' B' F2 U R2 L F R L2 F' R2 D' U2 D2 B2 F' U",
+    "scramble_len": 25,
+    "facelet": "LBLBULBFRDFDFRRUDFUDFLFUDLFRBRRDLUUUDULDLURBBFDBFBRLRB"
+  },
+  {
+    "id": 121,
+    "hero": false,
+    "seed": 2147,
+    "scramble_moves": "D2 R2 F' R2 B U' F' U' F2 R2 L D L R' F2 L U L B2 F L2 U' D U2 D2",
+    "scramble_len": 25,
+    "facelet": "LDULURDRFRFBLRLUBURBDDFUBDRLFBUDLLUFFFBULBFBDLRDDBFRRU"
+  },
+  {
+    "id": 122,
+    "hero": false,
+    "seed": 2148,
+    "scramble_moves": "F U2 B' L2 U D2 B' R' L2 B' D' B' D' B' D U B F' D B' R D2 R' B R2",
+    "scramble_len": 25,
+    "facelet": "LBBUURRBLFFRDRFBBRFLDDFBFFULDRFDULRFDLUDLLULUDRBUBRDUB"
+  },
+  {
+    "id": 123,
+    "hero": false,
+    "seed": 2149,
+    "scramble_moves": "B2 U L2 B2 D2 U L2 D L U F L R L2 U2 F2 U B' D2 F2 U2 F2 D R F'",
+    "scramble_len": 25,
+    "facelet": "LLURUBFDRBLRFRFRBLDBDUFLBUULLFBDUDDFBDLULRRRDBDURBFUFF"
+  },
+  {
+    "id": 124,
+    "hero": false,
+    "seed": 2150,
+    "scramble_moves": "F B2 R' U R' F R F D U2 B2 F2 R U' B D' R' F' B' D2 B2 D B2 U D2",
+    "scramble_len": 25,
+    "facelet": "UFBLUUFFDLLLBRFFBBLRFBFRBFDDDRDDDBRDRDUULLURRUUFLBBLUR"
+  },
+  {
+    "id": 125,
+    "hero": false,
+    "seed": 2151,
+    "scramble_moves": "R F2 D L F' D' U2 R' U2 F' R2 B2 L U2 R' B2 R' U2 L F2 D2 U F2 R2 D2",
+    "scramble_len": 25,
+    "facelet": "RFFDUUFLURRURRBBUBRBFLFBBBDDULDDFFLLUFDLLULRRLRBDBFUDD"
+  },
+  {
+    "id": 126,
+    "hero": false,
+    "seed": 2152,
+    "scramble_moves": "B L' R D2 R B' F' B U F2 L2 B' L2 U2 F' B' F L2 R2 U' L B' F' U2 F",
+    "scramble_len": 25,
+    "facelet": "LLLLUFBBRDDFBRUBBUUDFLFRBRDDDLFDUBUFFBLFLUURRUDDRBLRFR"
+  },
+  {
+    "id": 127,
+    "hero": false,
+    "seed": 2153,
+    "scramble_moves": "D U L B L D' U' D' L R B U R2 D F D2 U' L2 F R L' F' D2 L' R2",
+    "scramble_len": 25,
+    "facelet": "LRLBULUDRUBURRFDLBRFBUFBRLLDDBBDUULRFUFRLFLDFBDDRBUDFF"
+  },
+  {
+    "id": 128,
+    "hero": false,
+    "seed": 2154,
+    "scramble_moves": "F2 B D' U' F' B' D B2 L B D2 F2 B' U2 D' L2 U' L B U2 L' R U2 L' F",
+    "scramble_len": 25,
+    "facelet": "RDUFUBLRDLDLLRDRRBDUFUFFLUFBBDLDFFFRUUBBLLRBUFLBRBRDDU"
+  },
+  {
+    "id": 129,
+    "hero": false,
+    "seed": 2155,
+    "scramble_moves": "U L' F' L' F2 D2 L' B' U R F L R' U2 B' U2 D2 U' L B F2 B F' U2 R2",
+    "scramble_len": 25,
+    "facelet": "BDDLUBBFLUDLURFRRLDUFLFBFBFULDLDBLUDRFRRLUUDRBFURBDFRB"
+  },
+  {
+    "id": 130,
+    "hero": false,
+    "seed": 2156,
+    "scramble_moves": "F' L F B' D L' U B F2 L B2 R B' R2 D R2 U2 L' U2 B2 U' R B R' B",
+    "scramble_len": 25,
+    "facelet": "LRFRURBLFDDDFRLDDLRFLDFDBRBUFRBDBRLFDBUULLUULRUBBBFUUF"
+  },
+  {
+    "id": 131,
+    "hero": false,
+    "seed": 2157,
+    "scramble_moves": "R2 F L2 B2 D B' D2 F' L' R' L' B D L2 F L F B L R' L B2 R F' U'",
+    "scramble_len": 25,
+    "facelet": "RBUBURULLDFFURFFRDFDBLFFUULLBDRDDUURBRLBLFRUBRDDDBLFLB"
+  },
+  {
+    "id": 132,
+    "hero": false,
+    "seed": 2158,
+    "scramble_moves": "B2 F2 L2 R' B D' B2 F B L2 R2 L' R L' U B' D' R' U2 L U' R' F2 L2 D",
+    "scramble_len": 25,
+    "facelet": "FRRLUFUFBLRDDRLBUDBDDRFLFRLDDUUDBUDRUFRLLULFLBBRBBUFBF"
+  },
+  {
+    "id": 133,
+    "hero": false,
+    "seed": 2159,
+    "scramble_moves": "R' U' R D2 F2 U' R' D' R B' L2 F' U2 L2 F B D2 L' R F2 B L' R' B2 D2",
+    "scramble_len": 25,
+    "facelet": "LRRDULLURUFDLRDLUDFBBDFBRUUFLBDDRDRRUBDFLFLLUBBFRBUFFB"
+  },
+  {
+    "id": 134,
+    "hero": false,
+    "seed": 2160,
+    "scramble_moves": "R F' B D' R F2 D2 U B2 L D' L' D2 B F' D' R F' D' U D2 L' R L' F'",
+    "scramble_len": 25,
+    "facelet": "UBRUUDBDRUBULRBLUDDFBLFDDDULRBFDRLFRFLRULBBRFFRLUBFFLD"
+  },
+  {
+    "id": 135,
+    "hero": false,
+    "seed": 2161,
+    "scramble_moves": "B' D L2 B2 F' D' R' F2 L2 B2 U L2 U' D2 U F2 R U B2 U2 F2 D B' F U",
+    "scramble_len": 25,
+    "facelet": "FDLFULRDFLUBFRLLFLURUDFLRFDBUFRDRFUURDBULLRBDDBDBBRBBU"
+  },
+  {
+    "id": 136,
+    "hero": false,
+    "seed": 2162,
+    "scramble_moves": "B2 F' L2 F' R' D2 L R' F2 R L D' R B2 D2 B2 D B F U' D U' F' D' B'",
+    "scramble_len": 25,
+    "facelet": "UUFUUFLUDRLLBRUUBLBBBDFLFRRUBBDDDFDBFRURLLDRRDLLFBFDFR"
+  },
+  {
+    "id": 137,
+    "hero": false,
+    "seed": 2163,
+    "scramble_moves": "B' F2 R F' D2 L F' R2 F L R2 L' D B2 F' D' F2 D R F' R L' R B' D'",
+    "scramble_len": 25,
+    "facelet": "LDLUUBUBBRUDLRDLURRRURFFURBLDDFDLFFDURFLLFDDBFBFLBBBUR"
+  },
+  {
+    "id": 138,
+    "hero": false,
+    "seed": 2164,
+    "scramble_moves": "R B2 D' L U L B' L B' D2 F2 D2 B L' D' R D2 R2 D2 R U' B' R F' B",
+    "scramble_len": 25,
+    "facelet": "URBLURDBURFLURRFDFBLFRFBDUULFLDDBRUDBFLDLDDFFUURBBLRLB"
+  },
+  {
+    "id": 139,
+    "hero": false,
+    "seed": 2165,
+    "scramble_moves": "B F2 B2 D2 L2 D2 U L B U F L' B R2 L2 B2 U' F D2 U B F U2 L F2",
+    "scramble_len": 25,
+    "facelet": "ULBUUFFRURRRLRLBUFLDFDFURBLDDUBDFLLLBRUBLFBRFDFRDBUDBD"
+  },
+  {
+    "id": 140,
+    "hero": false,
+    "seed": 2166,
+    "scramble_moves": "D' B2 D B2 R2 F L D' L F' B U2 L' D' B' U' R L' R U' D L' B' D R2",
+    "scramble_len": 25,
+    "facelet": "DBFLUDBUURBLBRUULRULFFFRRDRDRBUDFFDDBBLRLDURFDULFBFBLL"
+  },
+  {
+    "id": 141,
+    "hero": false,
+    "seed": 2167,
+    "scramble_moves": "D F' B' U D B D' R2 L F R D R U L' R' L U2 D2 F' D B F' R' D'",
+    "scramble_len": 25,
+    "facelet": "BRLRUBRLULRFRRFUDRUDBUFFDDFRFRLDBLFFLUBLLBDUBUDDLBBDUF"
+  },
+  {
+    "id": 142,
+    "hero": false,
+    "seed": 2168,
+    "scramble_moves": "D R U2 R D2 R2 B' F' U' L2 F' D' F2 D' F' B' F R2 U' F' R2 D2 R2 L U",
+    "scramble_len": 25,
+    "facelet": "BLLDULLDFRBURRFLULURDUFBDFBRUDRDLULDRBFFLBFUBBDURBDFFR"
+  },
+  {
+    "id": 143,
+    "hero": false,
+    "seed": 2169,
+    "scramble_moves": "R' B2 D' L U L2 B F2 R' D U2 L' B' L2 B2 F B U2 B D' B D' B2 L2 F2",
+    "scramble_len": 25,
+    "facelet": "BBLBURBBDRDDURDDFBLUBBFRLLRUUFFDDRFUURDULLULFFDLLBFRRF"
+  },
+  {
+    "id": 144,
+    "hero": false,
+    "seed": 2170,
+    "scramble_moves": "F' R D F2 D R U' R U B2 U B' F L' R B' U2 D' U B2 D2 F' L' B2 R2",
+    "scramble_len": 25,
+    "facelet": "FLRDURDDFRUBRRUFDRBFDFFFFBRLRUDDRBBDDBLLLLLLUUULFBBBUU"
+  },
+  {
+    "id": 145,
+    "hero": false,
+    "seed": 2171,
+    "scramble_moves": "L' F R L D B2 D' U F D2 U D2 B' R' U2 D' B R' B' U2 B F L' R' U'",
+    "scramble_len": 25,
+    "facelet": "ULLBURDFDFFULRLRBDRURRFDLLUFFFUDRLDLBUBFLDFRDBBRUBDBBU"
+  },
+  {
+    "id": 146,
+    "hero": false,
+    "seed": 2172,
+    "scramble_moves": "B' D2 L2 U F U' L2 B R' F2 U' L2 R2 F D L' U2 R' D R' F' R D B' F'",
+    "scramble_len": 25,
+    "facelet": "FRRRUBLUFLDDRRLRRRFFUFFFUDBLFULDBBDURUDULLDUBBDDBBBFLL"
+  },
+  {
+    "id": 147,
+    "hero": false,
+    "seed": 2173,
+    "scramble_moves": "L' F' B F' U' D U F2 L U2 D' F U' F U D2 U L2 B2 F2 R L' D F' B",
+    "scramble_len": 25,
+    "facelet": "LLDRULFFFDULBRFLURRDLLFDBLURFBUDBURDUUDRLDFFUBBFRBBBDR"
+  },
+  {
+    "id": 148,
+    "hero": false,
+    "seed": 2174,
+    "scramble_moves": "U' L' B L2 R U2 D' U' D L' D2 F L2 F' L' F U B R2 F' U2 B' D2 L' U'",
+    "scramble_len": 25,
+    "facelet": "LURFUFFBULUURRDBBULRBBFDDRDFFLBDURLRFLULLLDDRFRDFBDBUB"
+  },
+  {
+    "id": 149,
+    "hero": false,
+    "seed": 2175,
+    "scramble_moves": "R2 D2 F R U2 L' R2 D' B2 D L' U D R L' F R U L B' L2 F' D B2 R2",
+    "scramble_len": 25,
+    "facelet": "RBBLUURUFLLUDRBDRLBFUFFFUBRLUFRDUFDBFDDLLRLDBRLURBFDBD"
+  },
+  {
+    "id": 150,
+    "hero": false,
+    "seed": 2176,
+    "scramble_moves": "D2 B2 U2 D R' B' R2 L2 U D2 L2 U B2 D' L D B D B L2 D2 L' F' U2 F'",
+    "scramble_len": 25,
+    "facelet": "UUBUULDDDFDULRUULFBRRLFFFBLDRFFDUDDRLBLBLBBRLRFBRBDUFR"
+  },
+  {
+    "id": 151,
+    "hero": false,
+    "seed": 2177,
+    "scramble_moves": "U' R F L' U D2 F D' R D2 U' L' R' L' D' R L2 B' F U2 F2 D' F' U2 D'",
+    "scramble_len": 25,
+    "facelet": "DRBBULLDBUDRURRUFFFBLBFLFULURFLDUUBDBRDFLLRFRDDLFBDRUB"
+  },
+  {
+    "id": 152,
+    "hero": false,
+    "seed": 2178,
+    "scramble_moves": "U' F2 B F L R' L2 B2 U2 L' R D2 U' D B2 D' L2 F R' F2 U2 R2 U R F2",
+    "scramble_len": 25,
+    "facelet": "FBRDUULUDBFDBRFRRFBLLUFLLDBULURDBFLLRRUULBRFFBDDDBRDFU"
+  },
+  {
+    "id": 153,
+    "hero": false,
+    "seed": 2179,
+    "scramble_moves": "R2 B R' B' L' U2 R2 F L' U L U' B2 F' B2 F' D2 L2 F2 R' F' L D2 L2 R'",
+    "scramble_len": 25,
+    "facelet": "UURUUBFRFDLDRRRBRBRBLFFDBDULBRBDFUDLRLDLLDLUDBFFUBFULF"
+  },
+  {
+    "id": 154,
+    "hero": false,
+    "seed": 2180,
+    "scramble_moves": "D2 U' F B R' D U R2 D R2 F' L2 F U' B2 L F B2 F L' B2 F' L R' U",
+    "scramble_len": 25,
+    "facelet": "DLLBURBDLDBFRRFULRRLBUFUDBBLDLBDUBDUFUUFLFRLFUFRRBDFRD"
+  },
+  {
+    "id": 155,
+    "hero": false,
+    "seed": 2181,
+    "scramble_moves": "D' B2 U R2 D' B U L2 B' L2 F' L' D2 L2 F' U2 L2 U B2 D L2 U2 R' U2 B2",
+    "scramble_len": 25,
+    "facelet": "FLRBUDUUDLLDDRRUDDBBFFFBFFBLRLLDFBRRULRULUDFUBURDBRFBL"
+  },
+  {
+    "id": 156,
+    "hero": false,
+    "seed": 2182,
+    "scramble_moves": "L2 B' R2 F2 U' L2 F B' L' F2 R D F L F2 D' R' U' D' L2 D L' B R' F",
+    "scramble_len": 25,
+    "facelet": "RDFRUBDLUBRUURULFBLDRBFLDRUBUBBDLDBRFFFDLURLLLRUFBFDDF"
+  },
+  {
+    "id": 157,
+    "hero": false,
+    "seed": 2183,
+    "scramble_moves": "B' D L U' L2 U L2 F D2 F' B2 U R2 F' R' L' U B2 U B' D' U' R U' B",
+    "scramble_len": 25,
+    "facelet": "RBBFURDFBUDUURBDBLFRLDFFFDLDLBLDRURFBLRBLFFULRLDUBDUUR"
+  },
+  {
+    "id": 158,
+    "hero": false,
+    "seed": 2184,
+    "scramble_moves": "U' L U2 F2 U2 B' U L2 R F2 R' F' D' F' U' D' B D' B R' B' F' U' R2 L'",
+    "scramble_len": 25,
+    "facelet": "RRFLUDLBURBURRUBUDDLFRFDUUULBRDDFDFFBFBFLBRLBLUDLBDLRF"
+  },
+  {
+    "id": 159,
+    "hero": false,
+    "seed": 2185,
+    "scramble_moves": "L2 D F D2 L' B U B2 R L U B2 D B2 R2 F2 B2 U2 B R' B D' U' F2 B2",
+    "scramble_len": 25,
+    "facelet": "DFFDULULLBUUBRLLFRBBUUFRURBRDDFDDDUDLLRBLRRUFLRFFBDBBF"
+  },
+  {
+    "id": 160,
+    "hero": false,
+    "seed": 2186,
+    "scramble_moves": "D R L' F L2 U' B R' L' D2 R2 F D' U B L' B R' D2 F L2 D' R F U2",
+    "scramble_len": 25,
+    "facelet": "DDBFULFFUFBRBRBLDDUULUFRRRDUDFUDFLLRBRRFLLURBDBLUBLFDB"
+  },
+  {
+    "id": 161,
+    "hero": false,
+    "seed": 2187,
+    "scramble_moves": "D R2 U2 D' R D2 R U' D2 L' R' F2 L B R B' R2 D U D' L' U2 R F2 R",
+    "scramble_len": 25,
+    "facelet": "LBDDUUBDRFBBLRRLLUUFUUFDUFDFUFBDFRRRDRLRLLFLLRDBFBUBBD"
+  },
+  {
+    "id": 162,
+    "hero": false,
+    "seed": 2188,
+    "scramble_moves": "R B' R' L' D B F D2 U D2 F2 D' L2 F' R2 L U D' R2 U F D2 R' B F'",
+    "scramble_len": 25,
+    "facelet": "LBULURFURDDRFRDDRBDFFBFRRBLFRBFDUUDRBULBLULLUBLUFBDDLF"
+  },
+  {
+    "id": 163,
+    "hero": false,
+    "seed": 2189,
+    "scramble_moves": "U2 B L B2 R F2 B' F L U' D' R' D B' D L R2 U' D2 L U2 R2 B' F2 R",
+    "scramble_len": 25,
+    "facelet": "FLFBULRDUBFULRURDUDLRRFUFUDDRBDDFDFBURFBLDLBLLBRFBULRB"
+  },
+  {
+    "id": 164,
+    "hero": false,
+    "seed": 2190,
+    "scramble_moves": "R2 U' L' B' U' F' B D' B2 R B2 L' F' L2 R2 B R' B' F' B2 L' B2 U F' D",
+    "scramble_len": 25,
+    "facelet": "FDDUUDFDLFRLURLBLUULDBFBRULBRUDDFFFRRFRRLLUFDBBDUBBBRL"
+  },
+  {
+    "id": 165,
+    "hero": false,
+    "seed": 2191,
+    "scramble_moves": "D2 B2 R2 L' R' D L B F2 R2 L2 F L2 B R L U2 F2 D' F B' R B' U2 D'",
+    "scramble_len": 25,
+    "facelet": "BRRLURLDDBBFFRRFUDBLLBFUFDRLFULDRRLFRBUBLUDUUDFUDBDLFB"
+  },
+  {
+    "id": 166,
+    "hero": false,
+    "seed": 2192,
+    "scramble_moves": "R2 L U F2 R F' B R U2 B' L F2 L U' B' D' R2 D B L F' R' D' R' D'",
+    "scramble_len": 25,
+    "facelet": "LDFFUBDUBLDLRRURLRRFDLFBFUBRRUUDDBLUUDBRLFLBDDRFLBFFBU"
+  },
+  {
+    "id": 167,
+    "hero": false,
+    "seed": 2193,
+    "scramble_moves": "B' U2 F L2 D2 U R' D2 U2 D2 B L D2 B U' B' R' D2 F R' U' B' D' B2 D",
+    "scramble_len": 25,
+    "facelet": "UUFRUURRUBBULRDFLDDFRBFFBDLLLDRDUBLBRUFBLRLDDLFFFBDRBU"
+  },
+  {
+    "id": 168,
+    "hero": false,
+    "seed": 2194,
+    "scramble_moves": "F D' L2 U D2 R2 L U' B' U L U2 L2 B' F' U F D R2 F' R F' D' B D'",
+    "scramble_len": 25,
+    "facelet": "DLDRUDUFURBBLRURFRLDFRFBFBFDUDDDULRBBBBLLUFRLRDLLBFUFU"
+  },
+  {
+    "id": 169,
+    "hero": false,
+    "seed": 2195,
+    "scramble_moves": "L' D F D' R' D' F2 R' L2 D' F' L' F2 U B D R2 U' R' F U2 F' D R L'",
+    "scramble_len": 25,
+    "facelet": "BLFBUDBLBLRRRRDLBLRUDRFUDDFFFUFDUBLDURUDLFRURUBLBBLFFD"
+  },
+  {
+    "id": 170,
+    "hero": false,
+    "seed": 2196,
+    "scramble_moves": "D B' R2 U' D2 F2 L U F B' U2 D2 R2 B' D' L F R2 L' F L D2 B2 L' U",
+    "scramble_len": 25,
+    "facelet": "RBDUUBDUUFLFFRFURUBFLBFDBBFDDRUDDFDBULLLLUDRRLRBRBFLLR"
+  },
+  {
+    "id": 171,
+    "hero": false,
+    "seed": 2197,
+    "scramble_moves": "U2 R2 D' R2 L2 U' R L2 F R F' U L2 F B2 L2 B' F D B U' B L2 F B",
+    "scramble_len": 25,
+    "facelet": "DURLURFDFLFFRRULDRUBUFFBRBDULFDDFBRDBFRULULLBDRLLBBBDU"
+  },
+  {
+    "id": 172,
+    "hero": false,
+    "seed": 2198,
+    "scramble_moves": "U D' U2 D' R2 D' B' U2 F R' B D' L B2 F2 U' L R' L' D L' R' D F U'",
+    "scramble_len": 25,
+    "facelet": "FDDRUDFUBRFBLRFUUUDBURFULRLDBFDDFBBFRULBLFLLBRRDLBDRLU"
+  },
+  {
+    "id": 173,
+    "hero": false,
+    "seed": 2199,
+    "scramble_moves": "B' D U2 L R2 D L D U L2 U D2 L' B' D2 R D' L' U B2 F D2 R D U",
+    "scramble_len": 25,
+    "facelet": "DUDFULUURUBRURDRLFLBBUFRLLUDDFDDFFDLRRBBLLUBBFFBFBRDRL"
+  },
+  {
+    "id": 174,
+    "hero": false,
+    "seed": 2200,
+    "scramble_moves": "R' D F B2 L' U2 R' F' D L2 U2 D2 F2 B' R2 U R2 L D' F2 L' U L2 B' L2",
+    "scramble_len": 25,
+    "facelet": "DFRFUBRUBLLBURULDUFBDRFFDRDFBFBDFUDBRRUDLULDRULBLBRLLF"
+  },
+  {
+    "id": 175,
+    "hero": false,
+    "seed": 2201,
+    "scramble_moves": "D2 F' D' F' U' D B' L2 F' B F' B L U2 R2 L D2 F L2 F2 L' U L2 F' R2",
+    "scramble_len": 25,
+    "facelet": "BBDBUDRDLBRRDRBUFDBLUFFFFRLUUFRDLDUFRLDBLULFRFRUDBULLB"
+  },
+  {
+    "id": 176,
+    "hero": false,
+    "seed": 2202,
+    "scramble_moves": "U B' D' U2 D' B' L2 B2 L2 F D' F R F2 R2 B U2 R2 L B F' R2 B2 D L'",
+    "scramble_len": 25,
+    "facelet": "RFRLUUUDUBBFDRLLFLLRRFFFUBFRDUBDLLRBBDBULUDRFDRDBBLDUF"
+  },
+  {
+    "id": 177,
+    "hero": false,
+    "seed": 2203,
+    "scramble_moves": "B2 R F U' B2 D' F B' L' B' R2 D F' R2 U' B F' U2 L' F D2 F' B2 L D'",
+    "scramble_len": 25,
+    "facelet": "BDRFUBRLFDDFRRUFLUFDLBFBRUUBFLDDUUURLLURLLBFDDRDRBFBBL"
+  },
+  {
+    "id": 178,
+    "hero": false,
+    "seed": 2204,
+    "scramble_moves": "U' L2 R' U2 D' F' R2 B U' D2 L' R' L2 U L D2 R L' F' B F2 L' U' F B'",
+    "scramble_len": 25,
+    "facelet": "BRBBURDUFDDDBRFBFRFRLFFLLULUBUUDDBLUDDRLLRULFLBRUBDFFR"
+  },
+  {
+    "id": 179,
+    "hero": false,
+    "seed": 2205,
+    "scramble_moves": "D B' R' D' F2 L F D R' F U D R2 L B D' L2 R2 L2 B L2 F U B F'",
+    "scramble_len": 25,
+    "facelet": "DRDLUFRDLULFRRRFBLUFFRFFRBRBLUDDUDFUBUBDLBRLDLULDBBBUF"
+  },
+  {
+    "id": 180,
+    "hero": false,
+    "seed": 2206,
+    "scramble_moves": "F2 D' F L' B' F2 L' R D' F2 L' R2 L2 D' R' L2 U' F U' R L U2 F B F'",
+    "scramble_len": 25,
+    "facelet": "DRRFUFDBFDDURRDUDUBULBFUDRRRBBFDLLDBFLLLLLFUBFFRBBULRU"
+  },
+  {
+    "id": 181,
+    "hero": false,
+    "seed": 2207,
+    "scramble_moves": "L2 R' B' L' B2 F D' U2 B2 F' U2 R F' U' L U2 F' B2 D' R D B F' U' D'",
+    "scramble_len": 25,
+    "facelet": "FDBLULFFBRBDFRRRBBLLUFFULUUBBFRDRRDRDDULLDFFULRLUBUDBD"
+  },
+  {
+    "id": 182,
+    "hero": false,
+    "seed": 2208,
+    "scramble_moves": "D L U L F2 U' D2 L U2 D U F2 R' B F2 D B D B F' U2 B' L' R' U'",
+    "scramble_len": 25,
+    "facelet": "BUUUUBDLRDLFBRRLFLLFFDFUBDBRBDDDDBFFDLFRLLLRURFRUBBURU"
+  },
+  {
+    "id": 183,
+    "hero": false,
+    "seed": 2209,
+    "scramble_moves": "U2 F2 L' D' U' R2 L' R2 F2 R' B2 L' B' L' R' D2 F D2 B F' U L' U' R' B",
+    "scramble_len": 25,
+    "facelet": "RFFUUBDDBRRDBRLLFULBULFLUUBLFDDDRURFBRFBLULLBRDDFBURDF"
+  },
+  {
+    "id": 184,
+    "hero": false,
+    "seed": 2210,
+    "scramble_moves": "D R2 F R D R2 D2 F2 B' L' B D R' F' L F' B2 R2 L B F U' D2 F' U",
+    "scramble_len": 25,
+    "facelet": "FULBULBLRBDDFRUBBFLBDFFRUDLBFUUDRUURRDDDLLLRRFFDBBRULF"
+  },
+  {
+    "id": 185,
+    "hero": false,
+    "seed": 2211,
+    "scramble_moves": "B' U R2 L F2 R2 D2 B D' F2 D' F2 D B F2 U B2 D2 U D2 F2 U2 L' R' F2",
+    "scramble_len": 25,
+    "facelet": "RLLBUUUUUBFDBRLURRLRRLFRDFLRDFRDFBBFFUBLLBDDBFDUFBUDDL"
+  },
+  {
+    "id": 186,
+    "hero": false,
+    "seed": 2212,
+    "scramble_moves": "B' L F' R2 U2 F' L2 F' B' U' F2 D2 B' D F2 R B' L2 R' B2 D F D R2 U",
+    "scramble_len": 25,
+    "facelet": "URDDUURUDBLRURUFRLBFLBFBDLRLFUDDBULFLRDBLLRFFFFBRBDUDB"
+  },
+  {
+    "id": 187,
+    "hero": false,
+    "seed": 2213,
+    "scramble_moves": "R B' F D2 B' F' D' F2 R2 L2 D F2 B2 D L F R' D2 R2 B F' L2 B D' F'",
+    "scramble_len": 25,
+    "facelet": "URDLUBFUDRLLURBUDFDFBDFRBRBRFLBDFFFDRULBLLURUBDFDBURLL"
+  },
+  {
+    "id": 188,
+    "hero": false,
+    "seed": 2214,
+    "scramble_moves": "L2 F2 D F2 D' L' F' D R2 L2 D2 B2 U2 R' B2 D' R F' U L D' F' R L2 B2",
+    "scramble_len": 25,
+    "facelet": "ULRLUUDBURFDRRDRUULRFDFULFBDRUBDLDFBFDFBLRRLBBFLBBULDF"
+  },
+  {
+    "id": 189,
+    "hero": false,
+    "seed": 2215,
+    "scramble_moves": "L' B2 L F' U2 R2 F U' L2 R' F' D U L' R L B L R B' F L' F' U' F",
+    "scramble_len": 25,
+    "facelet": "ULFBUFLUBDDLFRRUBLUFRRFRRBRFRBFDDRLBLUFDLUFLUDBBDBLDUD"
+  },
+  {
+    "id": 190,
+    "hero": false,
+    "seed": 2216,
+    "scramble_moves": "R' D2 F' D2 B' D' B2 F2 B2 R2 L2 B2 R2 D' B' F B2 R2 D' F2 D' B' F2 D L2",
+    "scramble_len": 25,
+    "facelet": "UDLFULLUBDBUURURRDDFRBFLFFBRLUDDBURFFRBRLDFFDBLLBBDLUR"
+  },
+  {
+    "id": 191,
+    "hero": false,
+    "seed": 2217,
+    "scramble_moves": "D2 L2 D L U2 F' R' L' D' R2 L2 B' D R2 B' R2 F2 L' B L' F D' U B U2",
+    "scramble_len": 25,
+    "facelet": "DDFUUBLBLFRRBRFFRLBDDFFURUDBLRRDDULFBFULLRRUDULLDBFUBB"
+  },
+  {
+    "id": 192,
+    "hero": false,
+    "seed": 2218,
+    "scramble_moves": "U2 L2 B2 R2 D' B2 D' B' D2 F' R2 U' B' U' D' L B D F' B F' D F R2 U'",
+    "scramble_len": 25,
+    "facelet": "LRUDUUFFFDRFRRBBLDRULLFBUDLBFULDDFDBDBDULBUFRRFBUBLRRL"
+  },
+  {
+    "id": 193,
+    "hero": false,
+    "seed": 2219,
+    "scramble_moves": "U2 L' D2 R U' F D' U' R2 B2 F' B' R' B2 R2 B' R2 D2 R2 B U2 B' U F' B'",
+    "scramble_len": 25,
+    "facelet": "FFRRUDUUURLBFRLUDLLBFRFDRFLBUFRDRFLBDUBDLFDBDULLBBBDUR"
+  },
+  {
+    "id": 194,
+    "hero": false,
+    "seed": 2220,
+    "scramble_moves": "B L B' R' D2 L2 R' U2 R D L B2 F2 R2 B F2 U F' U R' B' L' U2 R F'",
+    "scramble_len": 25,
+    "facelet": "BRDFUUBBFRLFFRDFLLDUDLFDLBRULUFDDLRURURULFBRFLDUBBRBBD"
+  },
+  {
+    "id": 195,
+    "hero": false,
+    "seed": 2221,
+    "scramble_moves": "B U' R2 U' R' U2 B D' B L2 F2 L' R2 L2 B D2 U' D F' D B U B' F2 B2",
+    "scramble_len": 25,
+    "facelet": "DRFDURBDLBBUFRLRDUDRURFLDDFBBDUDFRUFLLRFLUBLLLFFBBURBU"
+  },
+  {
+    "id": 196,
+    "hero": false,
+    "seed": 2222,
+    "scramble_moves": "L U2 D' L2 U L' U2 R' F' L2 U' L U R2 B2 L2 B U B2 D F L2 R2 L' U2",
+    "scramble_len": 25,
+    "facelet": "FDFRUDFLUBFUFRFDURDBRLFLLDRBBFLDFBBDUULBLDDUULRRRBUBRL"
+  },
+  {
+    "id": 197,
+    "hero": false,
+    "seed": 2223,
+    "scramble_moves": "L2 U B L' F D R F' U2 L2 D B F R D R' L' U R L B2 R' B' L R'",
+    "scramble_len": 25,
+    "facelet": "BUDRUBBBBUDRFRFDRRDLLLFRBRFLDLFDBFDURURULFUUDFBUDBLFLL"
+  },
+  {
+    "id": 198,
+    "hero": false,
+    "seed": 2224,
+    "scramble_moves": "D2 U' B' F U L B' U D' F' B2 R2 B R' F D R L F' U2 B L' B2 F' D",
+    "scramble_len": 25,
+    "facelet": "FBRBUDURRUBDFRULLRLFBLFULUFDRUFDFDRFULBBLDFDBBURLBRDDL"
+  },
+  {
+    "id": 199,
+    "hero": false,
+    "seed": 2225,
+    "scramble_moves": "D2 R' U' L2 F D' U' R' U F R' F U L2 U2 F2 L2 R B2 U2 R' U L' U F",
+    "scramble_len": 25,
+    "facelet": "DLUBUFDRFRLLFRURDBLBDRFUFFDURBRDLRDLBDFBLDBURFBLLBUUFU"
+  },
+  {
+    "id": 200,
+    "hero": false,
+    "seed": 2226,
+    "scramble_moves": "U2 B' U2 R2 L2 R' L2 R2 F L' D2 F2 D2 F' L2 B2 R2 D2 R2 D' F2 B R F2 L'",
+    "scramble_len": 25,
+    "facelet": "URBLUULLFDLRRRDUFRDDLUFURRBFFLFDULRFBBBDLBFLUDBRFBBDDU"
+  },
+  {
+    "id": 201,
+    "hero": false,
+    "seed": 2227,
+    "scramble_moves": "L2 R2 U L2 D' R D R D2 F2 U D' F2 D2 R' D' U D' U2 R2 F D2 U2 R2 U2",
+    "scramble_len": 25,
+    "facelet": "UBDUUDLLDLFRLRFRLUUFFBFDLBBDUUUDUBRFLRFLLDRFBFRBRBBRDD"
+  },
+  {
+    "id": 202,
+    "hero": false,
+    "seed": 2228,
+    "scramble_moves": "R L2 R U F2 R2 B' L' D' R' B U' L' U L B' D2 L' D B U2 L2 F D B",
+    "scramble_len": 25,
+    "facelet": "UDDUUBDLFDRBURBRURBFLFFLBDUULFLDRBRFFBLDLUUBLRRLDBFDFR"
+  },
+  {
+    "id": 203,
+    "hero": false,
+    "seed": 2229,
+    "scramble_moves": "F2 B' D' U' F' L' R' U B2 L D R' U' F D F2 U2 R D2 F B' F2 D B F",
+    "scramble_len": 25,
+    "facelet": "DLRBUFFLFUUDURRFBURBRFFRLFLBDDLDRFFRBUDDLRUDUBULDBBBLL"
+  },
+  {
+    "id": 204,
+    "hero": false,
+    "seed": 2230,
+    "scramble_moves": "D2 R2 D2 B L D2 R2 B2 F2 U2 B2 U' R L' B F' B2 R2 B2 F2 L2 F2 R' L' U'",
+    "scramble_len": 25,
+    "facelet": "FBDFULBLFLDFRRLBUBLFUBFBLDUBRRUDFDFRUDDRLDRBULLRUBUDRF"
+  },
+  {
+    "id": 205,
+    "hero": false,
+    "seed": 2231,
+    "scramble_moves": "U L' D2 U2 R' F U2 L B2 F2 L' R2 D2 F' U2 R F U' L2 U' D2 F' U' F2 B",
+    "scramble_len": 25,
+    "facelet": "LUFLUDFFBDFLURLBDBRURRFBRLLFDUBDRUDDUFDFLURRUDLFBBRLBB"
+  },
+  {
+    "id": 206,
+    "hero": false,
+    "seed": 2232,
+    "scramble_moves": "U' R2 B' L2 R' F2 B L2 R2 U2 L' U' B R U2 R2 F L F B2 F L2 R2 U R2",
+    "scramble_len": 25,
+    "facelet": "BLUUUFDDBDLLRRRRBULFRRFFUDFBLDBDRLBFUFFDLUBURFULDBBRLD"
+  },
+  {
+    "id": 207,
+    "hero": false,
+    "seed": 2233,
+    "scramble_moves": "B' U2 D L F2 L' F D' R L' D' B' R F R2 D2 R2 D' U L B F B' L' U2",
+    "scramble_len": 25,
+    "facelet": "URDRUURBLDFBDRDLRFFLBUFFLFDULFLDBLDDBFUBLBUUFRURLBDRRB"
+  },
+  {
+    "id": 208,
+    "hero": false,
+    "seed": 2234,
+    "scramble_moves": "U2 D F B' U' R2 F B' L F2 L2 F L2 U D U2 B' L' D' U' D' L2 R2 D' R2",
+    "scramble_len": 25,
+    "facelet": "BBDBUFRRRDRLURDULFBUFDFFLRBUBLUDFUDLRLDBLRFLFBDUFBUDLR"
+  },
+  {
+    "id": 209,
+    "hero": false,
+    "seed": 2235,
+    "scramble_moves": "L2 R D' L D U' R' D2 U' R D2 R B2 L F B' L' F L2 R' D R2 B2 F2 D",
+    "scramble_len": 25,
+    "facelet": "UFLRUURLUBBUFRRLDFBBRFFURDBFFDRDLFBDFUDLLLLBUBRLDBURDD"
+  },
+  {
+    "id": 210,
+    "hero": false,
+    "seed": 2236,
+    "scramble_moves": "B2 D2 B' D2 R B2 D' U2 F2 U' L U2 L' U2 R2 L' D F2 R' B' L D U' D R",
+    "scramble_len": 25,
+    "facelet": "FFURURRFFUBBDRDFUUBURDFFFUDDBRLDLBFRLUDLLRDBLLLUBBDBRL"
+  },
+  {
+    "id": 211,
+    "hero": false,
+    "seed": 2237,
+    "scramble_moves": "U' R' D R' B2 L B2 R F U' B2 F' L' R' B R2 U' D R2 D' L2 R L U L'",
+    "scramble_len": 25,
+    "facelet": "UFRDUUBBLUFDLRLDBFUUFRFBFLRUUFBDRLRLBRLDLFBDRBLRDBFDUD"
+  },
+  {
+    "id": 212,
+    "hero": false,
+    "seed": 2238,
+    "scramble_moves": "L D L' F' R2 B' R L2 B2 U2 D2 U F D' B' R L' R2 U2 R2 L' D U B' R",
+    "scramble_len": 25,
+    "facelet": "LBBFUBDLFRDLLRRURRBDDUFURLRFFBUDULFDFDLBLBFFUURDDBLBRU"
+  },
+  {
+    "id": 213,
+    "hero": false,
+    "seed": 2239,
+    "scramble_moves": "L2 D L' U' R' F' B R2 B2 D2 R2 U L B' D F2 L D2 F2 B' D L' B R' F",
+    "scramble_len": 25,
+    "facelet": "URUFUUBBBLRFFRBDULUUDDFRBLRRDFLDLDBDFULRLFBFURBLLBDFDR"
+  },
+  {
+    "id": 214,
+    "hero": false,
+    "seed": 2240,
+    "scramble_moves": "R F U2 D' U R F' D R U' L2 D B L' R2 L' F' L F U F' B2 U' R B",
+    "scramble_len": 25,
+    "facelet": "LFFUURURLBFDDRBLLFBUUDFBRBDFRFBDDRFUDLRULRDUURLBLBFLDB"
+  },
+  {
+    "id": 215,
+    "hero": false,
+    "seed": 2241,
+    "scramble_moves": "B R2 L D' U2 L2 U' D' R F R' D2 B' L B L D U R' U2 R L U' F' U'",
+    "scramble_len": 25,
+    "facelet": "BUDBUDRRDFBBURDLRUUBRLFFFFBDRDFDDUULUUBFLBFLLRLLLBDFRR"
+  },
+  {
+    "id": 216,
+    "hero": false,
+    "seed": 2242,
+    "scramble_moves": "B' R F' L2 F' R U2 B2 D' U2 F B' R' D' R D B2 F R' L2 B2 R' U' F2 L'",
+    "scramble_len": 25,
+    "facelet": "FBLLUULFBRRBLRRRLBUUUDFBRBUBDFBDFDDLDUFFLLRRDDULDBRUFF"
+  },
+  {
+    "id": 217,
+    "hero": false,
+    "seed": 2243,
+    "scramble_moves": "F2 U' F D2 B D' R U2 D R' L2 B L B' U' D' F U2 F' U2 L' R U2 L F'",
+    "scramble_len": 25,
+    "facelet": "URUUUFLLBUDFLRBFLDFFLRFBLUDDBRDDDLRBBLDULFFBBRDRRBFRUU"
+  },
+  {
+    "id": 218,
+    "hero": false,
+    "seed": 2244,
+    "scramble_moves": "B2 U2 D' L2 U2 F' U' B' R2 U2 D2 F2 D2 R B F L' F2 D B2 F' R' F2 D' R'",
+    "scramble_len": 25,
+    "facelet": "LRRBUDBLFLFDBRDDFRRBUFFUULFLULRDRRDFDRULLUUUBBDBBBFDLF"
+  },
+  {
+    "id": 219,
+    "hero": false,
+    "seed": 2245,
+    "scramble_moves": "D' F' D' U D' L' B' F' B2 D2 L' B L' U' B R2 D' U2 D B' R2 U2 B' D2 L2",
+    "scramble_len": 25,
+    "facelet": "DUFLUBFULDLRDRBLRRLBBLFFRFDDUFDDBLFBRFUULDURFURBDBLURB"
+  },
+  {
+    "id": 220,
+    "hero": false,
+    "seed": 2246,
+    "scramble_moves": "U' L2 B U2 L U B2 D' L U' R D U D U2 R B' R2 F' B D' U' F' L' F2",
+    "scramble_len": 25,
+    "facelet": "RDULUFDLRURBRRDRRFBFBUFBLLUUBFDDDDULBULULRRFFLLDBBFDBF"
+  },
+  {
+    "id": 221,
+    "hero": false,
+    "seed": 2247,
+    "scramble_moves": "U L R' D2 R L2 U B L2 U L2 U2 D' B2 U D2 U2 B' U' B L2 B2 L U F2",
+    "scramble_len": 25,
+    "facelet": "FRFUUDDUUBRDURLBBBLLRFFFLBLURULDDLURUBFFLLBBFRFRDBDDRD"
+  },
+  {
+    "id": 222,
+    "hero": false,
+    "seed": 2248,
+    "scramble_moves": "R U B R F L B' L R2 D' U' L2 B2 F U2 D' F R' U F' R L2 D2 B' L2",
+    "scramble_len": 25,
+    "facelet": "BLDBULDBFLBBURLFRBBRUUFFDDRLLURDDRFUUDLFLBFUFRULFBRRDD"
+  },
+  {
+    "id": 223,
+    "hero": false,
+    "seed": 2249,
+    "scramble_moves": "R' D' B D' R U' F2 L2 U' D2 L B2 R' D B2 L' U' R U L2 F B F2 U B",
+    "scramble_len": 25,
+    "facelet": "BULFURBLBLFFBRFDRDRDDBFURLFFBLUDBFFBUDURLDDRUULLUBDRLR"
+  },
+  {
+    "id": 224,
+    "hero": false,
+    "seed": 2250,
+    "scramble_moves": "B F2 L2 R B D' R' F2 D' U2 B' U F' D' B' L D2 L2 D' L2 D2 R2 F R F",
+    "scramble_len": 25,
+    "facelet": "LUUBUBRFLFURURRRDFFDDLFRRRDDBBUDRBLUBDUFLBDLFBFUFBLLDL"
+  },
+  {
+    "id": 225,
+    "hero": false,
+    "seed": 2251,
+    "scramble_moves": "U' R F2 L R D2 L' B D' L B' L D' U2 L' U F' D U F2 L F' U D2 B2",
+    "scramble_len": 25,
+    "facelet": "RBBLUBRRBLDUDRBFLBBUDFFFFLRDUURDBUFLDDDRLULDLRRFUBFULF"
+  },
+  {
+    "id": 226,
+    "hero": false,
+    "seed": 2252,
+    "scramble_moves": "D' R' L R U2 R2 U2 R' L U2 R' D R2 B2 F' R D2 L' D2 U F' R' B' D2 U'",
+    "scramble_len": 25,
+    "facelet": "RDRRULDRLBBFRRBLLLRBUUFUBDDRFFDDDDLFFFBULLLBUDRUUBFUFB"
+  },
+  {
+    "id": 227,
+    "hero": false,
+    "seed": 2253,
+    "scramble_moves": "F2 B F2 U' F' D' U L2 B D' B' D B' D' R2 L' R' L U2 B U' L' F2 L F2",
+    "scramble_len": 25,
+    "facelet": "ULURURBFRDFBURDRRDLDFDFBBBBDLUDDBRUFFUDULRUBRLFLLBFLLF"
+  },
+  {
+    "id": 228,
+    "hero": false,
+    "seed": 2254,
+    "scramble_moves": "D2 B' U D' L F2 D B2 D2 R2 F U' B' F' D' U2 B2 R' U B2 D' B' U2 L' B'",
+    "scramble_len": 25,
+    "facelet": "LRBDUULUDLBUBRLRFLBFFLFRUBFRDDLDRDDFDFUDLBBUFRUBFBRULR"
+  },
+  {
+    "id": 229,
+    "hero": false,
+    "seed": 2255,
+    "scramble_moves": "U D' F R' D F B2 F' U R B' D2 B2 D' U2 F R F R L R2 B2 R L' B2",
+    "scramble_len": 25,
+    "facelet": "DBDUUFBDURDFDRURRRLLFRFRLBBBDULDUUBDFBDFLFLUULRRFBLBLF"
+  },
+  {
+    "id": 230,
+    "hero": false,
+    "seed": 2256,
+    "scramble_moves": "D L2 D2 L' D2 R2 U' B2 D' R2 D2 B R L2 U L B2 R2 L' B' F2 R2 L U2 L2",
+    "scramble_len": 25,
+    "facelet": "BURUUFRFFDUBRRDRUFBDLFFFLBUUDFRDRLLDLBDLLLUBFULDRBBRDB"
+  },
+  {
+    "id": 231,
+    "hero": false,
+    "seed": 2257,
+    "scramble_moves": "U' D B2 L' U R F U2 B R2 B U2 F' B2 F2 R B2 F' B F2 D2 U' R' F' D2",
+    "scramble_len": 25,
+    "facelet": "UFFBUDUDLBBDRRRDRRBFULFFRUFFLLLDDBUDFURFLBDDURULBBLBRL"
+  },
+  {
+    "id": 232,
+    "hero": false,
+    "seed": 2258,
+    "scramble_moves": "U2 F' R' B' U2 B L' B R' U L2 R U2 L B' F R F2 U B R B' L D L2",
+    "scramble_len": 25,
+    "facelet": "FDRLUFDUBULBBRRDUBBBLFFDLDRFFFBDRURRLBLULUFRDULUFBLDDR"
+  },
+  {
+    "id": 233,
+    "hero": false,
+    "seed": 2259,
+    "scramble_moves": "D L2 B' L F R B' R' L' F2 R2 F' D L U2 L D B L' F2 D' L U R' L",
+    "scramble_len": 25,
+    "facelet": "RRBLUFURBLURBRFFLDFDDLFLBRRUBUDDFFBRUULBLDLFLDUBRBDFUD"
+  },
+  {
+    "id": 234,
+    "hero": false,
+    "seed": 2260,
+    "scramble_moves": "L2 U2 R' D' F' L2 F' U2 F2 B' D F U2 F' B U D2 L R L2 F2 B D B2 D2",
+    "scramble_len": 25,
+    "facelet": "FBDBUDLUUBLLFRDLLBFLRRFUDFFRRUBDFFBLRUDULDRRBBDDFBRULU"
+  },
+  {
+    "id": 235,
+    "hero": false,
+    "seed": 2261,
+    "scramble_moves": "R B2 L D F' U2 D' U2 B2 D' R F2 L2 F' R U' D F R2 B2 D' F2 D2 B' U",
+    "scramble_len": 25,
+    "facelet": "DULUUDBLRFFBURFDDUUBULFRDUFRLLDDLUBLFFLBLFRRBDBRRBRFDB"
+  },
+  {
+    "id": 236,
+    "hero": false,
+    "seed": 2262,
+    "scramble_moves": "L F L2 F2 L F' R' U L' B U R' L2 B2 F' B F L R2 U' B D' F2 D' F",
+    "scramble_len": 25,
+    "facelet": "DDFUUULFRDBUBRLBFRFRFBFDUBLRLULDDDLBBFDULRBDFLRLUBRUFR"
+  },
+  {
+    "id": 237,
+    "hero": false,
+    "seed": 2263,
+    "scramble_moves": "U' F2 L2 U' D2 R2 L2 F2 B D2 R2 L R L' R' L' B L R' D R2 F R2 D' U'",
+    "scramble_len": 25,
+    "facelet": "ULFRURDFLBBRRRDDUDLLUFFUFBBLLRBDLFRLBFFULDDUUUDRBBFBDR"
+  },
+  {
+    "id": 238,
+    "hero": false,
+    "seed": 2264,
+    "scramble_moves": "U' D R' L F' U' R2 L' U B2 R2 L U B' F2 R L2 F B L2 F2 R F2 L' D'",
+    "scramble_len": 25,
+    "facelet": "DRFDUDLLBUBLBRLRUDUULFFUBFURDFRDRDUBFLFRLLLBUDDRBBFRFB"
+  },
+  {
+    "id": 239,
+    "hero": false,
+    "seed": 2265,
+    "scramble_moves": "U' F' R L2 B2 R F R2 B' U' B F L2 F B' U2 L2 D' L B' F2 R2 F2 R2 L2",
+    "scramble_len": 25,
+    "facelet": "FLDRUUFRBLBBURLRFLDBDBFFDRBFDUFDRRDULULLLLUDRRDUFBUBBF"
+  },
+  {
+    "id": 240,
+    "hero": false,
+    "seed": 2266,
+    "scramble_moves": "U' L2 D' U2 B2 F L' B2 U B2 L2 U F U' D2 F' L' F U' B U2 B' L' F' U'",
+    "scramble_len": 25,
+    "facelet": "BURFUUFFUFLURRLBBRDRLFFDRDDBFLBDLUUFRULDLLBRDFBUDBBDRL"
+  },
+  {
+    "id": 241,
+    "hero": false,
+    "seed": 2267,
+    "scramble_moves": "B2 L R U2 D' B' D2 R U' L R' D' F' L2 U D U2 L' B' R B F2 L2 R2 B2",
+    "scramble_len": 25,
+    "facelet": "RBBRURFLFUBLURLBDBRFRDFFFUULRRUDFFDDBFDLLRLBUULDDBULBD"
+  },
+  {
+    "id": 242,
+    "hero": false,
+    "seed": 2268,
+    "scramble_moves": "D2 L2 B2 F L2 F B L2 F L2 R' B2 D' L F2 B R2 F' L2 F2 D U F' U F2",
+    "scramble_len": 25,
+    "facelet": "BRDDUFBDFLRBLRLURULFULFFDFBFULBDDFBFRBDBLDLLRRUUUBRRUD"
+  },
+  {
+    "id": 243,
+    "hero": false,
+    "seed": 2269,
+    "scramble_moves": "R F2 U D2 F D2 B' R2 B L' U B' F' D' B2 L2 F' D' U' F2 L2 R' U B F'",
+    "scramble_len": 25,
+    "facelet": "BDRRUFLFLDRULRRLUUFUBLFDURUBBBBDLFULDUDBLFDLRFFRDBDFBR"
+  },
+  {
+    "id": 244,
+    "hero": false,
+    "seed": 2270,
+    "scramble_moves": "L2 R2 D2 B2 F' B' F L2 F D2 F' D U2 R' L2 U2 F D B R2 L' U' F2 L D'",
+    "scramble_len": 25,
+    "facelet": "FRRFULUDLFBFLRUUBURRDBFDDBRBRBLDURLBLDFRLDDULDUUFBFLFB"
+  },
+  {
+    "id": 245,
+    "hero": false,
+    "seed": 2271,
+    "scramble_moves": "F' R2 U2 F' R F2 B' U2 D' R U' B2 F2 D2 F D B2 D' R2 L B2 U' R2 U R2",
+    "scramble_len": 25,
+    "facelet": "RFFBUULLLBLURRRBLBFBUUFDLUUDRRUDDRRRFDDFLFFBBLLUFBDDBD"
+  },
+  {
+    "id": 246,
+    "hero": false,
+    "seed": 2272,
+    "scramble_moves": "L2 D2 R' U' F' B U2 B L2 B' U2 L' U L R' F' B' R' L' B2 U2 R' D2 B F2",
+    "scramble_len": 25,
+    "facelet": "FLBRUURBURBRFRLULUDRFRFULFBDRLFDFUDLDUFULDRDBDBLDBLFBB"
+  },
+  {
+    "id": 247,
+    "hero": false,
+    "seed": 2273,
+    "scramble_moves": "D U2 F2 L' D2 U R U R2 D' L D2 B2 R2 U' R U2 B2 L2 D R L2 R2 F2 L",
+    "scramble_len": 25,
+    "facelet": "FDDFUBDDUBLFLRFLRFBRRUFUUBFLDUFDBDUDULLBLRBRBLLRDBURFR"
+  },
+  {
+    "id": 248,
+    "hero": false,
+    "seed": 2274,
+    "scramble_moves": "B2 U F2 B' U2 D2 L' D' B2 R' F' U2 L2 U' F R' F2 D L F2 B D2 B2 U' L'",
+    "scramble_len": 25,
+    "facelet": "BUBDUDFBDLBRURFDUDLRFUFFRDRUFFLDBRLLURULLLUBBDRLRBDBFF"
+  },
+  {
+    "id": 249,
+    "hero": false,
+    "seed": 2275,
+    "scramble_moves": "R2 B F' L' D' F L U' R' B' R B' L' U' B2 R' L' D2 U D' L2 F2 B U R'",
+    "scramble_len": 25,
+    "facelet": "BLRLURRDBUBBRRFDUFFBLUFDBFFLRLFDBLBDDFURLLFUDUDRDBURLU"
+  },
+  {
+    "id": 250,
+    "hero": false,
+    "seed": 2276,
+    "scramble_moves": "F D2 F2 L2 U2 B' F L B U D L R' F2 U' R' D' R B2 U2 B' F D R' L2",
+    "scramble_len": 25,
+    "facelet": "UFUUUULBBLFBRRDRUFFDDRFFBRDRDBFDRUBDFLDLLBFLULDLLBBRUR"
+  },
+  {
+    "id": 251,
+    "hero": false,
+    "seed": 2277,
+    "scramble_moves": "R2 B' D F' D U2 B' D' U2 B' R' F2 D' B D2 R D' U2 L D2 L2 B' D B' F'",
+    "scramble_len": 25,
+    "facelet": "RFRLUUBBDBLFFRUUBBUDLUFDRULFRFLDRFLRUDLDLBLBUDRBFBRDFD"
+  },
+  {
+    "id": 252,
+    "hero": false,
+    "seed": 2278,
+    "scramble_moves": "D' U D' U' L' D' L2 B R' U2 F' D F B' F' B2 D2 U2 B2 L2 U2 D' R' B R'",
+    "scramble_len": 25,
+    "facelet": "FULLUBBFRFDBURDRULDLURFFLDBBRUUDLFRDLBRFLFDBUDRULBDFBR"
+  },
+  {
+    "id": 253,
+    "hero": false,
+    "seed": 2279,
+    "scramble_moves": "F2 B' F L' F' R2 U2 R F' D' B2 D' B2 R2 F' L2 U' B' D2 F' D B' U D2 U2",
+    "scramble_len": 25,
+    "facelet": "LULBURURDRBDLRRUBDRFBLFDBFLRDFLDLLBRDDFDLFUUUFFBUBRFUB"
+  },
+  {
+    "id": 254,
+    "hero": false,
+    "seed": 2280,
+    "scramble_moves": "R2 L U B2 D R B2 L2 R' D B R' L U R2 B' L R2 D' F2 D' B2 L2 U2 B",
+    "scramble_len": 25,
+    "facelet": "LBBLUFLUDRDURRBFLLBFBFFDUFDFRRUDBFRDDDUBLLRLLRUBDBRFUU"
+  },
+  {
+    "id": 255,
+    "hero": false,
+    "seed": 2281,
+    "scramble_moves": "R' B2 D B U' D U' B2 D2 F2 L D2 B L' F B2 D' U' B U' L2 F' D' L' U",
+    "scramble_len": 25,
+    "facelet": "UDRUUDFBDRRUURFBBDDRBUFRUBDLDLBDLBFRFFLFLLUUBFLLDBLFRR"
+  },
+  {
+    "id": 256,
+    "hero": false,
+    "seed": 2282,
+    "scramble_moves": "D2 U' F' D B U2 F R U R L' D R2 U' R' L2 R' F' R2 F' B2 F2 U2 D' R",
+    "scramble_len": 25,
+    "facelet": "FRLBULFUFRDFBRBBFLUBDUFDUFULLRFDDRUBDRRRLLDRBUDLLBUDFB"
+  },
+  {
+    "id": 257,
+    "hero": false,
+    "seed": 2283,
+    "scramble_moves": "U2 F2 R2 D R' L' B2 U F2 L D F B' F2 R' D2 L D' B D F2 B L2 B D'",
+    "scramble_len": 25,
+    "facelet": "DFFDURBRDRFLBRLUUFUUBFFUFFRRUBBDLFRUBRLLLLRDDDDLBBDLBU"
+  },
+  {
+    "id": 258,
+    "hero": false,
+    "seed": 2284,
+    "scramble_moves": "R2 B F' L U D U' L B2 D2 F' B2 D L B D L' D L D U2 R2 D F2 B2",
+    "scramble_len": 25,
+    "facelet": "FLLDUUBLBRFULRBBURDFULFDFBDLDLBDRDDURRRRLUFRUBBDUBFFFL"
+  },
+  {
+    "id": 259,
+    "hero": false,
+    "seed": 2285,
+    "scramble_moves": "R U2 R B' R' B' L R' L2 R D' B D L R2 D2 B2 U R' B' R' L B2 F' D'",
+    "scramble_len": 25,
+    "facelet": "FLRBUDBFFDBFRRUFDBLRLRFUUFRLDUBDRBFULLDULBRUBDDUFBLRLD"
+  },
+  {
+    "id": 260,
+    "hero": false,
+    "seed": 2286,
+    "scramble_moves": "F D' R2 F' U B U2 F' B U L2 D L' D R2 L2 D' R2 D B R2 F' B' U2 B2",
+    "scramble_len": 25,
+    "facelet": "UDRDUURUFLRUFRLBFDDBUBFUFRRDFDBDLUDLBLFLLRBDLFFRUBBBRL"
+  },
+  {
+    "id": 261,
+    "hero": false,
+    "seed": 2287,
+    "scramble_moves": "D' B R2 U B' F' R' F2 B' F' D U2 D2 B' L2 U B2 U' R' F' R2 L' R B D",
+    "scramble_len": 25,
+    "facelet": "BDDBURFFFRULLRBUFRDUDLFFRDLBBFBDDBDURLLRLULUDBLURBFFRU"
+  },
+  {
+    "id": 262,
+    "hero": false,
+    "seed": 2288,
+    "scramble_moves": "B2 R2 U2 D' R F2 R' U R U' R2 D U R2 D F B2 F R' B2 D2 B F R' B",
+    "scramble_len": 25,
+    "facelet": "BLFUURULLDFDRRFDDUFFBLFBRDFUBLUDLRDBDRLFLBUBBRURDBULRF"
+  },
+  {
+    "id": 263,
+    "hero": false,
+    "seed": 2289,
+    "scramble_moves": "B' F' L F2 L2 D U2 B R2 B2 D2 U2 R' D' F D F B2 R' B2 R' U' R' L' B2",
+    "scramble_len": 25,
+    "facelet": "DBLBUDDRFDLUDRBLLURFLFFRUFFBDURDUDRFBUBLLURURBDLLBFRBF"
+  },
+  {
+    "id": 264,
+    "hero": false,
+    "seed": 2290,
+    "scramble_moves": "B' L' D' U' D2 L2 U D F' R2 L' F L' F' D2 F2 B R F' L' U' D F L2 B",
+    "scramble_len": 25,
+    "facelet": "RDRUULDRFDFDFRDFBFBULUFDLFRBRULDURBUUFLDLLFBUBBBLBRLRD"
+  },
+  {
+    "id": 265,
+    "hero": false,
+    "seed": 2291,
+    "scramble_moves": "U2 D B U' F2 U F' U F2 L' R' B' L' U B2 F D' U' D2 B2 R L U D2 R2",
+    "scramble_len": 25,
+    "facelet": "URDRULBDRBURFRRDULLRDFFURLFFFLLDBUBFBFDBLDBDUFURBBDULL"
+  },
+  {
+    "id": 266,
+    "hero": false,
+    "seed": 2292,
+    "scramble_moves": "R B' L U B' L2 R2 L2 D' L2 F2 L' B L D F B' D2 B L2 U' B D R L2",
+    "scramble_len": 25,
+    "facelet": "URLUUBFFBULBLRDUULRRLRFFDLLRDFRDBFFDBFDLLBRDBDURBBUFDU"
+  },
+  {
+    "id": 267,
+    "hero": false,
+    "seed": 2293,
+    "scramble_moves": "B2 F2 B2 F L F D F' R' D2 U2 L2 B2 L' D2 F D2 R' U D' F B' D U D'",
+    "scramble_len": 25,
+    "facelet": "RRBRUFRLLUULURDFUFDFFUFLBBRDLUDDRDBLUFFDLBLRRUBBLBFDDB"
+  },
+  {
+    "id": 268,
+    "hero": false,
+    "seed": 2294,
+    "scramble_moves": "L' B F D2 R F2 L B D U' F' D2 R2 D2 F' U2 D' U D' U2 D' U2 D U' B'",
+    "scramble_len": 25,
+    "facelet": "FRRRURFFDRUULRRUUFLUBFFFBDBLBLLDLRBLRDUBLDBDDFBDFBUDLU"
+  },
+  {
+    "id": 269,
+    "hero": false,
+    "seed": 2295,
+    "scramble_moves": "L2 B2 F U2 D' L F2 B F2 B' R2 D2 R' U2 D' R' F2 L D' U' L U B D2 R2",
+    "scramble_len": 25,
+    "facelet": "DRURUFDFBDUBBRRBDULLRDFRULDFBLDDFFURFFFULBRLLLDRUBLBBU"
+  },
+  {
+    "id": 270,
+    "hero": false,
+    "seed": 2296,
+    "scramble_moves": "B U D' L' F' B' F2 B R L U' R2 L' B' R F2 D' B' U L F2 L2 R2 F' L",
+    "scramble_len": 25,
+    "facelet": "FFURUBFLBDLBRRFULDRURFFBRUFUFRRDDFDLLDDBLDLUBLLURBUBBD"
+  },
+  {
+    "id": 271,
+    "hero": false,
+    "seed": 2297,
+    "scramble_moves": "F2 L' D L' R2 F2 U' R2 F2 B2 U D U' D' U' B U2 B F L2 U D' U B F'",
+    "scramble_len": 25,
+    "facelet": "RBFDUUURRDLLBRDURRRFFFFLBBLUUFRDULDBBRFLLUBBLDDDFBFULD"
+  },
+  {
+    "id": 272,
+    "hero": false,
+    "seed": 2298,
+    "scramble_moves": "R F' L' F' L D' L2 R2 D B2 F B' R L' B F U D' U2 R U2 R' D' L B2",
+    "scramble_len": 25,
+    "facelet": "DRUFURBFRBDFDRFFUFRDDBFBBLDLDRUDBULULLUULLBRDRBFRBFLUL"
+  },
+  {
+    "id": 273,
+    "hero": false,
+    "seed": 2299,
+    "scramble_moves": "D' F2 D2 B2 L' U L2 D L R F' R' F' D2 R' F U L R B' D2 U2 F B D'",
+    "scramble_len": 25,
+    "facelet": "RDLFUUBDBRBFDRFDRDLLUFFRLDRFFFRDUBUBFLDBLRLBDUBUUBLRLU"
+  },
+  {
+    "id": 274,
+    "hero": false,
+    "seed": 2300,
+    "scramble_moves": "B F' R U2 L D' L D2 R B2 L' R F R' F2 U2 B L' R D' B F B2 U D'",
+    "scramble_len": 25,
+    "facelet": "UFRLURLURBDFBRFBBFDFDRFDBDLRLURDUFBURUBULFLBUDDFLBRLLD"
+  },
+  {
+    "id": 275,
+    "hero": false,
+    "seed": 2301,
+    "scramble_moves": "R L' F2 L B' F' B' D U' B2 R L' U B R2 D2 R' B2 D' U R L R2 U2 L2",
+    "scramble_len": 25,
+    "facelet": "FLLUUBDULDLFRRLURURLBBFDUFBRRLDDUDBRRBBULDFFFUFDDBFBRL"
+  },
+  {
+    "id": 276,
+    "hero": false,
+    "seed": 2302,
+    "scramble_moves": "U2 R' F L' D B R' D' B2 R2 U R D' B R' B F2 B2 L' D F2 L' R' B' D",
+    "scramble_len": 25,
+    "facelet": "RUDDUDLLLDBFBRFBRBUUBDFLFFURLRUDBBBLFLFRLRRRDLFUDBFUUD"
+  },
+  {
+    "id": 277,
+    "hero": false,
+    "seed": 2303,
+    "scramble_moves": "D U' L2 U2 F R D' L D2 B D L' U' F2 R' B2 R' U B' R' D2 L U' B2 R",
+    "scramble_len": 25,
+    "facelet": "DUDBULRUDRDRURLUBBURBDFLUFLRRFDDRBDDLUBBLRLFFFFFFBLLBU"
+  },
+  {
+    "id": 278,
+    "hero": false,
+    "seed": 2304,
+    "scramble_moves": "B2 R' F2 B U' D2 U2 F' L' R' F2 L B' D L2 R' D2 L2 B' F L' F2 L D' U2",
+    "scramble_len": 25,
+    "facelet": "BUULUFBUBLRRDRDLLLDFDRFLDFDFDFBDFUUFUURRLBFLRBBLBBDURR"
+  },
+  {
+    "id": 279,
+    "hero": false,
+    "seed": 2305,
+    "scramble_moves": "D2 F L2 F2 U' B2 D B' R F2 U' F U B D2 B2 L2 D2 L' D' F2 B2 U' D' U2",
+    "scramble_len": 25,
+    "facelet": "BBRFURBBUFDFRRDDFRRLLBFUULFRDLUDUUFDLLURLUBLFDDDFBBBRL"
+  },
+  {
+    "id": 280,
+    "hero": false,
+    "seed": 2306,
+    "scramble_moves": "B D U2 R L2 U2 F' D U2 F2 D2 B R U' F L D U2 B2 D2 F L' B F D",
+    "scramble_len": 25,
+    "facelet": "FBLLUDFDBDFBURDRUUURRBFLBRFUFDRDFRLLDDRBLLBULDULBBRFFU"
+  },
+  {
+    "id": 281,
+    "hero": false,
+    "seed": 2307,
+    "scramble_moves": "R B R' F' R B' F R' U' B2 R2 D2 L' R L2 B' U2 F L2 R' D' F2 U2 R B2",
+    "scramble_len": 25,
+    "facelet": "FBRBUDRURURUFRUUDBDLBBFRDUBLBLLDFRUDLDFLLRDDFFLURBFLFB"
+  },
+  {
+    "id": 282,
+    "hero": false,
+    "seed": 2308,
+    "scramble_moves": "F2 U' R D2 R' L' R' D' F L2 F L U2 F' U2 B2 R F' B2 U2 R2 D U2 D2 R'",
+    "scramble_len": 25,
+    "facelet": "RRDFUDDFDFBBURLLRFBURUFLBFDULFUDDFDRURLLLBURLRBBBBDUFL"
+  },
+  {
+    "id": 283,
+    "hero": false,
+    "seed": 2309,
+    "scramble_moves": "L2 R2 L2 B' D2 L' B2 F L2 B' L' R' F D' R2 U2 L U2 D2 U' D' B R' L F'",
+    "scramble_len": 25,
+    "facelet": "BRFDUDLFLUFLBRUULBDLFUFRFRBRFLLDDRDRRBBLLBUUDDUUFBBDRF"
+  },
+  {
+    "id": 284,
+    "hero": false,
+    "seed": 2310,
+    "scramble_moves": "R B' F' D' U B' U R' L' F R' F B U' B2 L2 R U' F' R2 U' F2 D2 B R",
+    "scramble_len": 25,
+    "facelet": "UULLUDDURFLDFRBFRRBBUBFDLUDURRFDFRBBLFLDLRDUFFLBLBRUDB"
+  },
+  {
+    "id": 285,
+    "hero": false,
+    "seed": 2311,
+    "scramble_moves": "D' F R B2 R' U D2 R' U2 R' L' U' L R2 D2 R2 L F U' R2 D' B2 R L2 B",
+    "scramble_len": 25,
+    "facelet": "ULFFUFRUUFUDBRDFLDBRLDFUDBRBRUDDUBRFLLDBLRUFLRDBBBLLFR"
+  },
+  {
+    "id": 286,
+    "hero": false,
+    "seed": 2312,
+    "scramble_moves": "B U B2 L2 D R' F D' B' R2 B2 F2 U' B' D' U' B2 L' F D' B' R L F2 B'",
+    "scramble_len": 25,
+    "facelet": "UFRDUDRULFFDLRRLBRDLDFFBLDUUBBUDRDLUBRFLLRLBFBURUBFFDB"
+  },
+  {
+    "id": 287,
+    "hero": false,
+    "seed": 2313,
+    "scramble_moves": "F2 B U2 F' R D L' B D B F2 R2 D2 B L' B' U2 R' U F L2 U' D2 L2 B",
+    "scramble_len": 25,
+    "facelet": "UURFUUFDRBFFLRRDBLUBDFFBFFLDLBDDRULUBRRBLDLLLDRRDBUBUF"
+  },
+  {
+    "id": 288,
+    "hero": false,
+    "seed": 2314,
+    "scramble_moves": "L U B F L D U' B2 D2 R F L2 U' L' F2 L F U' R B2 D2 R2 U' L2 U2",
+    "scramble_len": 25,
+    "facelet": "BRLDULRBULUDURLFDDULBDFBRUUFFLFDLRBBLRBRLBFDUFUDFBFRRD"
+  },
+  {
+    "id": 289,
+    "hero": false,
+    "seed": 2315,
+    "scramble_moves": "L2 U' B F' U' B2 F2 D' L U D' L' F2 D2 U2 F B2 U' B R2 D B2 L R D'",
+    "scramble_len": 25,
+    "facelet": "FDDDUFULUFURDRBFLRLFLRFRBRRLBUUDBRDDDBBRLFBLDFLLUBUBFU"
+  },
+  {
+    "id": 290,
+    "hero": false,
+    "seed": 2316,
+    "scramble_moves": "F2 R D' B2 D' B U D L' B2 F L2 R L2 F B F2 U2 R L D U' B D' U",
+    "scramble_len": 25,
+    "facelet": "BBBBURLBRFFUFRLFLBULULFDFRLRBDRDDRUDUUFDLFDUDRDLUBRLFB"
+  },
+  {
+    "id": 291,
+    "hero": false,
+    "seed": 2317,
+    "scramble_moves": "F D R' B2 R' L2 B2 D2 B F2 R' L2 U2 B2 U' R2 D2 U F2 L2 D B' R' B2 D'",
+    "scramble_len": 25,
+    "facelet": "FLDDUFRDBLURRRDLBLBRDUFURUDUBFLDRULUUFDFLLLDBFBRBBRBFF"
+  },
+  {
+    "id": 292,
+    "hero": false,
+    "seed": 2318,
+    "scramble_moves": "D R U2 D R2 U' D2 F' R F' U' R' U2 R2 F' B' L' U' R2 U' B' U2 D' B' L2",
+    "scramble_len": 25,
+    "facelet": "LDFRUFRBUFLLURLBRDDULDFFRDLUFUBDFRDBDUFLLBURBDRBBBURLF"
+  },
+  {
+    "id": 293,
+    "hero": false,
+    "seed": 2319,
+    "scramble_moves": "D U' F L2 F' U R2 L D2 R2 D L2 F' D F' U F' L F R' D' B' U B2 L2",
+    "scramble_len": 25,
+    "facelet": "UUDUUFUBUBDRBRLURBFRRBFDDLBBDLRDDDURRFLRLLFULFBFFBFDLL"
+  },
+  {
+    "id": 294,
+    "hero": false,
+    "seed": 2320,
+    "scramble_moves": "B F' R2 F' U2 B2 D2 L B' L U F' B' U2 R L' U' F R B L R' L2 R B",
+    "scramble_len": 25,
+    "facelet": "RLBFUURRRULDFRULBRFDBBFUDDFLLUDDRBFDDDUFLULBFLBFRBRBLU"
+  },
+  {
+    "id": 295,
+    "hero": false,
+    "seed": 2321,
+    "scramble_moves": "R2 L2 D F B F D U D2 F R2 B' R2 F' R' U' D2 L D' L' U' F' B F2 L'",
+    "scramble_len": 25,
+    "facelet": "DFUFUUBRFDLFURBLFBLDLBFBFRFRFULDDUDLRUDULLRDDRLBRBRUBB"
+  },
+  {
+    "id": 296,
+    "hero": false,
+    "seed": 2322,
+    "scramble_moves": "U2 F' U2 L' U' F R' B' D' R' D' F2 D' U2 B2 D B' U' B' R' D' L2 B D' B2",
+    "scramble_len": 25,
+    "facelet": "UDDLUFBRLURFURDUBFDUFBFLLBFDURFDRLLDBDRULDULBLRRFBFRBB"
+  },
+  {
+    "id": 297,
+    "hero": false,
+    "seed": 2323,
+    "scramble_moves": "F U' R U L R2 U' L2 F2 B2 L' F2 L2 D' U2 D' U B' F' L2 B2 L' R2 B L'",
+    "scramble_len": 25,
+    "facelet": "UBFDULLBRBFDDRLFLLDUDUFRBFLRDDUDBFRFLBBRLFRLURRBDBFUUU"
+  },
+  {
+    "id": 298,
+    "hero": false,
+    "seed": 2324,
+    "scramble_moves": "B2 F R' D L2 R F R L' D F2 R2 F L2 F2 D2 R2 L' D' F2 L2 F' L B2 F2",
+    "scramble_len": 25,
+    "facelet": "RBDUULBUUFDLLRFFDRUFLUFBRFLULDRDRDDDFLLBLRRFBBRUDBUBBF"
+  },
+  {
+    "id": 299,
+    "hero": false,
+    "seed": 2325,
+    "scramble_moves": "B' F2 L B2 L2 F' D2 U2 F2 D2 L2 F2 L F' D U' R2 B R' F' R B2 U2 R' D2",
+    "scramble_len": 25,
+    "facelet": "DBBDURFRFLFLFRUBBLDUUUFLRBUFLRDDRRUBRFLDLFFLUUDBLBRDBD"
+  }
+]
