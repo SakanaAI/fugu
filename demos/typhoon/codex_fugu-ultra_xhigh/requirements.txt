@@ -1,0 +1,11 @@
+# Install inside this directory, e.g.:
+#   python3 -m venv .venv
+#   . .venv/bin/activate
+#   pip install -r requirements.txt
+numpy>=1.26
+scipy>=1.11
+xarray>=2024.1
+cfgrib>=0.9.10
+eccodes>=1.7
+netCDF4>=1.6
+ecmwf-opendata>=0.3.30

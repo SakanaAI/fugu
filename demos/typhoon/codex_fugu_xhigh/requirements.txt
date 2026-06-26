@@ -1,0 +1,7 @@
+numpy>=1.26
+scipy>=1.11
+xarray>=2024.1
+netCDF4>=1.6
+cfgrib>=0.9.10
+eccodes>=1.6
+ecmwf-opendata>=0.3.8

@@ -1,0 +1,34 @@
+# Python environments & caches
+.venv/
+venv/
+.pip-cache/
+.pipcache/
+__pycache__/
+*.pyc
+
+# Downloaded data, model artefacts, run outputs — regenerable, not committed
+data/
+data_cache/
+output/
+logs/
+models/
+artifacts/
+training_data/
+*.nc
+*.zarr/
+*.grib2
+*.grib2.bz2
+*.joblib
+*.parquet
+*.npz
+provenance.json
+
+# rendered media — shared separately, kept out of the repo
+*.gif
+*.mp4
+*.webm
+
+# backups / temp
+*.bak
+*.bak.*
+*.may1*
