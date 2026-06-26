@@ -1,0 +1,124 @@
+commit	val_bpb	memory_gb	status	description
+cc1d832	0.997428	44.0	keep	baseline
+c9a7c1c	0.99637	44.0	keep	warmup 0.05
+8ad6316	1.041792	54.1	discard	aspect ratio 80
+4a9d2f5	0.988355	43.9	keep	batch size 2**18
+e177ff1	0.993649	22.2	discard	batch size 2**17
+4ac7f7a	1.029886	26.5	discard	depth 6
+e7b3943	0.989041	43.9	discard	matrix lr 0.02
+e13d933	1.010504	33.9	discard	aspect ratio 48
+64c9bae	1.00504	43.9	discard	gelu activation
+e7aa447	0.994523	43.9	discard	head dim 64
+e7960f9	0.989832	43.9	discard	window pattern L
+2809adb	1.001848	42.8	discard	remove value embeddings
+1578f40	0.989585	43.9	discard	adam betas (0.9, 0.95)
+864a422	0.988949	43.9	discard	adam betas (0.7, 0.95)
+044952d	0.993038	39.8	discard	mlp expansion 3x
+60f8827	0.989791	43.9	discard	warmup ratio 0.1
+157cd23	0.994796	43.9	discard	warmdown ratio 0.2
+feea234	0.989131	43.9	discard	ns_steps 4
+1dcd52a	0.988835	43.9	discard	ns_steps 6
+ff50134	0.989443	43.9	discard	final lr frac 0.1
+6920cec	0.991137	43.9	discard	weight decay 0.0
+9996c5a	0.985638	60.2	keep	depth 9
+8a3c9d9	0.986221	66.2	discard	depth 10
+0744e41	0.985839	48.9	discard	aspect ratio 56
+a189e69	0.991529	60.2	discard	halve emb lrs
+02c1d77	0.985611	60.2	discard	scalar lr 1.0
+1ba2619	0.9866	60.2	discard	matrix lr 0.05
+2ff4dff	0.984741	60.2	keep	embed lr 1.0
+3d4a302	0.984466	60.2	keep	embed lr 1.2
+3378268	0.984474	60.2	discard	embed lr 1.4
+0cd639f	0.983686	60.2	keep	unembed lr 0.006
+c60d231	0.985969	60.2	discard	unembed lr 0.008
+6cafdf6	0.984795	60.2	discard	scalar lr 0.2
+43343be	0.984518	60.2	discard	window pattern SLSL
+995c341	0.985097	60.2	discard	warmup ratio 0.02
+17580a3	0.98483	60.2	discard	adam betas (0.85, 0.95)
+cde1c52	0.985502	60.2	discard	ve_gate_channels 64
+092f742	0.983732	60.2	discard	ve_gate_channels 16
+21633a0	0.98723	58.6	discard	ungated value embeddings
+3a587ed	0.985311	60.2	discard	window pattern SSL
+90bd79b	0.983485	60.2	keep	weight decay 0.1
+9965527	0.984796	60.2	discard	adam betas (0.75, 0.95)
+5f53087	0.983047	60.2	keep	aspect ratio 60
+8d31e99	0.983901	60.2	discard	aspect ratio 58
+afb1dcd	0.989454	71.5	discard	head dim 256
+b541493	0.983697	60.2	discard	window pattern S
+c7295fc	0.985155	60.2	discard	matrix lr 0.03
+83ab88b	0.983594	60.2	discard	warmdown ratio 0.4
+b00142b	0.983758	60.2	discard	warmup ratio 0.04
+d654a47	0.984665	60.2	discard	warmup ratio 0.06
+09a7719	1.000757	30.7	discard	batch 2**19, seq_len 1024
+e4e50f2	0.983323	60.2	discard	muon momentum 0.90
+17f1b81	0.986257	60.2	discard	adam betas (0.8, 0.99)
+eb1ffb5	0.984041	60.2	discard	softcap 20
+0aeb4f4	0.983923	60.2	discard	softcap 10
+c362846	0.981806	30.5	keep	batch 2**17
+936f9c2	0.991747	15.6	discard	batch 2**16
+0a5c765	0.98146	33.5	keep	depth 10
+a61a75d	0.986447	43.8	discard	depth 11
+fd0722a	0.981303	33.5	discard	aspect ratio 64
+0409277	0.98171	33.5	discard	aspect ratio 56
+1c9ec57	0.984914	36.7	discard	depth 11, aspect ratio 56
+d447614	0.982333	36.3	discard	depth 9, aspect ratio 72
+adac87b	1.026276	33.5	discard	warmdown ratio 0.0
+edc08a6	0.983184	49.9	discard	batch 196k
+14eec16	0.990894	17.4	discard	device batch 32
+60f3284	0.980849	33.5	keep	muon momentum 0.92
+a23b5b6	0.980585	33.5	keep	muon momentum 0.91
+e91964d	0.983516	39.7	discard	depth 12, aspect ratio 48
+50631a8	0.981166	33.5	discard	softcap 12
+6bf91bf	0.980696	33.5	keep	adam betas (0.82, 0.95)
+2b50b07	0.981357	33.5	discard	adam betas (0.83, 0.95)
+ce756ef	0.9815	33.5	discard	adam betas (0.81, 0.95)
+384f656	0.980299	33.5	keep	warmdown ratio 0.6
+eac0a27	0.980221	33.5	keep	warmdown ratio 0.7
+f71c32f	0.980067	33.5	discard	warmdown ratio 0.8
+06cbc72	0.980029	33.5	keep	warmdown ratio 0.75
+dc732d8	0.97964	33.5	keep	final lr frac 0.05
+ff384c0	0.980325	33.5	discard	final lr frac 0.08
+3cf560a	0.980516	33.5	discard	warmup ratio 0.08
+bb99b39	0.980017	33.5	discard	scalar lr 0.25
+3065465	0.979421	33.5	keep	final lr frac 0.02
+88e5c9f	0.979728	33.5	discard	final lr frac 0.01
+78d1b8f	0.980385	33.5	discard	x0_lambdas init 0.2
+8d14c0d	0.982992	32.1	discard	remove x0 skip connection
+39f1f2e	0.978995	33.5	keep	x0_lambdas init 0.05
+478c995	0.980655	33.5	discard	x0_lambdas init 0.02
+eb17bc3	0.979122	33.5	keep	x0_lambdas init 0.08
+fbccda4	0.978888	33.5	discard	x0_lambdas init 0.09
+9f87679	0.979205	33.5	discard	x0_lambdas init 0.07
+26d613c	0.979274	33.5	discard	adam betas (0.82, 0.96)
+1543a5c	0.979517	33.5	discard	window pattern SSSSL
+a46e77c	0.979302	33.5	keep	final lr frac 0.03
+7e60161	0.979716	33.5	discard	scalar lr 0.6
+28c1a39	0.978935	33.5	discard	scalar lr 0.4
+5a090c1	0.979802	33.5	discard	weight decay 0.05
+04a7e00	0.980886	33.5	discard	weight decay 0.15
+b1ed3ee	0.989226	33.5	discard	resid lambdas init 0.5
+342f230	0.98031	33.5	discard	rope base 500k
+e9144c2	0.989649	33.5	discard	rope base 500
+e783c41	0.978656	33.5	keep	rope base 50000
+5651b1f	0.979467	33.5	discard	rope base 100k
+2137a46	0.97949	33.5	discard	rope base 25k
+5a12a7b	0.979384	33.5	discard	softcap 18
+7ec58fa	0.978959	33.5	discard	softcap 14
+ce76a44	0.979051	33.5	keep	x0_lambdas init 0.085
+9c5b0c9	0.978899	33.5	discard	adam betas (0.82, 0.94)
+fa7b8d8	0.979283	33.5	discard	weight decay 0.12
+60b2604	0.978926	33.5	discard	matrix lr 0.035
+664f698	0.979605	33.5	discard	matrix lr 0.045
+a264239	0.978969	33.5	keep	embedding lr 1.1
+ff87574	0.978448	33.5	keep	embedding lr 1.05
+2f68e23	0.978575	33.5	keep	embedding lr 1.0
+401900a	0.978252	33.5	keep	embedding lr 0.95
+0fc1b05	0.978884	33.5	discard	embedding lr 0.9
+ce4d533	0.978864	33.5	discard	unembedding lr 0.005
+ebf45cb	0.978687	33.5	discard	unembedding lr 0.007
+a603676	0.978957	33.5	discard	scalar_lr mult 0.02
+499e794	0.987357	28.9	discard	MQA (n_kv_head=1)
+9149c37	0.978399	33.5	discard	embedding lr 0.85
+b8a3553	0.978568	33.5	keep	embedding lr 0.98
+061b8ca	0.978578	33.5	discard	embedding lr 0.99
+37b3d59	0.978744	33.5	discard	embedding lr 0.97

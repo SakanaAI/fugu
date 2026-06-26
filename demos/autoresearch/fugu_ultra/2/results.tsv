@@ -1,0 +1,129 @@
+commit	val_bpb	memory_gb	status	description
+3994915	0.996418	44.0	keep	baseline
+af33b9e	0.995679	44.0	keep	MATRIX_LR 0.04 -> 0.06
+eb02e29	0.999872	44.0	discard	MATRIX_LR 0.06 -> 0.08
+191a71d	0.995531	44.0	keep	EMBEDDING_LR 0.6 -> 0.9
+8f9f08f	0.997199	44.0	discard	EMBEDDING_LR 0.9 -> 1.2
+310b4fb	0.998266	44.0	discard	WARMDOWN_RATIO 0.5 -> 0.3
+650f82f	0.998333	44.0	discard	UNEMBEDDING_LR 0.004 -> 0.008
+65eaba1	1.035102	66.5	discard	DEPTH 8 -> 10
+b142ec4	1.000850	44.0	discard	WINDOW_PATTERN SSSL -> L (full attn all layers)
+3e23072	1.040102	54.1	discard	ASPECT_RATIO 64 -> 80 (dim 512->640)
+456032a	0.998406	44.0	discard	WEIGHT_DECAY 0.2 -> 0.0
+5b0f567	0.996434	44.0	discard	ADAM_BETAS beta1 0.8 -> 0.9
+3df89ca	0.991351	43.9	keep	TOTAL_BATCH_SIZE 2**19 -> 2**18
+b6d3dca	0.997006	22.2	discard	TOTAL_BATCH_SIZE 2**18 -> 2**17 (DEV 128->64)
+a8c867d	0.987369	43.9	keep	MATRIX_LR 0.06 -> 0.04 (at TBS 2**18)
+39fcdef	0.986026	43.9	keep	MATRIX_LR 0.04 -> 0.03
+107028d	0.986768	43.9	discard	MATRIX_LR 0.03 -> 0.02
+5a266a4	0.986737	43.9	discard	EMBEDDING_LR 0.9 -> 0.6
+39d120b	0.984499	60.2	keep	DEPTH 8 -> 9
+c96a1f5	0.985025	66.2	discard	DEPTH 9 -> 10
+769f7c1	0.984781	60.2	discard	MATRIX_LR 0.03 -> 0.025 (at DEPTH 9)
+dd0a27b	0.983940	60.2	keep	MATRIX_LR 0.03 -> 0.035 (at DEPTH 9)
+93b16f1	0.983546	60.2	keep	MATRIX_LR 0.035 -> 0.04 (at DEPTH 9)
+2c47869	0.985467	60.2	discard	MATRIX_LR 0.04 -> 0.05
+197d08e	0.983346	60.2	keep	EMBEDDING_LR 0.9 -> 0.6 (at DEPTH 9, MATRIX 0.04)
+f9f9c24	0.985107	60.2	discard	EMBEDDING_LR 0.6 -> 0.45
+0b3c3cd	0.984396	60.2	discard	WARMDOWN_RATIO 0.5 -> 0.4
+0a0f3c2	0.982794	60.2	keep	WARMDOWN_RATIO 0.5 -> 0.6
+5361020	0.982440	60.2	keep	WARMDOWN_RATIO 0.6 -> 0.7
+252062f	0.982829	60.2	discard	WARMDOWN_RATIO 0.7 -> 0.8
+ba9d039	0.982860	60.2	discard	WEIGHT_DECAY 0.2 -> 0.1
+35bd5e7	0.983930	60.2	discard	WEIGHT_DECAY 0.2 -> 0.3
+f338f65	0.983709	60.2	discard	WARMUP_RATIO 0.0 -> 0.05
+1c5d5b9	0.981318	60.2	keep	SCALAR_LR 0.5 -> 0.25
+cfc5f6d	0.981444	60.2	discard	SCALAR_LR 0.25 -> 0.1
+40315c8	0.982040	60.2	discard	retune MATRIX_LR 0.04 -> 0.05
+4d911f7	0.988957	54.7	discard	HEAD_DIM 128 -> 64
+e8cebc6	0.981064	60.2	keep	EMBEDDING_LR 0.6 -> 0.75
+20e4951	0.981338	60.2	discard	EMBEDDING_LR 0.75 -> 0.85
+bbf8f59	0.980436	60.2	keep	UNEMBEDDING_LR 0.004 -> 0.006
+8f621df	0.983151	60.2	discard	UNEMBEDDING_LR 0.006 -> 0.008
+aed60e1	0.980762	60.2	discard	WARMDOWN_RATIO 0.7 -> 0.75
+7b2e83a	0.984767	71.6	discard	ASPECT_RATIO 64 -> 72 (dim 512->768 at depth 9)
+cdc290c	0.981364	60.2	discard	WINDOW_PATTERN SSSL -> SSLL
+978534b	0.985148	60.2	discard	logit softcap 15 -> 30
+69e6892	0.981741	60.2	discard	logit softcap 15 -> 10
+11418d5	0.982389	54.5	discard	MLP expansion 4x -> 3x
+d142c8a	0.983884	65.9	discard	MLP expansion 4x -> 5x
+5a39b5e	0.978977	30.5	keep	TBS 2**18 -> 2**17 (DEV 128->64) at DEPTH 9
+054d325	0.995202	15.6	discard	TBS 2**17 -> 2**16 (DEV 64->32)
+923bac0	0.981246	33.5	discard	DEPTH 9 -> 10 (at TBS 2**17)
+23de12a	0.976306	30.5	keep	retune MATRIX_LR 0.04 -> 0.03 at TBS 2**17
+44cd230	0.976434	30.5	discard	MATRIX_LR 0.03 -> 0.02
+4facaeb	0.976924	30.5	discard	EMBEDDING_LR 0.75 -> 0.6
+f790dc5	0.977051	30.5	discard	WARMDOWN_RATIO 0.7 -> 0.6 at TBS 2**17
+10db165	0.976141	30.5	keep	WARMDOWN_RATIO 0.7 -> 0.8 at TBS 2**17
+7a5054a	0.975991	30.5	keep	WARMDOWN_RATIO 0.8 -> 0.9
+caa52f7	0.975782	30.5	keep	WARMDOWN_RATIO 0.9 -> 1.0
+87bea88	0.978309	33.5	discard	DEPTH 9 -> 10 with WARMDOWN=1.0
+dcb284f	0.976101	30.5	discard	MATRIX_LR 0.03 -> 0.035 at WARMDOWN=1.0
+91c0080	0.975784	30.5	discard	MATRIX_LR 0.03 -> 0.025 (essentially tied)
+7541afb	0.977101	30.5	discard	EMBEDDING_LR 0.75 -> 0.9
+4ba9916	0.976374	30.5	discard	UNEMBEDDING_LR 0.006 -> 0.005
+7ce84da	0.978186	30.5	discard	SCALAR_LR 0.25 -> 0.5
+c11719e	0.980088	30.5	discard	WARMUP_RATIO 0.0 -> 0.02
+d89d1f6	0.976533	30.5	discard	WEIGHT_DECAY 0.2 -> 0.1
+d3caf94	0.977039	30.5	discard	WEIGHT_DECAY 0.2 -> 0.3
+560e1a4	0.976525	30.5	discard	ADAM_BETAS beta2 0.95 -> 0.99
+e434d60	0.975624	30.5	keep	ADAM_BETAS beta2 0.95 -> 0.90
+5d03761	0.975966	30.5	discard	ADAM_BETAS beta2 0.90 -> 0.85
+f428152	0.976183	30.5	discard	MATRIX_LR 0.03 -> 0.035 at beta2=0.90
+65dae70	0.979917	30.5	discard	x0_lambdas init 0.1 -> 0.0
+b3d4726	0.978108	30.5	discard	drop muon momentum warmup
+cf4eb54	0.975872	30.5	discard	WARMDOWN_RATIO 1.0 -> 0.95
+ba5b782	0.979910	30.5	discard	WD constant (no decay)
+30375c5	0.984905	22.2	discard	DEPTH 9 -> 8
+9705eef	0.976119	30.5	discard	WINDOW_PATTERN SSSL -> LSSS
+78d5591	0.976063	30.5	discard	FINAL_LR_FRAC 0.0 -> 0.05
+0ce1449	0.976257	30.5	discard	MATRIX_LR 0.03 -> 0.028
+7fd3d37	0.980349	36.3	discard	ASPECT_RATIO 64 -> 72 at depth 9
+89a6e90	0.976090	30.5	discard	Adam beta1 0.8 -> 0.7
+0fa4c90	0.976114	30.5	discard	EMBEDDING_LR 0.75 -> 0.7
+dc05eec	0.975766	30.5	discard	EMBEDDING_LR 0.75 -> 0.8
+51779b6	0.976073	30.5	discard	UNEMBEDDING_LR 0.006 -> 0.007
+b8867b1	0.979723	30.5	discard	lm_head init std 0.001 -> 0.01
+56b5ca2	0.977029	30.5	discard	wte init std 1.0 -> 0.5
+fe4de49	0.975315	30.5	keep	MATRIX_LR 0.03 -> 0.032
+110df45	0.976113	30.5	discard	MATRIX_LR 0.032 -> 0.034
+5471159	0.981234	30.5	discard	SCALAR_LR 0.25 -> 0.35
+c4ef869	0.979093	30.5	discard	SCALAR_LR 0.25 -> 0.15
+a650ef1	0.977698	33.5	discard	DEPTH 9->10 + MATRIX_LR 0.032->0.025
+9cfb883	0.975376	30.5	discard	WEIGHT_DECAY 0.2 -> 0.15
+6a188be	0.975118	30.5	keep	Adam beta2 0.90 -> 0.92
+043c226	0.975042	30.5	keep	Adam beta2 0.92 -> 0.94
+46a5747	0.975626	30.5	discard	Adam beta2 0.94 -> 0.96
+a6307f8	0.976203	30.5	discard	MATRIX_LR 0.032 -> 0.034 at beta2=0.94
+04f6e29	0.975649	30.5	discard	MATRIX_LR 0.032 -> 0.030
+e78a041	0.975493	30.5	discard	WARMDOWN 1.0 -> 0.85
+2ac5a98	0.975940	30.5	discard	ve_gate_channels 32 -> 64
+86d7fff	0.975051	30.5	keep	ve_gate_channels 32 -> 16 (simpler)
+dd7f27d	0.975319	30.5	discard	ve_gate_channels 16 -> 8
+38a7ae4	0.975944	30.5	discard	WEIGHT_DECAY 0.2 -> 0.25
+993fc36	0.975390	30.5	discard	MATRIX_LR 0.032 -> 0.033
+0aefb4a	0.975882	30.5	discard	Adam beta1 0.8 -> 0.85
+11e584b	0.976982	30.5	discard	EMBEDDING_LR 0.75 -> 1.0
+8a07556	0.984457	24.7	discard	ASPECT_RATIO 64 -> 56 (dim 640->512)
+ef2debf	0.976697	30.5	discard	softcap 15 -> 20
+be0461a	0.979954	30.5	discard	lr sqrt-decay instead of linear
+8b2a9f3	0.983393	30.5	discard	lr quadratic-decay
+37eb778	0.980446	30.5	discard	WARMUP_RATIO 0.0 -> 0.01
+5788680	0.974913	30.5	keep	EMBEDDING_LR 0.75 -> 0.65
+933bc22	0.976098	30.5	discard	EMBEDDING_LR 0.65 -> 0.55
+b29b85d	0.975626	30.5	discard	MATRIX_LR 0.032 -> 0.034 (at embed 0.65)
+7b10e7f	0.976020	30.5	discard	EMBEDDING_LR 0.65 -> 0.6
+9fc0bd9	0.975136	30.5	discard	EMBEDDING_LR 0.65 -> 0.7
+cfd4cc3	0.975382	30.5	discard	Adam beta2 0.94 -> 0.93
+ab9e38c	0.975480	30.5	discard	UNEMBEDDING_LR 0.006 -> 0.0055
+f92a6e4	0.974940	30.5	discard	MATRIX_LR 0.032 -> 0.031
+85ddf4c	0.984097	29.5	discard	disable value embeddings
+d33855a	0.975255	30.5	discard	WARMDOWN 1.0 -> 0.95 (at embed 0.65)
+45c5233	0.977455	33.5	discard	DEPTH 9 -> 10 (revisit)
+1aaa388	0.975280	30.5	discard	MATRIX_LR 0.032 -> 0.0325
+918dad8	0.974760	30.5	keep	WEIGHT_DECAY 0.2 -> 0.18
+c9e0a66	0.975122	30.5	discard	WEIGHT_DECAY 0.18 -> 0.15
+f2941e1	0.975070	30.5	discard	EMBEDDING_LR 0.65 -> 0.7 (at WD 0.18)
+2bf100b	0.974964	30.5	discard	Adam beta1 0.8 -> 0.75
+ade1147	0.974902	30.5	discard	MATRIX_LR 0.032 -> 0.033 (at WD 0.18)
+009b6f7	0.974893	30.5	discard	Adam beta2 0.94 -> 0.945

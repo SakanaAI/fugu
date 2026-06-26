@@ -1,0 +1,147 @@
+commit	val_bpb	memory_gb	status	description
+bd8a1f1	0.996305	44.0	keep	baseline
+2754cb6	0.995475	44.0	keep	MATRIX_LR 0.04 -> 0.05
+2689360	0.994936	44.0	keep	MATRIX_LR 0.05 -> 0.06
+ac0c79c	0.997557	44.0	discard	MATRIX_LR 0.06 -> 0.08
+baaf1ad	0.995223	44.0	discard	EMBEDDING_LR 0.6 -> 0.9
+be67925	0.996240	44.0	discard	EMBEDDING_LR 0.6 -> 0.4
+4388dff	0.995530	44.0	discard	UNEMBEDDING_LR 0.004 -> 0.008
+8a80883	1.026873	66.5	discard	DEPTH 8 -> 10 (85.9M params, too slow per step)
+681fde2	0.000000	0.0	crash	DEVICE_BATCH_SIZE 128 -> 256 (OOM)
+1b97010	0.991915	43.9	keep	TOTAL_BATCH_SIZE 2**19 -> 2**18 (grad_accum 2 -> 1)
+1fa42b8	1.000051	22.2	discard	TOTAL_BATCH_SIZE 2**18 -> 2**17 (batch too small)
+99608e4	0.989317	43.9	keep	MATRIX_LR 0.06 -> 0.05 at TBS=2**18
+03ae739	0.987270	43.9	keep	MATRIX_LR 0.05 -> 0.04 at TBS=2**18
+f9ba84a	0.986483	43.9	keep	MATRIX_LR 0.04 -> 0.03
+8f86092	0.986104	43.9	keep	MATRIX_LR 0.03 -> 0.025
+3ac4580	0.986916	43.9	discard	MATRIX_LR 0.025 -> 0.02
+1a47cee	0.986899	43.9	discard	EMBEDDING_LR 0.6 -> 0.4
+dd7595a	0.988577	43.9	discard	WARMDOWN_RATIO 0.5 -> 0.3
+266d269	0.985979	43.9	keep	WARMDOWN_RATIO 0.5 -> 0.7
+f5eb891	0.987317	43.9	discard	WARMDOWN_RATIO 0.7 -> 0.9
+9f68a13	0.987988	43.9	discard	WEIGHT_DECAY 0.2 -> 0.1
+522cf99	0.983385	53.9	keep	ASPECT_RATIO 64 -> 80 (dim 640, 70.8M)
+d728f93	0.982302	63.9	keep	ASPECT_RATIO 80 -> 96 (dim 768, 94.4M)
+0412e89	0.993806	74.0	discard	ASPECT_RATIO 96 -> 112 (dim 896, undertrained)
+4676ed8	0.981777	63.9	keep	MATRIX_LR 0.025 -> 0.03 at dim 768
+c54841c	0.981040	63.9	keep	MATRIX_LR 0.03 -> 0.04 at dim 768
+f3089be	0.980849	63.9	keep	MATRIX_LR 0.04 -> 0.05 at dim 768
+f64e58f	0.981585	63.9	discard	MATRIX_LR 0.05 -> 0.06
+c578cea	0.981172	63.9	discard	EMBEDDING_LR 0.6 -> 0.4 at dim 768
+91bfb92	0.981119	63.9	discard	EMBEDDING_LR 0.6 -> 0.8 at dim 768
+8d691b5	0.991495	64.1	discard	HEAD_DIM 128 -> 64
+1792093	0.981726	63.9	discard	WINDOW_PATTERN SSSL -> SSSSSSSL
+fe7ad8d	0.981066	63.9	discard	WINDOW_PATTERN SSSL -> SSLL
+d618d0e	0.982054	63.9	discard	ADAM_BETAS (0.8,0.95) -> (0.9,0.95)
+e10c39d	0.000000	0.0	crash	DEPTH 12 dim 768 (OOM)
+06eefbf	0.992535	47.8	discard	DEPTH 12, dim 768 (135M, undertrained)
+fbd31fb	0.984224	71.6	discard	DEPTH 9, dim 768 (107M, undertrained)
+23eefb1	0.980901	63.9	discard	muon momentum warmup 300 -> 100 steps (no effect)
+82c4eca	0.986128	63.9	discard	softcap 15 -> 30
+834a81f	0.980682	63.9	keep	softcap 15 -> 10
+2747049	1.044380	63.9	discard	softcap 10 -> 5 (too tight)
+1714c15	0.980614	63.9	keep	softcap 10 -> 12
+4bf8ce3	0.981246	63.9	discard	UNEMBEDDING_LR 0.004 -> 0.008 at dim 768
+9f7a116	0.983382	63.9	discard	MATRIX_LR 0.05 -> 0.07
+77f7692	0.985953	61.3	discard	remove x0 skip (helpful, revert)
+14ae7a9	0.984616	63.9	discard	x0_lambdas init 0.1 -> 0.2
+a768c9a	0.985297	57.8	discard	MLP expansion 4x -> 3x
+a615751	0.982430	70.0	discard	MLP expansion 4x -> 5x
+1cfb7cf	0.980942	63.9	discard	ve_gate_channels 32 -> 128
+3947abd	0.989423	63.9	discard	muon ns_steps 5 -> 3
+f80a531	0.981246	63.9	discard	wte init std 1.0 -> 0.5
+591d4de	0.981711	63.9	discard	lm_head init 0.001 -> 0
+4bb9ff3	0.980907	63.9	discard	rotary base 10000 -> 50000
+48af63d	0.981997	63.9	discard	SCALAR_LR 0.5 -> 1.0
+ec5f141	0.984099	58.5	discard	GQA n_kv_head 6 -> 3
+4d8e1f7	0.987878	62.7	discard	VE only last layer
+7428e05	0.980364	65.6	keep	VE on every layer (simpler return True)
+6d343fe	0.982055	65.6	discard	MATRIX_LR 0.05 -> 0.06 with VE-everywhere
+ff2cd42	0.997818	65.6	discard	MLP activation relu² -> gelu
+c78450f	0.992851	65.6	discard	MLP activation relu² -> silu
+cb91ea0	0.994010	59.5	discard	remove q,k norm
+e5343ed	0.982065	65.6	discard	MATRIX_LR 0.05 -> 0.04 with VE-everywhere
+97d1ea0	0.986758	55.2	discard	ASPECT_RATIO 96 -> 80 with VE-everywhere
+3adc474	0.982169	65.6	discard	softcap 12 -> 8
+c547961	0.984425	65.6	discard	WARMUP_RATIO 0 -> 0.03
+96f385e	0.980473	65.6	discard	FINAL_LR_FRAC 0 -> 0.1
+c446418	0.981607	65.6	discard	EMBEDDING_LR 0.6 -> 0.8 with VE-everywhere
+6c83452	0.990103	62.3	discard	remove value_embeds entirely (helpful, revert)
+c8eea6e	0.984993	65.6	discard	linear cooldown -> cosine
+e36796e	0.980768	65.6	discard	muon beta2 0.95 -> 0.99
+a69b261	0.980206	65.6	keep	muon beta2 0.95 -> 0.9
+8f9184d	0.980157	65.6	keep	muon beta2 0.9 -> 0.8
+754cda9	0.980727	65.6	discard	muon beta2 0.8 -> 0.7
+5c4f8e5	0.981801	65.6	discard	MATRIX_LR 0.05 -> 0.06 with beta2=0.8
+9babdc0	0.980591	65.6	discard	WARMDOWN_RATIO 0.7 -> 0.6 with beta2=0.8
+05572e6	0.985743	65.6	discard	resid_lambdas init 1.0 -> 0.5
+749fd71	0.980350	65.6	discard	x0_lambdas init 0.1 -> 0.05
+2f83d0a	0.981151	65.6	discard	ve_gate_channels 32 -> 64 with VE-everywhere
+0ce0265	0.982169	65.6	discard	WEIGHT_DECAY 0.2 -> 0.3
+f2373ba	0.982463	65.6	discard	muon momentum final 0.95 -> 0.97
+c0d91e7	0.981046	65.6	discard	constant muon momentum 0.92
+310aa1f	0.983669	65.6	discard	seed 42 -> 43 (noise check, ~0.003 variance)
+e0d5a83	1.041275	65.9	discard	TBS 2**18 -> 2**19
+0cdaff1	0.985569	62.6	discard	remove VE gate entirely (useful, revert)
+94fcbb7	0.982423	65.6	discard	WINDOW_PATTERN SSSL -> LLLL (within noise)
+8592a56	0.000000	0.0	crash	max-autotune (compile too slow, never trained)
+14203bb	0.000000	0.0	crash	keep wte/VE fp32 (FA3 dtype mismatch)
+71becb2	0.986432	62.7	discard	shared single VE across layers (75.5M, savings not worth)
+2c4fb58	0.982229	65.6	discard	Adam eps 1e-10 -> 1e-8
+a643aa9	0.980672	65.6	discard	MATRIX_LR 0.05 -> 0.045
+b4cb621	0.980373	65.6	discard	x0_lambdas betas (0.96,0.95) -> adam_betas
+314482a	0.980360	50.3	discard	DEPTH 8 -> 6, AR 96 -> 128 (dim 768, 6 layers; within noise)
+5a20523	0.991282	65.9	discard	DEPTH 6, AR 160 (dim 1024, 142M, undertrained)
+82db577	0.979669	65.6	keep	muon momentum final 0.95 -> 0.9
+a00fe10	0.981339	65.6	discard	constant muon momentum 0.85
+c046d3f	0.980360	65.6	discard	muon momentum final 0.9 -> 0.88
+3b96a6d	0.979692	65.6	discard	muon beta2 0.8 -> 0.7 (tied)
+8d1038f	0.980907	65.6	discard	muon momentum 0.85->0.9 -> 0.8->0.9
+cd1cbd8	0.981296	65.6	discard	ADAM_BETAS beta2 0.95 -> 0.99
+e5c1181	0.979505	65.6	keep	muon momentum final 0.9 -> 0.92
+ecde254	0.979805	65.6	discard	muon momentum final 0.92 -> 0.94
+9302fb3	0.980198	65.6	discard	muon momentum 0.85->0.92 -> 0.9->0.92
+873e0e7	0.980408	65.6	discard	MATRIX_LR 0.05 -> 0.055
+0c4ccd0	0.979135	65.6	keep	WEIGHT_DECAY 0.2 -> 0.15
+ae6ac80	0.979445	65.6	discard	WEIGHT_DECAY 0.15 -> 0.1
+f7e9f3a	0.979199	65.6	discard	WARMDOWN_RATIO 0.7 -> 0.65 (tied)
+18eb443	0.982107	65.6	discard	FA3 attention softcap=15
+2e2b997	0.978794	65.6	keep	x0_lambdas init 0.1 -> 0.0
+4318a0c	0.978834	65.6	discard	resid_lambdas init 1.0 -> 0.9 (tied)
+bf28142	0.982370	65.6	discard	remove cautious mask in Muon WD
+63eae9b	0.980244	63.0	discard	drop resid_lambdas multiply (mattered, revert)
+53bf085	0.979777	65.6	discard	SCALAR_LR 0.5 -> 0.25
+dde5d6c	0.982037	65.6	discard	SCALAR_LR 0.5 -> 1.0
+5c83fca	0.984831	65.6	discard	WARMUP_RATIO 0 -> 0.02
+66c12c1	0.987155	65.5	discard	HEAD_DIM 128 -> 256
+bfa667b	0.979273	65.6	discard	add grad clip 1.0
+83ee5b1	0.978876	65.6	discard	VE init halved (tied)
+41bd999	0.982784	65.6	discard	UNEMBEDDING_LR 0.004 -> 0.01
+3f67437	0.983704	65.6	discard	UNEMBEDDING_LR 0.004 -> 0.002
+659c5e0	0.981264	65.6	discard	MATRIX_LR 0.05 -> 0.04 with x0=0
+ae406c1	0.979174	65.6	discard	muon momentum warmup 300 -> 100
+5a17eba	0.978994	65.6	discard	lm_head weight_decay 0 -> 0.01
+65c7bf8	1.032571	33.6	discard	DEVICE_BATCH_SIZE 128 -> 64 (worse for unclear reason)
+6e1bf49	0.985357	65.6	discard	HEAD_DIM 128 -> 96
+ff51b62	0.981804	65.6	discard	WARMDOWN_RATIO 0.7 -> 0.5
+c6c763c	0.979114	65.6	discard	WARMDOWN_RATIO 0.7 -> 0.8
+650fb6d	0.979178	65.6	discard	MATRIX_LR 0.05 -> 0.045 (revisit)
+0fc9df8	0.979359	65.6	discard	softcap 12 -> 11
+5c7dc79	0.982470	63.9	discard	VE on later half (94M, less capacity)
+e074d7b	0.979783	65.6	discard	ADAM_BETAS beta1 0.8 -> 0.85
+c165278	0.981031	65.6	discard	ADAM_BETAS beta1 0.8 -> 0.7
+dc5e0c1	0.984257	65.5	discard	HEAD_DIM 128 -> 192
+4f14f1a	0.981390	65.6	discard	VE gate scale 2 -> 4
+f02aca4	0.979585	65.6	discard	VE gate scale 2 -> 1
+a678092	0.979456	65.6	discard	MATRIX_LR 0.05 -> 0.06 (re-revisit)
+5db5cdf	0.979179	65.6	discard	muon momentum 0.85->0.92 -> 0.88->0.92
+b2d3f52	0.985857	68.0	discard	DEPTH 10, dim 640 (112M, worse)
+b48ee61	0.979176	65.6	discard	EMBEDDING_LR 0.6 -> 0.5
+af18d58	0.980587	65.6	discard	rotary base 10000 -> 5000
+208dd56	0.979945	65.6	discard	SCALAR_LR 0.5 -> 0.75
+2cdc3cc	0.982439	65.6	discard	VE gate sigmoid -> tanh
+0e64f7c	0.978810	65.6	discard	muon momentum warmup 300 -> 200 steps (tied)
+5adca18	0.979160	65.6	discard	short_window seq/2 -> seq/4 (within noise)
+9d43275	0.978894	65.6	discard	torch.compile fullgraph=True (tied)
+61ec999	0.978942	65.6	discard	muon momentum final 0.92 -> 0.93 (tied)
+4290b7a	0.000000	0.0	crash	torch.compile reduce-overhead (silent exit)

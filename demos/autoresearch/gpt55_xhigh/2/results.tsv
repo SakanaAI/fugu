@@ -1,0 +1,136 @@
+commit	val_bpb	memory_gb	status	description
+518ed13	0.996588	44.0	keep	baseline
+51f344c	0.998648	44.0	discard	shorten LR warmdown to 0.4
+abef0f9	0.997988	44.0	discard	lengthen LR warmdown to 0.6
+efd1d0c	0.997028	44.0	discard	use mostly sliding attention pattern
+5bc4843	0.987264	43.9	keep	halve optimizer batch size
+7e65bcb	0.991110	22.2	discard	halve microbatch and optimizer batch
+2488243	0.986512	43.9	keep	lower Muon learning rate to 0.035
+1313a90	0.986700	43.9	discard	lower Muon learning rate to 0.03
+c75df59	0.987115	43.9	discard	lower embedding learning rate to 0.5
+038ade3	0.986565	43.9	discard	raise embedding learning rate to 0.7
+56a8701	0.987706	43.9	discard	raise unembedding learning rate to 0.006
+0949c50	0.987199	43.9	discard	lower unembedding learning rate to 0.003
+1181eb1	0.986071	43.9	keep	lower Muon weight decay to 0.1
+1ff83aa	0.986658	43.9	discard	lower Muon weight decay to 0.05
+0b24a74	0.985791	43.9	keep	tune Muon weight decay to 0.125
+8fdb1ce	0.985893	43.9	discard	raise Muon weight decay to 0.15
+1ecc470	0.986008	43.9	discard	fine tune Muon weight decay to 0.135
+682e8ee	0.986680	43.9	discard	retest shorter warmdown on tuned setup
+c39eb9a	0.986492	60.2	discard	increase model depth to 9
+2abbc4f	0.988043	39.1	discard	decrease model depth to 7
+8ef8b06	0.991120	40.3	discard	use grouped query attention
+c870521	0.986379	43.9	discard	lower scalar learning rate to 0.25
+4698570	0.985635	43.9	keep	raise scalar learning rate to 0.75
+169ca18	0.985470	43.9	keep	raise scalar learning rate to 1.0
+0c6692d	0.985050	43.9	keep	raise scalar learning rate to 1.5
+111cf48	0.984588	43.9	keep	raise scalar learning rate to 2.0
+c0aab43	0.985798	43.9	discard	raise scalar learning rate to 3.0
+dbcb1b9	0.984581	43.9	keep	fine tune scalar learning rate to 2.25
+9a6c8e0	0.984369	43.9	keep	test scalar learning rate 2.5
+0928c81	0.985871	43.9	discard	test scalar learning rate 2.75
+a865d50	0.985655	43.9	discard	retune lower Muon learning rate to 0.03
+dfa61f3	0.984888	43.9	discard	retune higher Muon learning rate to 0.04
+6f9723e	0.984585	43.9	discard	retune higher weight decay to 0.15
+21af640	0.984310	43.9	keep	retune lower weight decay to 0.1
+25f1b01	0.984590	43.9	discard	lower tuned weight decay to 0.075
+31fb052	0.985053	43.9	discard	retest shorter warmdown on tuned stack
+2ddea60	0.984635	43.9	discard	set scalar learning rate to 2.35
+1c7cc38	0.984600	43.9	discard	set scalar learning rate to 2.4
+693d075	0.984493	43.9	discard	set scalar learning rate to 2.45
+370bf22	0.984403	43.9	discard	set scalar learning rate to 2.55
+c47f638	0.984884	43.9	discard	set scalar learning rate to 2.6
+0333390	0.985766	43.9	discard	set scalar learning rate to 2.65
+97662c8	0.984798	43.9	discard	set scalar learning rate to 2.2
+989e57d	0.984689	43.9	discard	set scalar learning rate to 2.3
+cc88a7e	0.984547	43.9	discard	set scalar learning rate to 2.1
+531dcee	0.984621	43.9	discard	set scalar learning rate to 1.9
+bdadacb	0.984521	43.9	discard	set scalar learning rate to 1.7
+ebbec8f	0.984652	43.9	discard	set scalar learning rate to 2.05
+fbf2864	0.984717	43.9	discard	set scalar learning rate to 2.15
+f81d29c	0.984557	43.9	discard	set Muon weight decay to 0.095
+2eb7943	0.984371	43.9	discard	set Muon weight decay to 0.105
+45a1683	0.984172	43.9	keep	set Muon weight decay to 0.11
+5e23fa8	0.984483	43.9	discard	set Muon weight decay to 0.115
+05c0f27	0.984437	43.9	discard	set Muon weight decay to 0.12
+57de4a3	0.984354	43.9	discard	set Muon weight decay to 0.09
+1386b49	0.984458	43.9	discard	set Muon weight decay to 0.085
+616779b	0.984539	43.9	discard	set Muon weight decay to 0.13
+96cf2c0	0.984692	43.9	discard	set Muon weight decay to 0.14
+76e46ef	0.984682	43.9	discard	set Muon weight decay to 0.08
+d991fc9	0.985064	43.9	discard	set Muon weight decay to 0.06
+7cd38b8	0.988328	43.9	discard	set Muon weight decay to 0.0
+17185c6	0.985139	43.9	discard	set Muon weight decay to 0.2
+d4ff439	0.984475	43.9	discard	set Muon learning rate to 0.034
+72e596c	0.984593	43.9	discard	set Muon learning rate to 0.036
+2f6423f	0.985451	43.9	discard	set Muon learning rate to 0.033
+f2763f6	0.984647	43.9	discard	set Muon learning rate to 0.037
+4bfa038	0.985765	43.9	discard	set Muon learning rate to 0.032
+7b65b43	0.984377	43.9	discard	set Muon learning rate to 0.038
+8ff6142	0.985692	43.9	discard	set Muon learning rate to 0.031
+edb6a7c	0.984457	43.9	discard	set Muon learning rate to 0.039
+cd964c5	0.984742	43.9	discard	set Muon learning rate to 0.041
+839a32b	0.985289	43.9	discard	set Muon learning rate to 0.045
+035c1b1	0.984648	43.9	discard	set embedding learning rate to 0.58
+838b8ac	0.984512	43.9	discard	set embedding learning rate to 0.62
+310c4cb	0.984574	43.9	discard	set embedding learning rate to 0.65
+42b71af	0.984850	43.9	discard	set embedding learning rate to 0.55
+aacc1cd	0.985587	43.9	discard	set embedding learning rate to 0.68
+1be547d	0.985277	43.9	discard	set embedding learning rate to 0.72
+54adf5c	0.985476	43.9	discard	set embedding learning rate to 0.5
+72ae33f	0.986426	43.9	discard	set embedding learning rate to 0.45
+2e6f01a	0.985371	43.9	discard	set embedding learning rate to 0.75
+233d9b2	0.985718	43.9	discard	set unembedding learning rate to 0.0035
+b032742	0.985840	43.9	discard	set unembedding learning rate to 0.0045
+cd94021	0.985672	43.9	discard	set unembedding learning rate to 0.005
+6bc9716	0.987928	43.9	discard	set unembedding learning rate to 0.003
+fccc4d7	0.990879	43.9	discard	set unembedding learning rate to 0.0025
+6bae390	0.985623	43.9	discard	set unembedding learning rate to 0.006
+013347b	0.986505	43.9	discard	set unembedding learning rate to 0.007
+62ee246	0.984970	43.9	discard	set Adam betas to (0.85, 0.95)
+c33e874	0.987305	43.9	discard	set Adam betas to (0.9, 0.95)
+c90219c	0.984695	43.9	discard	set Adam betas to (0.75, 0.95)
+6dae886	0.984751	43.9	discard	set Adam betas to (0.8, 0.9)
+9e0d399	0.985064	43.9	discard	set Adam betas to (0.8, 0.97)
+6ead2b5	0.986883	43.9	discard	set Adam betas to (0.9, 0.98)
+8f57537	0.984552	43.9	discard	set Adam betas to (0.7, 0.95)
+f05694c	0.984543	43.9	discard	set warmdown ratio to 0.45
+f0b8a9b	0.984430	43.9	discard	set warmdown ratio to 0.55
+380f868	0.984360	43.9	discard	set warmdown ratio to 0.6
+651e41c	0.985692	43.9	discard	set warmdown ratio to 0.35
+9d7959c	0.984410	43.9	discard	set warmdown ratio to 0.65
+4f27228	0.990948	43.9	discard	set warmup ratio to 0.01
+4feb2f4	0.989264	43.9	discard	set warmup ratio to 0.02
+8f7b363	0.987743	43.9	discard	set warmup ratio to 0.05
+aa1736d	0.984076	43.9	keep	set final lr fraction to 0.01
+41166dd	0.984031	43.9	keep	set final lr fraction to 0.02
+c7ba941	0.984045	43.9	discard	set final lr fraction to 0.05
+7467bfd	0.985044	43.9	discard	set final lr fraction to 0.1
+267f372	0.984497	43.9	discard	set window pattern to SSLL
+e4c5dfc	0.985627	43.9	discard	set window pattern to SLSL
+1d8af62	0.986447	43.9	discard	set window pattern to SLSS
+2d0c7eb	0.986672	43.9	discard	set window pattern to LSSS
+a4475c5	0.987052	43.9	discard	set window pattern to LSLS
+9fe2bf0	0.986364	43.9	discard	set window pattern to SLLS
+e1726b3	0.986394	43.9	discard	set window pattern to LLLL
+32d8503	0.985220	43.9	discard	set window pattern to SSSS
+1e0af44	0.985935	43.9	discard	set window pattern to SSL
+647d5a2	0.986373	43.9	discard	set window pattern to SLL
+545134c	1.000940	44.0	discard	use grad accumulation 2 with tuned stack
+ebd5cd2	1.044487	44.0	discard	use grad accumulation 3 with tuned stack
+e90ebff	1.045716	44.0	discard	use grad accumulation 4 with tuned stack
+142a470	0.984912	22.3	discard	use device batch 64 same total batch
+1b2ed1a	0.984992	22.3	discard	use device batch 64 and grad accumulation 2
+3bbf556	0.985055	22.2	discard	use device batch 64 and smaller total batch
+d9e910c	1.002269	11.5	discard	use device batch 32 same total batch
+e77c678	0.992250	44.0	discard	set attention head dim to 64
+d053709	0.993115	43.8	discard	set attention head dim to 256
+4178f39	1.006521	33.9	discard	set aspect ratio to 48
+f4f6c33	0.984220	43.9	discard	set aspect ratio to 56
+b46beb5	0.990618	53.9	discard	set aspect ratio to 72
+5d7387d	0.990765	53.9	discard	set aspect ratio to 80
+b72e04e	0.981908	63.9	keep	set aspect ratio to 96
+f6a8a29	0.982186	63.9	discard	set logit softcap to 12
+8176822	0.982221	63.9	discard	set logit softcap to 18
+668da3d	0.983153	63.9	discard	set logit softcap to 20
+6494c89	0.985318	63.9	discard	set logit softcap to 25

@@ -1,0 +1,135 @@
+commit	val_bpb	memory_gb	status	description
+228791f	0.996003	44.0	keep	baseline
+65cc28a	0.987226	43.9	keep	smaller optimizer batch 2^18
+76a9d7d	0.991191	22.2	discard	total batch 2^17 with device batch 64
+018c05d	0.986575	43.9	keep	lower matrix lr to 0.035
+40be304	0.986319	43.9	keep	lower matrix lr to 0.03
+c27bbcf	0.986233	43.9	keep	lower matrix lr to 0.025
+aa34b7e	0.986739	43.9	discard	lower matrix lr to 0.02
+5c3d390	0.986424	43.9	discard	matrix lr midpoint 0.0275
+7edd503	0.987211	43.9	discard	lower embedding lr to 0.5
+50230cc	0.986367	43.9	discard	higher embedding lr to 0.7
+927aee3	0.986961	43.9	discard	shorter warmdown 0.4
+d7231e6	0.986091	43.9	keep	longer warmdown 0.6
+0a12083	0.986338	43.9	discard	longer warmdown 0.7
+4a28adb	0.985959	43.9	keep	warmdown midpoint 0.55
+362ccd2	0.985901	43.9	keep	warmdown upper midpoint 0.575
+a42ee95	0.986035	43.9	discard	warmdown lower midpoint 0.5625
+46f77e7	0.985867	43.9	keep	warmdown high refine 0.5875
+ab9d989	0.986018	43.9	discard	warmdown near 0.6
+c123596	0.987061	43.9	discard	higher unembedding lr to 0.006
+5989c55	0.987134	43.9	discard	lower unembedding lr to 0.003
+a3dbe7a	0.986479	43.9	discard	lower weight decay to 0.15
+4c1cb71	0.985974	43.9	discard	higher weight decay to 0.25
+e62d5ed	0.988316	39.1	discard	depth 7 shallower model
+13617d8	0.984922	48.9	keep	depth 9 same width
+28417b6	0.985189	48.9	discard	depth 9 matrix lr 0.03
+cfdc867	0.985469	48.9	discard	depth 9 matrix lr 0.02
+65d7281	0.984939	48.9	discard	depth 9 warmdown 0.55
+7d63c10	0.984199	53.7	keep	depth 10 same width
+b686ba0	0.986234	58.8	discard	depth 11 same width
+b7764b0	0.984344	53.7	discard	depth 10 warmdown 0.55
+c37583a	0.984634	53.7	discard	depth 10 matrix lr 0.03
+120cc2a	0.993718	53.8	discard	depth 10 head dim 64
+c2fc23c	0.984591	53.7	discard	depth 10 window pattern SSLL
+f7d6717	0.988773	49.2	discard	depth 10 grouped query attention
+7c2b847	0.986006	53.7	discard	depth 10 warmup 0.02
+68bd57b	0.984168	53.7	keep	depth 10 scalar lr 0.25
+561a3c4	0.984777	53.7	discard	depth 10 scalar lr 0.125
+c400b12	0.984459	53.7	discard	depth 10 scalar lr 0.375
+14975f6	0.984129	53.7	keep	depth 10 scalar lr 0.2
+324a16a	0.984154	53.7	discard	depth 10 scalar lr 0.175
+9db54f3	0.984183	53.7	discard	depth 10 scalar lr 0.2125
+ad4a45b	0.982753	58.8	keep	depth 10 mlp expansion 5x
+9211744	0.982768	63.8	discard	depth 10 mlp expansion 6x
+52f86e8	0.982293	61.3	keep	depth 10 mlp expansion 5.5x
+8d21a59	0.982846	60.0	discard	depth 10 mlp expansion 5.25x
+9c0945e	0.983683	62.6	discard	depth 10 mlp expansion 5.75x
+aa3b9ad	0.983031	61.3	discard	depth 10 mlp 5.5x matrix lr 0.0225
+32f2a81	0.981806	61.3	keep	depth 10 mlp 5.5x matrix lr 0.0275
+5e9dc42	0.982713	61.3	discard	depth 10 mlp 5.5x matrix lr 0.03
+3ae1f30	0.982137	61.3	discard	depth 10 mlp 5.5x matrix lr 0.027
+6af9bc3	0.981998	61.3	discard	depth 10 mlp 5.5x matrix lr 0.028
+51879aa	0.982159	61.3	discard	depth 10 mlp 5.5x matrix lr 0.0275 warmdown 0.6
+ab83172	0.982105	61.3	discard	depth 10 mlp 5.5x matrix lr 0.0275 warmdown 0.575
+5807c2d	0.982428	61.3	discard	depth 10 mlp 5.5x matrix lr 0.0275 weight decay 0.25
+ffaec92	0.982328	61.3	discard	depth 10 mlp 5.5x matrix lr 0.0275 embedding lr 0.65
+942ddff	0.982875	62.7	discard	depth 10 mlp 5.5x value embeddings every layer
+e963288	0.995354	59.9	discard	depth 10 mlp 5.5x no value embeddings
+6e04454	0.982762	61.6	discard	depth 10 mlp 5.5x even plus final value embeddings
+b7028a2	0.982297	61.3	discard	depth 10 mlp 5.5x value gate channels 64
+62677c1	0.982697	61.3	discard	depth 10 mlp 5.5x value gate channels 16
+50cf22d	0.983112	61.3	discard	depth 10 mlp 5.5x squared silu activation
+47e3ea2	0.982167	61.3	discard	depth 10 mlp 5.5x window pattern SSSS
+e168997	0.981921	61.3	discard	depth 10 mlp 5.5x window pattern SSSSL
+732bbf8	0.982084	61.3	discard	depth 10 mlp 5.5x window pattern SSSLS
+cbc3d4e	0.981838	61.3	discard	depth 10 mlp 5.5x matrix lr 0.0275 muon momentum 0.9
+a7b4bf3	0.982200	61.3	discard	depth 10 mlp 5.5x matrix lr 0.0275 muon momentum 0.925
+81dbd31	0.982411	61.3	discard	depth 10 mlp 5.5x matrix lr 0.0275 muon momentum 0.975
+8415859	0.983186	61.3	discard	depth 10 mlp 5.5x matrix lr 0.0275 muon ns_steps 4
+3b59240	0.981496	61.3	keep	depth 10 mlp 5.5x matrix lr 0.0275 muon beta2 0.9
+beb7735	0.982101	61.3	discard	depth 10 mlp 5.5x matrix lr 0.0275 muon beta2 0.85
+d859ff9	0.981737	61.3	discard	depth 10 mlp 5.5x matrix lr 0.0275 muon beta2 0.925
+862e3ee	0.982032	61.3	discard	depth 10 mlp 5.5x matrix lr 0.0275 muon beta2 0.875
+f64443e	0.982478	61.3	discard	depth 10 mlp 5.5x matrix lr 0.03 muon beta2 0.9
+4b2e386	0.982182	61.3	discard	depth 10 mlp 5.5x matrix lr 0.02625 muon beta2 0.9
+04efec3	0.981262	61.3	keep	depth 10 mlp 5.5x muon beta2 0.9 scalar lr 0.225
+63ce2fe	0.981698	61.3	discard	depth 10 mlp 5.5x muon beta2 0.9 scalar lr 0.25
+913de27	0.981355	61.3	discard	depth 10 mlp 5.5x muon beta2 0.9 scalar lr 0.2125
+5b299f6	0.981380	61.3	discard	depth 10 mlp 5.5x muon beta2 0.9 scalar lr 0.22
+94775a4	0.981595	61.3	discard	depth 10 mlp 5.5x muon beta2 0.9 scalar lr 0.225 embedding lr 0.625
+8c7c9b1	0.981818	61.3	discard	depth 10 mlp 5.5x muon beta2 0.9 scalar lr 0.225 embedding lr 0.575
+ff57cfa	0.982464	61.3	discard	depth 10 mlp 5.5x muon beta2 0.9 scalar lr 0.225 unembedding lr 0.0045
+d0da3a2	0.982615	61.3	discard	depth 10 mlp 5.5x muon beta2 0.9 scalar lr 0.225 unembedding lr 0.0035
+3880819	0.981816	61.3	discard	depth 10 mlp 5.5x muon beta2 0.9 scalar lr 0.225 warmdown 0.6
+649b5d6	0.981604	61.3	discard	depth 10 mlp 5.5x muon beta2 0.9 scalar lr 0.225 warmdown 0.575
+432479f	0.981691	61.3	discard	depth 10 mlp 5.5x muon beta2 0.9 scalar lr 0.225 weight decay 0.25
+83ac785	0.981377	61.3	discard	depth 10 mlp 5.5x muon beta2 0.9 scalar lr 0.225 weight decay 0.175
+afb8eca	0.983096	61.3	discard	depth 10 mlp 5.5x muon beta2 0.9 scalar lr 0.225 logit softcap 20
+6268df0	0.981558	61.3	discard	depth 10 mlp 5.5x muon beta2 0.9 scalar lr 0.225 logit softcap 12
+028f4e0	0.981622	61.3	discard	depth 10 mlp 5.5x muon beta2 0.9 scalar lr 0.225 logit softcap 14
+ea13cd1	1.046331	38.6	discard	width 640 device batch 64
+a889c4e	0.982631	61.3	discard	depth 10 mlp 5.5x muon momentum schedule end 0.9
+7c11885	0.983838	61.3	discard	depth 10 mlp 5.5x muon momentum schedule end 0.975
+e1a8945	0.981960	61.3	discard	depth 10 mlp 5.5x muon momentum ramp 150
+f077c54	0.982740	61.3	discard	depth 10 mlp 5.5x muon momentum ramp 600
+e0596a3	0.985448	61.3	discard	depth 10 mlp 5.5x constant muon weight decay
+122eebf	0.981019	61.3	keep	depth 10 mlp 5.5x quadratic muon weight decay
+8c970a3	0.982057	61.3	discard	depth 10 mlp 5.5x cubic muon weight decay
+8cc1382	0.981607	61.3	discard	depth 10 mlp 5.5x muon weight decay exponent 1.5
+e74448c	0.980603	61.3	keep	depth 10 mlp 5.5x quadratic weight decay 0.25
+f6710c9	0.980763	61.3	discard	depth 10 mlp 5.5x quadratic weight decay 0.3
+243be07	0.980873	61.3	discard	depth 10 mlp 5.5x quadratic weight decay 0.275
+deec449	0.980726	61.3	discard	depth 10 mlp 5.5x quadratic weight decay 0.2625
+b5bb87b	0.981772	60.0	discard	current best with mlp expansion 5.25x
+5b6be75	0.981152	61.3	discard	current best with window pattern SSSSL
+85bf0f9	0.982035	55.7	discard	current best with depth 9
+a1d8307	0.984518	61.3	discard	current best with cosine lr warmdown
+d7b85ec	0.984305	61.3	discard	current best with warmup 0.005
+4f79874	0.980537	61.3	keep	depth 10 mlp 5.5x quadratic wd 0.25 final lr frac 0.01
+1d1c1b4	0.980333	61.3	keep	depth 10 mlp 5.5x quadratic wd 0.25 final lr frac 0.02
+ae35411	0.980304	61.3	keep	depth 10 mlp 5.5x quadratic wd 0.25 final lr frac 0.04
+ab24533	0.980027	61.3	keep	depth 10 mlp 5.5x quadratic wd 0.25 final lr frac 0.06
+712d072	0.980331	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr frac 0.08
+5ce4531	0.980012	61.3	keep	depth 10 mlp 5.5x quadratic wd 0.25 final lr frac 0.065
+fd7d09f	0.980332	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr frac 0.07
+9927ef5	0.980001	61.3	keep	depth 10 mlp 5.5x quadratic wd 0.25 final lr frac 0.0625
+aa4f11b	0.980431	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr frac 0.06125
+ffa9bf4	0.980282	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr frac 0.06375
+11052e2	0.980139	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr 0.0625 warmdown 0.6
+c6f1d92	0.980502	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr 0.0625 warmdown 0.575
+cf4197a	0.980692	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.225 final lr 0.0625
+310cbdc	0.980263	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr 0.0625 scalar lr 0.23
+93575fb	0.980248	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr 0.0625 matrix lr 0.02725
+ab4ba65	0.979904	61.3	keep	depth 10 mlp 5.5x quadratic wd 0.25 final lr 0.0625 matrix lr 0.02775
+8bc7b3b	0.980371	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr 0.0625 matrix lr 0.028
+f22c838	0.980483	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr 0.0625 matrix lr 0.027875
+6a219d5	0.980186	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr 0.0625 matrix lr 0.027625
+f60bba9	0.980082	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr 0.065 matrix lr 0.02775
+1e69210	0.980211	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr 0.06 matrix lr 0.02775
+0158f7d	0.980198	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr 0.0625 matrix lr 0.02775 scalar lr 0.23
+86ef0ef	0.980215	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr 0.0625 matrix lr 0.02775 scalar lr 0.2275
+4043418	0.980232	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr 0.0625 matrix lr 0.02775 scalar lr 0.2225
+0116e8b	0.980091	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr 0.0625 matrix lr 0.02775 embedding lr 0.61
+4df48d1	0.980040	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr 0.0625 matrix lr 0.02775 embedding lr 0.59
+6ebafd6	0.980316	61.3	discard	depth 10 mlp 5.5x quadratic wd 0.25 final lr 0.0625 matrix lr 0.02775 embedding lr 0.595

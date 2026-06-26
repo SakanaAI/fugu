@@ -1,0 +1,129 @@
+commit	val_bpb	memory_gb	status	description
+228791f	0.995104	44.0	keep	baseline
+400ccee	0.995313	44.0	discard	shorten LR warmdown to 0.4
+de061c8	0.995331	44.0	discard	lengthen LR warmdown to 0.6
+f4f4431	0.995599	44.0	discard	use SSLL attention pattern
+d66c0b4	0.986329	43.9	keep	use smaller global batch 2**18
+f700992	0.990536	22.2	discard	try 131K global batch with device batch 64
+f939689	0.985334	43.9	keep	lower matrix LR to 0.03 for 262K batch
+69a5590	0.985448	43.9	discard	lower matrix LR further to 0.025
+108e32a	0.985990	43.9	discard	lower embedding LR to 0.5
+99e2bce	0.985852	43.9	discard	raise embedding LR to 0.7
+fd8679f	0.985987	43.9	discard	raise unembedding LR to 0.006
+9172fea	0.986583	43.9	discard	lower unembedding LR to 0.003
+ec08e96	0.985303	43.9	keep	lower Muon weight decay to 0.1
+0e04297	0.989561	43.9	discard	remove Muon weight decay
+a16d4bb	0.984973	43.9	keep	tune Muon weight decay to 0.15
+3820ee5	0.985723	43.9	discard	refine Muon weight decay to 0.175
+8e8183d	0.986041	43.9	discard	add 5 percent LR warmup
+e75f137	0.986929	39.1	discard	try depth 7 model
+a407761	1.025674	30.7	discard	try depth 9 with device batch 64
+dc9a50c	0.985980	43.9	discard	use SSSS attention pattern
+726931a	0.984959	43.9	keep	use final LR fraction 0.05
+4d4a1bb	0.986119	43.9	discard	raise final LR fraction to 0.1
+2b21059	0.984661	43.9	keep	lower final LR fraction to 0.025
+6cb1beb	0.985227	43.9	discard	refine final LR fraction to 0.0125
+948cb53	0.985212	43.9	discard	lower scalar LR to 0.3
+95c735b	0.984529	43.9	keep	raise scalar LR to 0.7
+dbe3c02	0.984581	43.9	discard	tune scalar LR higher to 0.9
+0380615	0.984755	43.9	discard	refine scalar LR to 0.8
+f40893c	0.985023	43.9	discard	set scalar LR to 0.6
+10d6955	0.984816	43.9	discard	set scalar LR to 0.625
+5ec2a47	0.984976	43.9	discard	set scalar LR to 0.65
+69b5cc8	0.984368	43.9	keep	set scalar LR to 0.675
+f35e0df	0.984442	43.9	discard	set scalar LR to 0.725
+26bbac2	0.984649	43.9	discard	set scalar LR to 0.75
+7ec5a6c	0.985060	43.9	discard	set scalar LR to 0.775
+9e3a140	0.984627	43.9	discard	set scalar LR to 0.85
+2469f70	0.984487	43.9	discard	set scalar LR to 1.0
+caee11a	0.984468	43.9	discard	set scalar LR to 1.1
+f326759	0.984487	43.9	discard	set final LR fraction to 0.018
+580c630	0.984541	43.9	discard	set final LR fraction to 0.02
+30239ce	0.984474	43.9	discard	set final LR fraction to 0.0225
+991f836	0.984394	43.9	discard	set final LR fraction to 0.0275
+cfac386	0.984754	43.9	discard	set final LR fraction to 0.03
+1cb1dd3	0.984547	43.9	discard	set final LR fraction to 0.0325
+6e4ba7c	0.984597	43.9	discard	set final LR fraction to 0.035
+449eb62	0.984463	43.9	discard	set final LR fraction to 0.04
+cb88be8	0.984893	43.9	discard	set final LR fraction to 0.01
+73fdb7c	0.984882	43.9	discard	set final LR fraction to 0.0
+dd8fddd	0.984512	43.9	discard	set Muon weight decay to 0.12
+a9c7b52	0.985080	43.9	discard	set Muon weight decay to 0.13
+4002ea5	0.984522	43.9	discard	set Muon weight decay to 0.135
+c699d13	0.984376	43.9	discard	set Muon weight decay to 0.14
+ac699af	0.984687	43.9	discard	set Muon weight decay to 0.145
+5ed90aa	0.984381	43.9	discard	set Muon weight decay to 0.155
+587036c	0.984386	43.9	discard	set Muon weight decay to 0.16
+6b8d4b6	0.984365	43.9	keep	set Muon weight decay to 0.165
+4448d8c	0.984953	43.9	discard	set Muon weight decay to 0.18
+1ec2957	0.984779	43.9	discard	set Muon weight decay to 0.2
+4f6e489	0.984870	43.9	discard	set matrix LR to 0.027
+ad41092	0.985013	43.9	discard	set matrix LR to 0.028
+e613c1f	0.984332	43.9	keep	set matrix LR to 0.029
+8b6dd58	0.984703	43.9	discard	set matrix LR to 0.031
+565d92e	0.984730	43.9	discard	set matrix LR to 0.032
+e9931de	0.984537	43.9	discard	set matrix LR to 0.033
+0b20b90	0.984594	43.9	discard	set matrix LR to 0.034
+f56b9e1	0.984733	43.9	discard	set matrix LR to 0.035
+37179d6	0.984884	43.9	discard	set matrix LR to 0.037
+23703a4	0.985140	43.9	discard	set matrix LR to 0.04
+e4396cf	0.984959	43.9	discard	set embedding LR to 0.55
+fb5ec81	0.984986	43.9	discard	set embedding LR to 0.575
+3145a95	0.984959	43.9	discard	set embedding LR to 0.625
+f760ed7	0.984790	43.9	discard	set embedding LR to 0.65
+caaa5b5	0.985070	43.9	discard	set embedding LR to 0.675
+3d78bd9	0.984714	43.9	discard	set embedding LR to 0.7
+75c34d7	0.984664	43.9	discard	set embedding LR to 0.75
+8b9cbf9	0.984899	43.9	discard	set unembedding LR to 0.0032
+d2cb562	0.984484	43.9	discard	set unembedding LR to 0.0036
+9db98e0	0.985318	43.9	discard	set unembedding LR to 0.0044
+afdc07f	0.985135	43.9	discard	set unembedding LR to 0.0048
+8f6f2fa	0.985378	43.9	discard	set unembedding LR to 0.0052
+5a73082	0.985507	43.9	discard	set unembedding LR to 0.0056
+bca67d8	0.984294	43.9	keep	set Adam betas to (0.75, 0.95)
+2882edb	0.984594	43.9	discard	set Adam betas to (0.85, 0.95)
+a16b75e	0.985621	43.9	discard	set Adam betas to (0.9, 0.95)
+4fadde2	0.985182	43.9	discard	set Adam betas to (0.8, 0.9)
+247bb5b	0.984552	43.9	discard	set Adam betas to (0.8, 0.98)
+9ed226b	0.984206	43.9	keep	set Adam betas to (0.7, 0.95)
+32a1f84	0.984765	43.9	discard	set warmdown ratio to 0.425
+9d9b750	0.984451	43.9	discard	set warmdown ratio to 0.45
+c74d323	0.984381	43.9	discard	set warmdown ratio to 0.475
+db7c00d	0.984323	43.9	discard	set warmdown ratio to 0.525
+f38f894	0.984070	43.9	keep	set warmdown ratio to 0.55
+1f4fa13	0.983907	43.9	keep	set warmdown ratio to 0.575
+d38c29d	0.983955	43.9	discard	set warmdown ratio to 0.6
+e42bd6b	0.985684	43.9	discard	set warmdown ratio to 0.35
+2142158	0.983872	43.9	keep	set warmdown ratio to 0.65
+98dc5ad	0.984764	43.9	discard	set warmdown 0.45 and final LR 0.025
+0fd4cb7	0.984244	43.9	discard	set warmdown 0.55 and final LR 0.025
+2389ea7	0.984291	43.9	discard	set warmdown 0.5 and final LR 0.02
+37807f3	0.984196	43.9	discard	set warmdown 0.5 and final LR 0.03
+c338429	0.984455	43.9	discard	set warmdown 0.475 and final LR 0.0225
+75f1e23	0.984180	43.9	discard	set warmdown 0.525 and final LR 0.0275
+02da46b	0.985025	22.3	discard	use device batch 64 with same global batch
+49663bb	0.984640	22.3	discard	use device batch 64 and matrix LR 0.032
+f2a1fb5	1.008322	22.3	discard	use 393K global batch with device batch 64
+8fc69c3	1.009083	22.3	discard	use 393K global batch with lower matrix LR
+d6bfd2e	0.996437	44.0	discard	retest 524K global batch with tuned LRs
+dfd81c3	0.000000	0.0	crash	use 196K global batch with device batch 64
+a832d38	0.984521	43.9	discard	set attention pattern to SSLS
+b05cea0	0.984515	43.9	discard	set attention pattern to SLSL
+2d01ddb	0.984787	43.9	discard	set attention pattern to SLSS
+7ae0da9	0.985310	43.9	discard	set attention pattern to SLLS
+5c3672b	0.984705	43.9	discard	set attention pattern to LSSS
+2746ae2	0.984981	43.9	discard	set attention pattern to LSLS
+99d04c6	0.984973	43.9	discard	set attention pattern to SLLL
+ff6cc40	0.985520	43.9	discard	set attention pattern to LLLL
+e028201	0.984373	43.9	discard	set attention pattern to SSLL
+c921b2d	0.984100	43.9	discard	set attention pattern to SSSS
+dff7f77	0.985363	43.9	discard	use three-quarter short attention windows
+2565cac	0.982773	43.9	keep	use quarter short attention windows
+0d54b95	0.987746	44.0	discard	use head dimension 64
+d5da86e	0.988562	43.8	discard	use head dimension 256
+cef6613	1.002080	33.9	discard	use aspect ratio 48
+5d674ad	1.008779	27.5	discard	use aspect ratio 80 with device batch 64
+3c7b885	0.982473	24.9	keep	use depth 9 at width 512
+2f2cd3e	0.984744	27.3	discard	use depth 10 at width 512
+e19beae	0.979697	21.2	keep	use depth 6 wide model
+0ddf0bf	0.983546	19.3	discard	set MLP expansion to 3x

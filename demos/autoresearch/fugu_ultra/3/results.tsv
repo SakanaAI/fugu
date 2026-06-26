@@ -1,0 +1,171 @@
+commit	val_bpb	memory_gb	status	description
+c0ab99e	0.994831	44.0	keep	baseline
+969f2d7	0.998080	44.0	discard	full attention window pattern L
+03ff645	0.994440	44.0	keep	small LR warmup 3%
+67d1264	0.994181	44.0	keep	raise matrix LR to 0.05
+23fd145	0.994766	44.0	discard	raise matrix LR to 0.06
+ffabb9c	0.993910	44.0	keep	raise embedding LR to 0.8
+a1a41f6	0.995700	44.0	discard	embedding LR 1.0
+6622002	0.995380	44.0	discard	warmdown 0.35
+b366526	0.994856	44.0	discard	weight decay 0.1
+a1006cb	0.994977	44.0	discard	weight decay 0.3
+04d35d6	1.002518	40.4	discard	GQA n_kv_head half (loss params)
+87b56d2	1.014786	66.5	discard	depth 10
+124da6e	0.994846	44.0	discard	warmup 0.05
+dd03348	0.987418	43.9	keep	total batch 2^18
+edb631e	0.994193	22.2	discard	total batch 2^17 dbs 64
+99e5a2d	0.985724	66.2	keep	depth 10 at batch 2^18
+d15d12e	0.997757	47.8	discard	depth 12 dbs 64
+b288d60	0.985366	66.2	keep	embed lr 1.0 depth 10
+402d395	0.985459	66.2	discard	embed lr 1.2
+95a6643	0.986907	66.2	discard	matrix lr 0.06 depth 10
+3047911	0.984585	66.2	keep	matrix lr 0.04 depth 10
+2fb7366	0.984149	66.2	keep	matrix lr 0.03
+e3e0f98	0.986168	66.2	discard	matrix lr 0.02
+29fe3d3	0.986633	66.2	discard	warmdown 0.3
+a82561c	0.984551	66.2	discard	warmdown 0.7
+b56f894	0.983930	66.2	keep	warmdown 0.6
+70d1759	0.984032	66.2	discard	warmdown 0.65
+854da61	0.983525	66.2	keep	embed lr 1.2 retry
+6d9d69a	0.984688	66.2	discard	embed lr 1.5
+129ea30	0.983025	66.2	keep	unembed lr 0.006
+5a99a9c	0.984812	66.2	discard	unembed lr 0.008
+3cdcbaa	0.985824	66.2	discard	window L depth 10
+68be089	0.982884	66.2	keep	window SSSSL
+4358178	0.983189	66.2	discard	window SSSSSL
+18ab594	0.984877	66.2	discard	adam beta1 0.9
+ba50cbb	0.993868	66.4	discard	head dim 64
+8252956	1.058761	46.8	discard	aspect 80 dbs 64
+b29672c	0.984491	66.2	discard	scalar lr 1.0
+9a28936	0.984664	66.2	discard	matrix lr 0.025
+2bfa9c4	0.982910	66.2	discard	embed lr 1.4
+7e87fff	0.983894	59.9	discard	MLP expansion 3x
+057f65b	0.983469	66.2	discard	weight decay 0.15
+2d067d2	0.982648	66.2	keep	remove warmup
+de6097a	0.982839	66.2	discard	embed lr 1.4 no warmup
+cedccc2	0.983289	66.2	discard	softcap 20
+aa1e1fb	0.982655	66.2	discard	softcap 10
+d643c22	0.983528	66.2	discard	window SSSL retry
+2d081ab	1.020765	66.5	discard	total batch 2^19 depth 10
+5f0a51c	0.982728	66.2	discard	warmdown 0.55
+3d20669	0.982738	66.2	discard	embed lr 1.1
+0d469f6	0.982355	60.2	keep	depth 9
+3f4894b	0.000000	0.0	crash	depth 11 OOM
+bcb0e8f	0.982191	60.2	keep	warmdown 0.55 d9
+2404674	0.982293	60.2	discard	warmdown 0.5 d9
+305d182	0.981034	60.2	keep	matrix lr 0.035 d9
+e837ff4	0.980599	60.2	keep	matrix lr 0.04 d9
+eaa51c4	0.982516	60.2	discard	matrix lr 0.05 d9
+072ba66	0.980741	60.2	discard	matrix lr 0.045 d9
+427ef00	0.981219	60.2	discard	unembed lr 0.005 d9
+a2be8af	0.982406	60.2	discard	unembed lr 0.007 d9
+353b86a	0.980763	60.2	discard	embed lr 1.0 d9
+38d8852	0.981562	60.2	discard	embed lr 1.4 d9
+a05efed	0.982240	60.2	discard	window SSL d9
+4bdb92f	0.981867	30.5	discard	batch 2^17 dbs 64 d9
+a45c93b	0.985994	43.8	discard	d11 batch 2^17 dbs 64
+ebe7d1e	0.982312	60.2	discard	wd 0.1 d9
+2256fcd	0.982415	60.2	discard	wd 0.3 d9
+bd0aa06	0.981667	60.2	discard	scalar lr 0.25 d9
+d93d2b2	0.982732	54.5	discard	MLP 3x d9
+0e10340	0.981733	60.2	discard	beta1 0.85 d9
+aab4a58	0.982677	60.2	discard	beta2 0.99 d9
+219cb84	0.980267	60.2	keep	rotary base 50000 d9
+2f3205e	0.980149	60.2	keep	rotary base 100000 d9
+9087eae	0.980709	60.2	discard	rotary base 500000 d9
+b5da637	0.980403	60.2	discard	rotary base 200000 d9
+7f1beaf	0.982318	66.2	discard	d10 retry
+eb96824	0.984516	43.9	discard	d8 retry
+2ddcd82	0.980320	60.2	discard	warmdown 0.5 retest
+81e2b8d	0.979767	60.2	keep	warmdown 0.6 retest
+68d58b0	0.979808	60.2	discard	warmdown 0.65 d9
+88e382e	0.980117	60.2	discard	warmdown 0.7 d9
+b21aa81	0.981126	60.2	discard	window SSSSSL d9
+98f52bc	0.986966	60.2	discard	remove softcap d9
+d6c295d	0.981496	60.2	discard	matrix lr 0.045 retest
+6565fec	0.982662	61.6	discard	VE every layer
+6bffe84	0.988303	58.8	discard	VE only last layer
+84f3239	0.982855	60.2	discard	fixed muon momentum 0.95
+7a291e1	0.994810	60.2	discard	muon momentum final 0.99
+8b14606	0.979654	60.2	keep	embed lr 1.3 d9
+7a2b9d1	0.979504	60.2	keep	embed lr 1.35 d9
+21832ea	0.979904	60.2	discard	embed lr 1.5 d9
+a28185b	0.979647	60.2	discard	warmup 0.02 d9
+1b2708c	0.979798	60.2	discard	matrix lr 0.035 retest
+c69c0a8	1.025528	30.7	discard	dbs 64 grad accum 2 d9
+eb95478	0.979760	60.2	discard	softcap 18
+d22edc9	0.981709	60.2	discard	window SSLLL d9
+5e53d22	0.980268	60.2	discard	x0_lambda 0.2
+d340602	0.980724	60.2	discard	x0_lambda 0.0
+1a198ae	0.982384	59.9	discard	VE offset pattern
+715df27	0.978832	60.2	keep	beta1 0.7 d9
+5087fff	0.979905	60.2	discard	beta1 0.6 d9
+53123e7	0.978764	60.2	keep	beta1 0.75 d9
+5390fb9	0.978591	60.2	keep	beta1 0.72 d9
+20e51fd	0.978948	60.2	discard	beta1 0.73 d9
+b46c368	0.978849	60.2	discard	embed lr 1.5 retest
+23eb1bb	0.981994	60.2	discard	matrix lr 0.05 retest
+7797bc1	0.979103	60.2	discard	warmdown 0.55 β1=0.72
+b061981	0.980033	60.2	discard	rotary 150000 d9
+db720ca	0.978613	60.2	discard	embed 1.45 d9
+5237b88	0.978803	60.2	discard	embed 1.4 retest β1=0.72
+cc68bb7	0.978609	60.2	discard	beta2 0.92 d9
+5b59f85	0.978891	60.2	discard	beta2 0.97 d9
+a061cef	0.983283	65.9	discard	MLP 5x d9
+5e622c7	0.979112	60.2	discard	embed 1.3 retest β1=0.72
+b84f4a1	0.979486	60.2	discard	matrix lr 0.038 d9
+57fa354	0.979148	60.2	discard	matrix lr 0.042 d9
+93276e6	0.978724	60.2	discard	warmdown 0.58 d9
+6bce6e4	0.978793	60.2	discard	warmdown 0.62 d9
+ce282aa	0.997309	60.2	discard	gelu d9
+15f743b	0.979520	60.2	discard	rotary 70000 d9
+e5c70d6	0.982545	60.2	discard	scalar lr 0.3 d9
+07ddc71	0.981238	60.2	discard	scalar lr 0.7 d9
+19904ce	0.980888	60.2	discard	wd 0.05 d9
+7b2d784	0.979607	60.2	discard	wd 0.25 d9
+0b62be0	0.979109	60.2	discard	softcap 12 d9
+3a4c0d2	0.982153	66.2	discard	d10 β1=0.72
+dc0c056	0.980011	60.2	discard	rotary 120000 d9
+6ffd059	0.982052	60.2	discard	Muon ns_steps 4
+f1e20f9	0.983391	60.2	discard	wd constant (no schedule)
+f91eaf6	0.978171	56.7	keep	d7 AR96
+1576b15	0.980090	63.9	discard	d8 AR96
+6ec753a	0.979854	49.1	discard	d6 AR128
+7993abc	0.977877	56.7	keep	d7 AR96 embed 1.5
+d7d286d	0.978309	56.7	discard	d7 AR96 embed 1.7
+3c37fc1	0.977814	56.7	keep	d7 AR96 embed 1.6
+add210d	0.977794	56.7	keep	d7 AR96 embed 1.65
+57a7c0d	0.977669	56.7	keep	d7 AR96 embed 1.75
+21282df	0.977824	56.7	discard	d7 AR96 embed 2.0
+991a33b	0.977626	56.7	keep	d7 AR96 embed 1.85
+0b32c06	0.978266	56.7	discard	d7 AR96 embed 1.95
+a9222b2	0.978049	56.7	discard	d7 AR96 matrix 0.05
+93dd670	0.977539	56.7	keep	d7 AR96 matrix 0.045
+d506bdb	0.978281	56.7	discard	d7 AR96 matrix 0.048
+22dec82	0.990681	65.6	discard	d7 AR128
+2e0569b	0.983770	41.5	discard	d6 AR96
+22671e5	0.978505	56.7	discard	d7 AR96 warmdown 0.55
+6270b59	0.978444	56.7	discard	d7 AR96 β1=0.7
+ef49b1a	0.977548	56.7	discard	d7 AR96 β1=0.74
+4200e0a	0.978613	56.7	discard	d7 AR96 window SSSL
+f8eafa9	0.977867	56.7	discard	d7 AR96 matrix 0.044
+ffa0644	0.977879	56.7	discard	d7 AR96 matrix 0.046
+426d206	0.978547	56.7	discard	d7 AR96 rotary 80000
+07d5efc	0.978380	56.7	discard	d7 AR96 rotary 130000
+9dd3230	0.977753	56.7	discard	d7 AR96 warmdown 0.65
+915ebaf	0.978320	56.7	discard	d7 AR96 unembed 0.005
+eef2153	0.977516	56.7	keep	d7 AR96 unembed 0.007
+263c093	0.977953	56.7	discard	d7 AR96 unembed 0.009
+26de008	0.978074	56.7	discard	d7 AR96 unembed 0.008
+fb76133	0.977138	56.7	keep	d7 AR96 wd 0.15
+2218334	0.977185	56.7	discard	d7 AR96 wd 0.1
+c0d11c8	0.978330	56.7	discard	d7 AR96 wd 0.05
+45c4841	0.976995	56.7	keep	d7 AR96 embed 1.7 wd 0.15
+af64f23	0.977639	56.7	discard	d7 AR96 embed 1.6 wd 0.15
+a92128c	0.977428	56.7	discard	d7 AR96 embed 1.8 wd 0.15
+d4dce3e	0.977494	56.7	discard	d7 AR96 matrix 0.05 wd 0.15
+b4c957d	0.976972	56.7	keep	d7 AR96 matrix 0.04 wd 0.15
+5c91db6	0.977372	56.7	discard	d7 AR96 matrix 0.035 wd 0.15
+05010f9	0.977181	56.7	discard	d7 AR96 embed 1.65 m0.04 wd0.15
+67c4e1c	0.977295	56.7	discard	d7 AR96 embed 1.75 wd 0.15
+df4a8fc	0.977537	56.7	discard	d7 AR96 β1=0.7 wd 0.15
