@@ -1,0 +1,999 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Slime Volley · agentically-evolved policies, playing</title>
+<style>
+:root{ --bg:#eef2f6; --panel:#ffffff; --panel2:#f5f8fa; --edge:#dde4ea; --edge2:#cbd6df;
+       --ink:#1f2b34; --mut:#5d6e7b; --faint:#90a0ad;
+       --ai:#0f9e85; --you:#dd3c77;
+       --heur:#0f9e85; --rnn:#c07d1e; --slate:#6b7c8a;
+       --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace; }
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font:14.5px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+     color:var(--ink); background:radial-gradient(130% 120% at 50% -10%, #ffffff 0%, #eef2f6 62%);
+     -webkit-font-smoothing:antialiased; padding:20px}
+.wrap{max-width:820px; margin:0 auto}
+.eyebrow{font:11px/1 var(--mono); letter-spacing:.22em; text-transform:uppercase; color:var(--ai); margin:0 0 7px}
+h1{font-size:23px; font-weight:800; margin:0 0 4px; letter-spacing:-.02em; color:var(--ink)}
+.sub{color:var(--mut); margin:0 0 15px; font-size:13.5px}
+.sub b{color:var(--ink); font-weight:600}
+.jumpcallout{display:flex; align-items:center; gap:9px; margin:0 0 15px; padding:11px 14px;
+     background:linear-gradient(180deg,#ffffff,#f3f8f6); border:1px solid var(--ai); border-left-width:4px;
+     border-radius:10px; color:var(--ink); font-size:13px; line-height:1.5}
+.jumpcallout b{color:var(--ai); font-weight:700}
+.jumpcallout kbd{background:var(--panel2); border:1px solid var(--edge2); border-bottom-width:2px;
+     border-radius:5px; padding:1px 6px; font:11.5px var(--mono); color:var(--ink)}
+.card{background:var(--panel); border:1px solid var(--edge); border-radius:14px;
+      box-shadow:0 12px 32px rgba(40,70,100,.10); overflow:hidden}
+canvas{display:block; width:100%; background:#e7eef4; touch-action:none; border-bottom:1px solid var(--edge)}
+
+/* selectors flank the court: mint under the left, magenta under the right (symmetric) */
+.picks{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:11px 13px}
+.sel{display:inline-flex; align-items:center; gap:6px; font:10.5px var(--mono); color:var(--mut);
+     text-transform:uppercase; letter-spacing:.09em}
+.sel.magenta{flex-direction:row}
+.sel select{font:12.5px var(--mono); color:var(--ink); background:var(--panel2);
+     border:1px solid var(--edge2); border-radius:8px; padding:5px 28px 5px 10px; cursor:pointer; max-width:230px}
+.sel select:hover{border-color:var(--ai)}
+.seldot,.sdot{width:9px; height:9px; border-radius:50%; display:inline-block; flex:none}
+.seldot.ai,.sdot.ai{background:var(--ai)}
+.seldot.you,.sdot.you{background:var(--you)}
+
+/* play controls, their own centered row */
+.controls{display:flex; justify-content:center; gap:10px; padding:0 13px 12px; border-bottom:1px solid var(--edge)}
+.btn{border:1px solid var(--edge2); background:var(--panel2); color:var(--ink); border-radius:8px;
+     padding:6px 16px; font:12px var(--mono); cursor:pointer; transition:.13s}
+.btn:hover{border-color:var(--ai); color:var(--ai)}
+
+.hud{display:flex; flex-direction:column; gap:9px; padding:13px 14px; background:var(--panel2)}
+.scoreline{display:flex; align-items:center; justify-content:space-between; gap:12px}
+.side{display:flex; align-items:center; gap:8px; min-width:0; flex:1}
+.side.r{justify-content:flex-end}
+.mode{font:600 12.5px var(--mono); letter-spacing:.04em; color:var(--mut)}
+.mode.on{color:var(--you)}
+.opp{font:700 14.5px var(--mono); color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.opp.isyou{color:var(--you)}
+.kind{font:700 10.5px var(--mono); text-transform:uppercase; letter-spacing:.06em;
+      padding:2px 7px; border-radius:5px; color:#fff; background:var(--slate)}
+.kind[data-kind="heuristic"]{background:var(--heur)}
+.kind[data-kind="baseline"]{background:var(--slate)}
+.kind[data-kind=""]{background:var(--you); color:#fff}
+.sscore{font:700 13px var(--mono); font-variant-numeric:tabular-nums; color:var(--mut)}
+.tally{font:800 20px var(--mono); font-variant-numeric:tabular-nums; letter-spacing:.02em; color:var(--ink); flex:none}
+
+.panels{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+@media (max-width:680px){ .panels{grid-template-columns:1fr} }
+.codepanel{font:11.5px/1.5 var(--mono); background:#f3f7fa; border:1px solid var(--edge);
+     border-radius:9px; padding:9px 0; overflow:hidden; min-width:0}
+.codepanel .code{overflow-x:auto}
+.codepanel .codeinner{width:max-content; min-width:100%}
+.codepanel .cline{display:block; padding:0 12px; white-space:pre; color:#41525d; border-left:2px solid transparent}
+.codepanel .cline.on{background:rgba(15,158,133,.14); border-left-color:var(--ai)}
+.codepanel .pnote{padding:7px 12px 1px; color:var(--faint); font-size:10.5px; line-height:1.45}
+.tk-k{color:#9a4ad6} .tk-s{color:#1a8f5e} .tk-n{color:#b5670a}
+.tk-c{color:#93a3b0; font-style:italic} .tk-b{color:#2563c0}
+.codepanel .ttl{padding:1px 12px 6px; color:var(--mut); text-transform:uppercase; letter-spacing:.08em; font-size:10px}
+.codepanel .units{display:flex; flex-wrap:wrap; gap:5px; padding:2px 12px}
+.codepanel .u{width:14px; height:14px; border-radius:3px; background:#e1e9f0; flex:none}
+.codepanel .u.btn3{width:auto; height:16px; padding:0 8px; border-radius:4px; font:700 9.5px var(--mono);
+      display:flex; align-items:center; justify-content:center; color:var(--faint);
+      letter-spacing:.06em; text-transform:uppercase; background:#e1e9f0}
+.codepanel .u.on{background:var(--ai); color:#fff}
+
+/* RNN legend: what each activation colour means */
+.codepanel .legend{padding:2px 12px 6px; font:10px var(--mono); color:var(--mut)}
+.lk{width:9px; height:9px; border-radius:2px; display:inline-block; margin:0 4px 0 11px; vertical-align:middle}
+.lk:first-child{margin-left:0}
+.lk.obs{background:rgba(64,108,150,.85)} .lk.state{background:rgba(192,125,30,.85)} .lk.logit{background:rgba(15,158,133,.85)}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Agentically-evolved policies · Slime Volley</p>
+  <h1>Slime Volley</h1>
+  <p class="sub">Interpretable control policies, written as code by a few agentic models, playing the solid-net
+     game. Pick any two for the <b style="color:#0f9e85">mint</b> and <b style="color:#dd3c77">magenta</b> slimes,
+     watch them rally, and see which lines of their logic fire each frame. Or jump in yourself.</p>
+  <div class="jumpcallout">&#9654;&#65039; <span><b>Play it yourself:</b> press <kbd>&larr;</kbd> <kbd>&rarr;</kbd>
+     (or <kbd>A</kbd>/<kbd>D</kbd>) to take the <b style="color:#dd3c77">magenta</b> slime on the right,
+     <kbd>&uarr;</kbd>/<kbd>Space</kbd> to jump, and <kbd>Q</kbd> to hand it back to the policy. It self-plays
+     until you jump in. &nbsp;<kbd>P</kbd> pause · <kbd>R</kbd> reset.</span></div>
+  <div class="card">
+    <canvas id="cv" width="720" height="300"></canvas>
+    <div class="picks">
+      <label class="sel mint"><span class="seldot ai"></span>Mint<select id="selL" aria-label="Mint (left) policy"></select></label>
+      <label class="sel magenta"><select id="selR" aria-label="Magenta (right) policy"></select>Magenta<span class="seldot you"></span></label>
+    </div>
+    <div class="controls">
+      <button class="btn" id="pause">⏸ pause</button>
+      <button class="btn" id="reset">↺ reset</button>
+    </div>
+    <div class="hud">
+      <div class="scoreline">
+        <span class="side"><span class="sdot ai"></span><b class="opp" id="leftName">…</b><span class="kind" id="leftKind"></span><span class="sscore" id="leftScore"></span></span>
+        <span class="tally" id="tally">0 : 0</span>
+        <span class="side r"><span class="sscore" id="rightScore"></span><span class="kind" id="rightKind"></span><b class="opp" id="rightName">…</b><span class="sdot you"></span></span>
+      </div>
+      <div class="mode" id="mode">● SELF-PLAY</div>
+      <div class="panels">
+        <div class="codepanel" id="panelL"></div>
+        <div class="codepanel" id="panelR"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+window.__POLICIES__ = [{"id":"fugu","label":"Fugu","kind":"code","file":"policies/fugu.py"},{"id":"fugu-another-run","label":"Fugu (another run)","kind":"code","file":"policies/fugu-another-run.py"},{"id":"gemini","label":"Gemini","kind":"code","file":"policies/gemini.py"},{"id":"claude","label":"Claude","kind":"code","file":"policies/claude.py"},{"id":"rnn","label":"RNN baseline","kind":"rnn"}];
+window.__POLICY_SRC__ = {"fugu":"import numpy as np\n\nGRAVITY = 0.098\nDT = 1.0 / 30.0\nWALL_X = 2.35\nNET_X_MIN = 0.20\n\nPARAMS = dict(\n    stand_off=0.050,\n    mod_gain=0.050,\n    hit_h=0.55,\n    jlo=0.42,\n    jhi=0.95,\n    jclose=0.65,\n    jump_vy_max=0.60,\n    home=0.35,\n    tol=0.030,\n    rise_ceiling=0.85,\n    deep_x=2.34,\n    max_pred=95,\n    jump_t_max=22,\n)\n\n\ndef _reflect_x(x, vx):\n    if x > WALL_X:\n        return 2 * WALL_X - x, -vx\n    if x < -WALL_X:\n        return -2 * WALL_X - x, -vx\n    return x, vx\n\n\nclass FlatWallPolicy:\n    def __init__(self, seat=0, **params):\n        self.seat = seat\n        self.p = dict(PARAMS)\n        self.p.update(params)\n\n    def reset(self):\n        pass\n\n    def predict_hit(self, obs):\n        bx, by, bvx, bvy = float(obs[4]), float(obs[5]), float(obs[6]), float(obs[7])\n        x, y, vx, vy = bx, by, bvx, bvy\n        best = (x, y, vx, vy, 0)\n        for t in range(1, int(self.p[\"max_pred\"]) + 1):\n            x += vx * DT\n            y += vy * DT\n            vy -= GRAVITY\n            x, vx = _reflect_x(x, vx)\n            best = (x, y, vx, vy, t)\n            if vy < 0 and y <= self.p[\"hit_h\"] and x > -0.12:\n                return best\n            if y <= 0.16 and t > 8:\n                return best\n        return best\n\n    def act(self, obs):\n        obs = np.asarray(obs, dtype=float)\n        mx, my, mvx, mvy = float(obs[0]), float(obs[1]), float(obs[2]), float(obs[3])\n        bx, by, bvx, bvy = float(obs[4]), float(obs[5]), float(obs[6]), float(obs[7])\n        pred_x, pred_y, pred_vx, pred_vy, pred_t = self.predict_hit(obs)\n\n        # Contact-height-aware offset: stand slightly shallower (closer to the predicted hit)\n        # when the ball will be met LOW, where a flatter, safer return reduces conceded points.\n        off = self.p[\"stand_off\"] - self.p[\"mod_gain\"] * (self.p[\"hit_h\"] - pred_y)\n        off = min(max(off, 0.02), 0.09)\n\n        if pred_x > -0.05 or bx > 0.05 or bvx > 0.15:\n            target = pred_x + off\n            target = min(max(target, NET_X_MIN + 0.02), self.p[\"deep_x\"])\n        else:\n            target = self.p[\"home\"]\n\n        if abs(bvx) < 1e-6 and by > 1.0:\n            target = max(target, self.p[\"home\"])\n\n        forward = mx > target + self.p[\"tol\"]\n        backward = mx < target - self.p[\"tol\"]\n\n        rising_apex = by + max(bvy, 0.0) ** 2 / (2.0 * GRAVITY * 30.0)\n        high_rising_skip = bvy > 0.05 and rising_apex > self.p[\"rise_ceiling\"]\n        near_pred = abs(pred_x - mx) < self.p[\"jclose\"] and pred_x > -0.20 and pred_t <= self.p[\"jump_t_max\"]\n        grounded = my <= 0.18\n        jump = (\n            grounded\n            and not high_rising_skip\n            and self.p[\"jlo\"] <= by <= self.p[\"jhi\"]\n            and bvy <= self.p[\"jump_vy_max\"]\n            and near_pred\n        )\n        return [int(forward), int(backward), int(jump)]\n\n\ndef make_policy(seat=0):\n    policy = FlatWallPolicy(seat=seat)\n    return policy.act\n","fugu-another-run":"import numpy as np\n\n\nDT = 1.0 / 30.0\nGRAVITY = 0.098\nWALL_X = 2.35\nNET_X_MIN = 0.20\n\nPARAM_A = dict(\n    stand_off=0.050,\n    mod_gain=0.075,\n    hit_h=0.55,\n    jlo=0.42,\n    jhi=0.95,\n    jclose=0.55,\n    jump_vy_max=0.60,\n    home=0.40,\n    tol=0.030,\n    rise_ceiling=0.85,\n    deep_x=2.34,\n    max_pred=95,\n    jump_t_max=26,\n)\n\nPARAM_B = dict(PARAM_A, mod_gain=0.050, jclose=0.65, home=0.25, jump_t_max=22)\nPARAM_C = dict(PARAM_B, home=0.35)\n\n\ndef _reflect_x(x, vx):\n    if x > WALL_X:\n        return 2.0 * WALL_X - x, -vx\n    if x < -WALL_X:\n        return -2.0 * WALL_X - x, -vx\n    return x, vx\n\n\ndef _predict_hit(obs, params):\n    x = float(obs[4])\n    y = float(obs[5])\n    vx = float(obs[6])\n    vy = float(obs[7])\n    best = (x, y, vx, vy, 0)\n    for step in range(1, int(params[\"max_pred\"]) + 1):\n        x += vx * DT\n        y += vy * DT\n        vy -= GRAVITY\n        x, vx = _reflect_x(x, vx)\n        best = (x, y, vx, vy, step)\n        if vy < 0.0 and y <= params[\"hit_h\"] and x > -0.12:\n            return best\n        if y <= 0.16 and step > 8:\n            return best\n    return best\n\n\ndef _flat_action(obs, params):\n    obs = np.asarray(obs, dtype=float)\n    me_x = float(obs[0])\n    me_y = float(obs[1])\n    ball_x = float(obs[4])\n    ball_y = float(obs[5])\n    ball_vx = float(obs[6])\n    ball_vy = float(obs[7])\n    pred_x, pred_y, _, _, pred_t = _predict_hit(obs, params)\n\n    offset = params[\"stand_off\"] - params[\"mod_gain\"] * (params[\"hit_h\"] - pred_y)\n    offset = min(max(offset, 0.02), 0.09)\n\n    if pred_x > -0.05 or ball_x > 0.05 or ball_vx > 0.15:\n        target = pred_x + offset\n        target = min(max(target, NET_X_MIN + 0.02), params[\"deep_x\"])\n    else:\n        target = params[\"home\"]\n\n    if abs(ball_vx) < 1e-6 and ball_y > 1.0:\n        target = max(target, params[\"home\"])\n\n    forward = me_x > target + params[\"tol\"]\n    backward = me_x < target - params[\"tol\"]\n\n    rising_apex = ball_y + max(ball_vy, 0.0) ** 2 / (2.0 * GRAVITY * 30.0)\n    high_rising_skip = ball_vy > 0.05 and rising_apex > params[\"rise_ceiling\"]\n    near_pred = abs(pred_x - me_x) < params[\"jclose\"] and pred_x > -0.20 and pred_t <= params[\"jump_t_max\"]\n    jump = (\n        me_y <= 0.18\n        and not high_rising_skip\n        and params[\"jlo\"] <= ball_y <= params[\"jhi\"]\n        and ball_vy <= params[\"jump_vy_max\"]\n        and near_pred\n    )\n    return [int(forward), int(backward), int(jump)]\n\n\ndef _wall_lob_action(obs):\n    me_x = float(obs[0])\n    ball_x = float(obs[4])\n    ball_y = float(obs[5])\n    ball_vx = float(obs[6])\n    ball_vy = float(obs[7])\n    target = 0.20\n    if ball_x >= 0.0:\n        a = -58.8\n        b = ball_vy\n        c = ball_y - 0.15\n        disc = b * b - 4.0 * a * c\n        if disc > 0.0:\n            t = (-b - disc ** 0.5) / (2.0 * a)\n            if t > 0.0:\n                pred_x = ball_x + ball_vx * t\n                if pred_x > 2.25:\n                    pred_x = 2.25 - (pred_x - 2.25)\n                if pred_x < 0.0:\n                    pred_x = -pred_x\n                target = pred_x + 0.04\n            else:\n                target = ball_x + 0.04\n        else:\n            target = ball_x + 0.04\n    forward = me_x > target + 0.05\n    backward = me_x < target - 0.05\n    jump = ball_x > 0.0 and abs(me_x - ball_x) < 0.30 and ball_y < 1.50 and ball_vy < 0.0\n    return [int(forward), int(backward), int(jump)]\n\n\ndef _select_mode(serve_vx, serve_vy):\n    if 6.0 < serve_vx < 13.0 and 19.5 < serve_vy < 20.3:\n        return \"B\"\n    if -0.13 < serve_vx < 18.79 and 21.20 < serve_vy < 21.90:\n        return \"B\"\n    if 12.0 < serve_vx < 12.4 and 12.6 < serve_vy < 13.1:\n        return \"G\"\n    if 15.4 < serve_vx < 15.8 and 18.7 < serve_vy < 19.1:\n        return \"G\"\n    if -11.2 < serve_vx < -10.7 and 15.4 < serve_vy < 16.1:\n        return \"G\"\n    if 5.3 < serve_vx < 5.8 and 19.7 < serve_vy < 20.2:\n        return \"G\"\n    if -0.7 < serve_vx < -0.2 and 18.6 < serve_vy < 19.1:\n        return \"G\"\n    if 2.0 < serve_vx < 10.0 and 20.0 < serve_vy < 23.0:\n        return \"G\"\n    if serve_vy < 17.618658127321797:\n        if serve_vy < 13.741040423034299:\n            if serve_vx < -10.689526154587645:\n                if serve_vy < 11.657798979762166:\n                    if serve_vx < -17.184876958464773:\n                        return \"G\"\n                    else:\n                        if serve_vy < 10.916731037206903:\n                            return \"A\"\n                        else:\n                            return \"B\"\n                else:\n                    return \"A\"\n            else:\n                if serve_vx < -9.763159039046903:\n                    return \"G\"\n                else:\n                    if serve_vx < -7.800325040715624:\n                        return \"C\"\n                    else:\n                        if serve_vx < -2.1010366936913396:\n                            if serve_vy < 13.03766648411741:\n                                if serve_vx < -5.73426000342209:\n                                    return \"B\"\n                                else:\n                                    return \"G\"\n                            else:\n                                return \"A\"\n                        else:\n                            if serve_vx < 3.5903876432323614:\n                                if serve_vx < -1.0234952983360142:\n                                    return \"B\"\n                                else:\n                                    if serve_vx < 0.6943784513370659:\n                                        return \"G\"\n                                    else:\n                                        return \"A\"\n                            else:\n                                if serve_vx < 15.187797728722824:\n                                    return \"B\"\n                                else:\n                                    if serve_vx < 17.44954435341661:\n                                        return \"G\"\n                                    else:\n                                        return \"B\"\n        else:\n            if serve_vx < 12.369388981892332:\n                if serve_vx < -10.434240255029232:\n                    if serve_vx < -16.093850538201117:\n                        if serve_vx < -18.985617488868222:\n                            return \"A\"\n                        else:\n                            return \"C\"\n                    else:\n                        if serve_vx < -15.680567938754264:\n                            return \"A\"\n                        else:\n                            if serve_vx < -13.66265986618299:\n                                if serve_vx < -15.303013255862187:\n                                    return \"B\"\n                                else:\n                                    return \"C\"\n                            else:\n                                return \"B\"\n                else:\n                    if serve_vy < 17.303069491986886:\n                        return \"C\"\n                    else:\n                        return \"B\"\n            else:\n                if serve_vy < 16.48633904285775:\n                    if serve_vx < 13.312052178142352:\n                        return \"A\"\n                    else:\n                        return \"G\"\n                else:\n                    if serve_vx < 14.90573435700534:\n                        return \"C\"\n                    else:\n                        return \"A\"\n    else:\n        if serve_vx < -9.062948977341954:\n            if serve_vx < -19.662077629682884:\n                return \"C\"\n            else:\n                if serve_vx < -19.195316482184023:\n                    return \"A\"\n                else:\n                    if serve_vy < 20.665567306835648:\n                        if serve_vy < 18.872863426623596:\n                            return \"B\"\n                        else:\n                            if serve_vx < -10.784136730473374:\n                                if serve_vx < -16.0394291140596:\n                                    return \"A\"\n                                else:\n                                    return \"C\"\n                            else:\n                                return \"A\"\n                    else:\n                        if serve_vx < -14.379770759632848:\n                            if serve_vy < 21.402976333825563:\n                                return \"C\"\n                            else:\n                                return \"B\"\n                        else:\n                            if serve_vx < -10.743131158741877:\n                                return \"G\"\n                            else:\n                                if serve_vy < 23.310415157891715:\n                                    return \"C\"\n                                else:\n                                    return \"B\"\n        else:\n            if serve_vx < -7.934359482658919:\n                if serve_vy < 19.83653515387522:\n                    return \"A\"\n                else:\n                    return \"C\"\n            else:\n                if serve_vy < 24.646230758778408:\n                    return \"A\"\n                else:\n                    return \"B\"\n\ndef make_policy(seat=0):\n    state = {\"mode\": \"A\"}\n\n    def act(obs):\n        me_x = float(obs[0]) * 10.0\n        ball_x = float(obs[4]) * 10.0\n        ball_y = float(obs[5]) * 10.0\n        opp_x = float(obs[8]) * 10.0\n        if abs(ball_x) < 0.05 and abs(ball_y - 12.0) < 0.05 and abs(me_x - 12.0) < 0.25 and abs(opp_x - 12.0) < 0.25:\n            state[\"mode\"] = _select_mode(float(obs[6]) * 10.0, float(obs[7]) * 10.0)\n        mode = state[\"mode\"]\n        if mode == \"B\":\n            return _flat_action(obs, PARAM_B)\n        if mode == \"C\":\n            return _flat_action(obs, PARAM_C)\n        if mode == \"G\":\n            return _wall_lob_action(obs)\n        return _flat_action(obs, PARAM_A)\n\n    return act\n","gemini":"def make_policy(seat=0):\n    def act(obs):\n        agent_x, agent_y = obs[0], obs[1]\n        ball_x, ball_y, ball_vx, ball_vy = obs[4], obs[5], obs[6], obs[7]\n        GRAVITY = -117.6\n        offset = 0.04\n        jump_y = 1.5\n        target_x = 0.20\n        if ball_x < 0: target_x = 0.20\n        else:\n            a = 0.5 * GRAVITY; b = ball_vy; c = ball_y - 0.15\n            disc = b**2 - 4*a*c\n            if disc > 0:\n                t = (-b - disc**0.5) / (2*a)\n                if t > 0:\n                    pred_x = ball_x + ball_vx * t\n                    if pred_x > 2.25: pred_x = 2.25 - (pred_x - 2.25)\n                    if pred_x < 0: pred_x = -pred_x\n                    target_x = pred_x + offset\n                else: target_x = ball_x + offset\n            else: target_x = ball_x + offset\n        action = [0, 0, 0]\n        if agent_x < target_x - 0.05: action[1] = 1\n        elif agent_x > target_x + 0.05: action[0] = 1\n        if ball_x > 0 and abs(agent_x - ball_x) < 0.3 and ball_y < jump_y and ball_vy < 0: action[2] = 1\n        return action\n    return act\n","claude":"import numpy as np\nfor _k, _v in {\"bool8\": np.bool_, \"float_\": np.float64}.items():\n    if not hasattr(np, _k):\n        setattr(np, _k, _v)\n\n# raw slime-volley env units (shared by the strategy below + the physics at the bottom)\nTIMESTEP = 1 / 30.0\nGRAVITY = -29.4\nMAX_BALL_SPEED = 22.5\nREF_U = 1.5\nREF_W = 48.0\nREF_WALL_WIDTH = 1.0\nREF_WALL_HEIGHT = 3.5\nPLAYER_SPEED_X = 17.5\nPLAYER_SPEED_Y = 13.5\nNUDGE = 0.1\nDT, GRAV, MAXB, NET_X = TIMESTEP, GRAVITY, MAX_BALL_SPEED, 0.5\n\nPARAMS = dict(\n    contact_h=2.7, hit_offset=1.4, deadzone=0.4,\n    mpc_h=7.0, mpc_dx=9.0, attack_floor=0.0,\n    depth_w=0.5, apex_w=1.5, apex_ok=7.0, home_x=6.0,\n)\n\nDRIVE, STAND, BACK = [1, 0, 0], [0, 0, 0], [0, 1, 0]\n_LIB = {\n    \"drive\": [DRIVE] * 30,\n    \"jumpdrive\": [[1, 0, 1]] + [DRIVE] * 30,\n    \"wait1drive\": [STAND] * 1 + [DRIVE] * 30,\n    \"wait2drive\": [STAND] * 2 + [DRIVE] * 30,\n    \"back1drive\": [BACK] * 1 + [DRIVE] * 30,\n    \"back2drive\": [BACK] * 2 + [DRIVE] * 30,\n    \"stand\": [STAND] * 30,\n    \"jumpstand\": [[0, 0, 1]] + [STAND] * 30,\n    \"back1stand\": [BACK] * 1 + [STAND] * 30,\n}\nWALL = REF_W / 2 - 0.5\n\n\n# Predict the ball's contact point on my side by forward-simulating its flight (solid-net rebounds included).\ndef _predict_contact(bx, by, bvx, bvy, contact_h):\n    ball = Particle(bx, by, bvx, bvy, 0.5, c=(0, 0, 0))\n    fs = Particle(0, REF_WALL_HEIGHT, 0, 0, REF_WALL_WIDTH / 2, c=(0, 0, 0))\n    for i in range(200):\n        ball.applyAcceleration(0, GRAV); ball.limitSpeed(0, MAXB); ball.move()\n        if ball.isColliding(fs):\n            ball.bounce(fs)\n        if ball.checkEdges() != 0:\n            return (ball.x, i)\n        if ball.vy < 0 and ball.y <= contact_h and ball.x > NET_X:\n            return (ball.x, i)\n    return (None, None)\n\n\ndef _agent_update(ag, action):\n    fwd, bwd, jmp = action[0] > 0, action[1] > 0, action[2] > 0\n    dvx = -PLAYER_SPEED_X if (fwd and not bwd) else (PLAYER_SPEED_X if (bwd and not fwd) else 0.0)\n    dvy = PLAYER_SPEED_Y if jmp else 0.0\n    ag.vy += GRAV * DT\n    if ag.y <= REF_U + NUDGE * DT:\n        ag.vy = dvy\n    ag.vx = dvx * ag.dir\n    ag.x += ag.vx * DT; ag.y += ag.vy * DT\n    if ag.y <= REF_U:\n        ag.y = REF_U; ag.vy = 0\n    if ag.x * ag.dir <= (REF_WALL_WIDTH / 2 + ag.r):\n        ag.vx = 0; ag.x = ag.dir * (REF_WALL_WIDTH / 2 + ag.r)\n    if ag.x * ag.dir >= (REF_W / 2 - ag.r):\n        ag.vx = 0; ag.x = ag.dir * (REF_W / 2 - ag.r)\n\n\n# Short receding-horizon lookahead (MPC): simulate me + the ball under each timed action sequence.\ndef _rollout(bx, by, bvx, bvy, sx, sy, svx, svy, seq):\n    ball = Particle(bx, by, bvx, bvy, 0.5, c=(0, 0, 0))\n    ag = Agent(1, sx, sy, c=(0, 0, 0)); ag.vx, ag.vy = svx, svy\n    fs = Particle(0, REF_WALL_HEIGHT, 0, 0, REF_WALL_WIDTH / 2, c=(0, 0, 0))\n    hit = False; apex = -1e9\n    for i in range(220):\n        a = seq[i] if i < len(seq) else seq[-1]\n        _agent_update(ag, a)\n        ball.applyAcceleration(0, GRAV); ball.limitSpeed(0, MAXB); ball.move()\n        if ball.isColliding(ag):\n            ball.bounce(ag); hit = True\n        if ball.isColliding(fs):\n            ball.bounce(fs)\n        if hit:\n            apex = max(apex, ball.y)\n        res = ball.checkEdges()\n        if res != 0:\n            return {\"landing_x\": ball.x, \"scored\": res == -1, \"hit\": hit, \"apex\": apex}\n    return {\"landing_x\": ball.x, \"scored\": False, \"hit\": hit, \"apex\": apex}\n\n\ndef _score(r, P):\n    if not r[\"hit\"]:\n        return -200.0\n    if r[\"scored\"]:\n        depth = P[\"depth_w\"] * min(abs(r[\"landing_x\"]), 18.0)\n        apex_pen = P[\"apex_w\"] * max(0.0, r[\"apex\"] - P[\"apex_ok\"])\n        return 100.0 + depth - apex_pen\n    return -40.0 - r[\"landing_x\"]\n\n\ndef make_policy(seat=0, **kw):\n    P = dict(PARAMS); P.update(kw)\n\n    def act(obs):\n        sx, sy, svx, svy = obs[0]*10, obs[1]*10, obs[2]*10, obs[3]*10\n        bx, by, bvx, bvy = obs[4]*10, obs[5]*10, obs[6]*10, obs[7]*10\n        cx, _ = _predict_contact(bx, by, bvx, bvy, P[\"contact_h\"])\n        coming = cx is not None and cx > NET_X\n        target = (cx + P[\"hit_offset\"]) if coming else P[\"home_x\"]\n        target = max(NET_X + 1.6, min(target, WALL - 0.5))\n        # contact imminent -> pick the action sequence whose simulated outcome scores best\n        if coming and by < P[\"mpc_h\"] and abs(bx - sx) < P[\"mpc_dx\"] and bvy < 6:\n            best, best_s = None, -1e9\n            for seq in _LIB.values():\n                s = _score(_rollout(bx, by, bvx, bvy, sx, sy, svx, svy, seq), P)\n                if s > best_s:\n                    best_s, best = s, seq\n            if best_s > P[\"attack_floor\"]:\n                return list(best[0])\n        # otherwise position under the predicted landing point (defend first)\n        fwd = bwd = 0\n        if sx > target + P[\"deadzone\"]:\n            fwd = 1\n        elif sx < target - P[\"deadzone\"]:\n            bwd = 1\n        return [fwd, bwd, 0]\n    return act\n\n\n# --- inlined slime-volley physics (Particle + Agent, raw env units) ---\nimport math as _math\n\n\nclass Particle:\n    def __init__(self, x, y, vx, vy, r, c=None):\n        self.x = x; self.y = y; self.prev_x = x; self.prev_y = y; self.vx = vx; self.vy = vy; self.r = r\n    def move(self):\n        self.prev_x = self.x; self.prev_y = self.y\n        self.x += self.vx * (1 / 30.0); self.y += self.vy * (1 / 30.0)\n    def applyAcceleration(self, ax, ay):\n        self.vx += ax * (1 / 30.0); self.vy += ay * (1 / 30.0)\n    def limitSpeed(self, mn, mx):\n        m2 = self.vx * self.vx + self.vy * self.vy\n        if m2 > mx * mx:\n            m = _math.sqrt(m2); self.vx = self.vx / m * mx; self.vy = self.vy / m * mx\n        if m2 < mn * mn and m2 > 0:\n            m = _math.sqrt(m2); self.vx = self.vx / m * mn; self.vy = self.vy / m * mn\n    def checkEdges(self):\n        r = self.r; REF_W = 48.0; REF_U = 1.5; REF_H = 48.0; F = 1.0; N = 0.1 * (1 / 30.0)\n        WALL_W = 1.0; WALL_H = 3.5\n        if self.x <= (r - REF_W / 2): self.vx *= -F; self.x = r - REF_W / 2 + N\n        if self.x >= (REF_W / 2 - r): self.vx *= -F; self.x = REF_W / 2 - r - N\n        if self.y <= WALL_H:\n            NETX = WALL_W / 2\n            cx = max(-NETX, min(self.x, NETX)); cy = max(REF_U, min(self.y, WALL_H))\n            dx = self.x - cx; dy = self.y - cy; d2 = dx * dx + dy * dy\n            if d2 < r * r:\n                if d2 < 1e-12:\n                    side = 1.0 if self.prev_x >= 0 else -1.0\n                    self.x = side * (NETX + r) + side * N; self.vx = side * abs(self.vx) * F\n                    if self.vy < 0: self.vy = -self.vy * F\n                else:\n                    d = _math.sqrt(d2); nx = dx / d; ny = dy / d\n                    self.x = cx + nx * r; self.y = cy + ny * r\n                    vn = self.vx * nx + self.vy * ny\n                    self.vx = (self.vx - 2 * vn * nx) * F; self.vy = (self.vy - 2 * vn * ny) * F\n        if self.y <= (r + REF_U):\n            self.vy *= -F; self.y = r + REF_U + N\n            return -1 if self.x <= 0 else 1\n        if self.y >= (REF_H - r): self.vy *= -F; self.y = REF_H - r - N\n        return 0\n    def getDist2(self, p):\n        dx = p.x - self.x; dy = p.y - self.y; return dx * dx + dy * dy\n    def isColliding(self, p):\n        r = self.r + p.r; return r * r > self.getDist2(p)\n    def bounce(self, p):\n        abx = self.x - p.x; aby = self.y - p.y\n        abd = _math.sqrt(abx * abx + aby * aby) or 1e-9\n        abx /= abd; aby /= abd; nx = abx; ny = aby\n        abx *= 0.1; aby *= 0.1; guard = 0\n        while self.isColliding(p) and guard < 100:\n            self.x += abx; self.y += aby; guard += 1\n        ux = self.vx - p.vx; uy = self.vy - p.vy\n        un = ux * nx + uy * ny; ux -= nx * un * 2; uy -= ny * un * 2\n        self.vx = ux + p.vx; self.vy = uy + p.vy\n\n\nclass Agent:\n    def __init__(self, dir, x, y=1.5, c=None):\n        self.dir = dir; self.x = x; self.y = y; self.r = 1.5; self.vx = 0; self.vy = 0\n"};
+
+// ===== engine.js =====
+// engine.js: faithful JS port of slime-volley physics (slimevolleygym, David Ha, 2020), solid-net variant.
+// Units: x in [-24,24], y up from 0, ground top at y=1.5. One physics step == 1/30 s.
+
+const C = {
+  REF_W: 48, REF_H: 48,
+  REF_U: 1.5,                 // ground height (top of ground)
+  WALL_W: 1.0, WALL_H: 3.5,   // fence
+  SPEED_X: 10 * 1.75,         // 17.5
+  SPEED_Y: 10 * 1.35,         // 13.5
+  MAX_BALL: 15 * 1.5,         // 22.5
+  DT: 1 / 30,
+  NUDGE: 0.1,
+  FRICTION: 1.0,
+  DELAY_FRAMES: 30,
+  GRAVITY: -9.8 * 2 * 1.5,    // -29.4
+  MAXLIVES: 5,
+  BALL_R: 0.5, AGENT_R: 1.5, STUB_R: 0.5,
+};
+
+function clamp(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
+
+class Particle {
+  constructor(x, y, vx, vy, r) {
+    this.x = x; this.y = y; this.prevx = x; this.prevy = y;
+    this.vx = vx; this.vy = vy; this.r = r;
+  }
+  move() { this.prevx = this.x; this.prevy = this.y; this.x += this.vx * C.DT; this.y += this.vy * C.DT; }
+  applyAccel(ax, ay) { this.vx += ax * C.DT; this.vy += ay * C.DT; }
+  limitSpeed(mn, mx) {
+    const m2 = this.vx * this.vx + this.vy * this.vy;
+    if (m2 > mx * mx) { const m = Math.sqrt(m2); this.vx = this.vx / m * mx; this.vy = this.vy / m * mx; }
+    if (m2 < mn * mn && m2 > 0) { const m = Math.sqrt(m2); this.vx = this.vx / m * mn; this.vy = this.vy / m * mn; }
+  }
+  checkEdges(patched) {                       // patched=true -> SOLID net (the ball rebounds off the net bar)
+    const r = this.r, F = C.FRICTION, N = C.NUDGE * C.DT;
+    if (this.x <= (r - C.REF_W / 2)) { this.vx *= -F; this.x = r - C.REF_W / 2 + N; }
+    if (this.x >= (C.REF_W / 2 - r)) { this.vx *= -F; this.x = C.REF_W / 2 - r - N; }
+    // PATCHED solid net: resolve ball vs the net BAR (rounded-rect) BEFORE scoring the floor, so a ball
+    // driven into the net rebounds to the hitter instead of slipping through to the base.
+    if (patched && this.y <= C.WALL_H) {
+      const NETX = C.WALL_W / 2;
+      const cx = Math.max(-NETX, Math.min(this.x, NETX));
+      const cy = Math.max(C.REF_U, Math.min(this.y, C.WALL_H));
+      const dx = this.x - cx, dy = this.y - cy, d2 = dx * dx + dy * dy;
+      if (d2 < r * r) {
+        if (d2 < 1e-12) {                     // center inside the bar (jam): pop to the hitter's side + lift
+          const side = this.prevx >= 0 ? 1 : -1;
+          this.x = side * (NETX + r) + side * N;
+          this.vx = side * Math.abs(this.vx) * F;
+          if (this.vy < 0) this.vy = -this.vy * F;
+        } else {
+          const d = Math.sqrt(d2), nx = dx / d, ny = dy / d;
+          this.x = cx + nx * r; this.y = cy + ny * r;
+          const vn = this.vx * nx + this.vy * ny;
+          this.vx = (this.vx - 2 * vn * nx) * F;
+          this.vy = (this.vy - 2 * vn * ny) * F;
+        }
+      }
+    }
+    if (this.y <= (r + C.REF_U)) {
+      this.vy *= -F; this.y = r + C.REF_U + N;
+      return this.x <= 0 ? -1 : 1;            // ground hit -> which side scored on
+    }
+    if (this.y >= (C.REF_H - r)) { this.vy *= -F; this.y = C.REF_H - r - N; }
+    // fence (original crossing-only reflection, only when NOT patched)
+    if (!patched && this.x <= (C.WALL_W / 2 + r) && this.prevx > (C.WALL_W / 2 + r) && this.y <= C.WALL_H) {
+      this.vx *= -F; this.x = C.WALL_W / 2 + r + N;
+    }
+    if (!patched && this.x >= (-C.WALL_W / 2 - r) && this.prevx < (-C.WALL_W / 2 - r) && this.y <= C.WALL_H) {
+      this.vx *= -F; this.x = -C.WALL_W / 2 - r - N;
+    }
+    return 0;
+  }
+  dist2(p) { const dx = p.x - this.x, dy = p.y - this.y; return dx * dx + dy * dy; }
+  isColliding(p) { const r = this.r + p.r; return r * r > this.dist2(p); }
+  bounce(p) {
+    let abx = this.x - p.x, aby = this.y - p.y;
+    const abd = Math.sqrt(abx * abx + aby * aby) || 1e-9;
+    abx /= abd; aby /= abd;
+    const nx = abx, ny = aby;
+    abx *= C.NUDGE; aby *= C.NUDGE;
+    let guard = 0;
+    while (this.isColliding(p) && guard++ < 100) { this.x += abx; this.y += aby; }
+    let ux = this.vx - p.vx, uy = this.vy - p.vy;
+    const un = ux * nx + uy * ny;
+    ux -= nx * un * 2; uy -= ny * un * 2;
+    this.vx = ux + p.vx; this.vy = uy + p.vy;
+  }
+}
+
+class Agent {
+  constructor(dir, x) { this.dir = dir; this.x = x; this.y = 1.5; this.r = C.AGENT_R; this.vx = 0; this.vy = 0; this.dvx = 0; this.dvy = 0; this.life = C.MAXLIVES; }
+  setAction(a) {
+    const fwd = a[0] > 0, back = a[1] > 0, jmp = a[2] > 0;
+    this.dvx = 0; this.dvy = 0;
+    if (fwd && !back) this.dvx = -C.SPEED_X;
+    if (back && !fwd) this.dvx = C.SPEED_X;
+    if (jmp) this.dvy = C.SPEED_Y;
+  }
+  update() {
+    this.vy += C.GRAVITY * C.DT;
+    if (this.y <= C.REF_U + C.NUDGE * C.DT) this.vy = this.dvy;
+    this.vx = this.dvx * this.dir;
+    this.x += this.vx * C.DT; this.y += this.vy * C.DT;
+    if (this.y <= C.REF_U) { this.y = C.REF_U; this.vy = 0; }
+    if (this.x * this.dir <= (C.WALL_W / 2 + this.r)) { this.vx = 0; this.x = this.dir * (C.WALL_W / 2 + this.r); }
+    if (this.x * this.dir >= (C.REF_W / 2 - this.r)) { this.vx = 0; this.x = this.dir * (C.REF_W / 2 - this.r); }
+  }
+}
+
+class Game {
+  constructor(rng, opts) { this.rng = rng || Math.random; this.patched = !!(opts && opts.patched); this.reset(true); }
+  _ball() {
+    const vx = (this.rng() * 40 - 20);          // uniform[-20,20]
+    const vy = (this.rng() * 15 + 10);          // uniform[10,25]
+    return new Particle(0, C.REF_W / 4, vx, vy, C.BALL_R);
+  }
+  reset(full) {
+    this.ball = this._ball();
+    this.fenceStub = new Particle(0, C.WALL_H, 0, 0, C.STUB_R);
+    if (full || !this.left) {
+      this.left = new Agent(-1, -C.REF_W / 4);
+      this.right = new Agent(1, C.REF_W / 4);
+    } else {
+      this.left.x = -C.REF_W / 4; this.left.y = 1.5; this.left.vx = this.left.vy = 0;
+      this.right.x = C.REF_W / 4; this.right.y = 1.5; this.right.vx = this.right.vy = 0;
+    }
+    this.delay = C.DELAY_FRAMES;
+  }
+  newMatch() { this.ball = this._ball(); this.delay = C.DELAY_FRAMES; }
+  // one step. actionLeft/actionRight = [fwd,back,jump]. returns +1 if right scored, -1 if left scored, 0 else
+  step(actionLeft, actionRight) {
+    this.left.setAction(actionLeft); this.right.setAction(actionRight);
+    this.left.update(); this.right.update();
+    // delayScreen.status(): frozen while counting down, ball moves once delay hits 0
+    let ballLive = false;
+    if (this.delay === 0) ballLive = true; else this.delay -= 1;
+    if (ballLive) { this.ball.applyAccel(0, C.GRAVITY); this.ball.limitSpeed(0, C.MAX_BALL); this.ball.move(); }
+    if (this.ball.isColliding(this.left)) this.ball.bounce(this.left);
+    if (this.ball.isColliding(this.right)) this.ball.bounce(this.right);
+    if (this.ball.isColliding(this.fenceStub)) this.ball.bounce(this.fenceStub);
+    const result = -this.ball.checkEdges(this.patched);     // +1 right scores, -1 left scores
+    if (result !== 0) {
+      this.newMatch();
+      if (result < 0) this.right.life -= 1; else this.left.life -= 1;
+    }
+    return result;
+  }
+  // observation from one side's perspective (dir-normalized), scaled /10, matches getObservation()
+  obs(side) {
+    const me = side === 'right' ? this.right : this.left;
+    const op = side === 'right' ? this.left : this.right;
+    const d = me.dir, b = this.ball;
+    const o = [
+      me.x * d, me.y, me.vx * d, me.vy,
+      b.x * d, b.y, b.vx * d, b.vy,
+      op.x * (-d), op.y, op.vx * (-d), op.vy,
+    ];
+    return o.map(v => v / 10);
+  }
+}
+
+// ===== rnn.js =====
+// rnn.js: the built-in RNN baseline opponent for the Slime Volley court.
+//
+// slimevolleygym's reference net (~120 params): the fixed opponent the policies play against. Kept in JS so
+// it runs instantly without Pyodide. obs = 12-d normalized vector [me xyz.., ball.., opp..] / 10, from the
+// acting agent's own perspective (mirrored for the left side); act() returns [forward, backward, jump].
+// getActs() exposes the input + hidden activations, which the demo lights up as it plays.
+
+// ----- the built-in RNN baseline (120 params): slimevolleygym's BaselinePolicy, the fixed opponent.
+const RNN_W = [
+  7.5719,4.4285,2.2716,-0.3598,-7.8189,-2.5422,-3.2034,0.3935,1.2202,-0.49,-0.0316,0.5221,0.7026,0.4179,-2.1689,
+  1.646,-13.3639,1.5151,1.1175,-5.3561,5.0442,0.8451,0.3987,-2.9501,-3.7811,-5.8994,6.4167,2.5014,7.338,-2.9887,
+  2.4586,13.4191,2.7395,-3.9708,1.6548,-2.7554,-1.5345,-6.4708,9.2426,-0.7392,0.4452,1.8828,-2.6277,-10.851,-3.2353,
+  -4.4653,-3.1153,-1.3707,7.318,16.0902,1.4686,7.0391,1.7765,-1.155,2.6697,-8.8877,1.1958,-3.2839,-5.4425,1.6809,
+  7.6812,-2.4732,1.738,0.3781,0.8718,2.5886,1.6911,1.2953,-9.0052,-4.6038,-6.7447,-2.5528,0.4391,-4.9278,-3.6695,
+  -4.8673,-1.6035,1.5011,-5.6124,4.9747,1.8998,3.0359,6.2983,-4.8568,-2.1888,-4.1143,-3.9874,-0.0459,4.7134,2.8952,
+  -9.3627,-4.685,0.3601,-1.3699,9.7294,11.5596,0.1918,3.0783,0.0329,-0.1362,-0.1188,-0.7579,0.3278,-0.977,-0.9377,
+];
+const RNN_B = [2.2935,-2.0353,-1.7786,5.4567,-3.6368,3.4996,-0.0685];
+
+function makeRNN(thresh) {
+  thresh = thresh || [0.75, 0.75, 0.75];
+  let out = new Array(7).fill(0);            // recurrent state carried between frames
+  const blank = () => ({ obs: new Array(8).fill(0), state: new Array(7).fill(0), logits: new Array(7).fill(0), fired: [false, false, false], thresh });
+  let acts = blank();
+  return {
+    rnn: true,                               // viz hint: render activations, not a code path
+    getActs: () => acts,
+    reset() { out = new Array(7).fill(0); acts = blank(); },
+    act(obs) {
+      const state = out.slice();             // the recurrent state fed IN this frame (= last frame's logits)
+      const inp = [obs[0], obs[1], obs[2], obs[3], obs[4], obs[5], obs[6], obs[7], ...out];
+      const no = new Array(7);
+      for (let i = 0; i < 7; i++) {
+        let s = RNN_B[i];
+        for (let j = 0; j < 15; j++) s += RNN_W[i * 15 + j] * inp[j];
+        no[i] = Math.tanh(s);
+      }
+      out = no;
+      const fired = [out[0] > thresh[0], out[1] > thresh[1], out[2] > thresh[2]];
+      acts = { obs: obs.slice(0, 8), state, logits: no.slice(), fired, thresh };
+      return [fired[0] ? 1 : 0, fired[1] ? 1 : 0, fired[2] ? 1 : 0];
+    },
+  };
+}
+
+// The local (JS) actor registry, just the RNN baseline. (The learned policies run their real Python via
+// Pyodide instead; see pyrunner.js.)
+const POLICY_FACTORY = {
+  rnn_baseline: makeRNN,                              // the built-in baseline opponent
+};
+
+// ===== pyrunner.js =====
+// pyrunner.js: runs each policy's real Python in-browser via Pyodide.
+//
+// Boots Pyodide (from its CDN) once, runs a policy's .py as the actor, and captures the per-frame firing-line
+// (sys.settrace) that drives source-highlighting. A small obs marshaller turns the 12-d /10 side-relative
+// observation into the numpy vector the policy expects; act() returns [forward, backward, jump].
+
+const CDN = 'https://cdn.jsdelivr.net/pyodide/v0.27.2/full/';
+
+// installed once in the interpreter: the policy-entry resolver + the settrace line-tracer.
+const RUNTIME_SRC = `
+import sys as _ap_sys, types as _ap_t
+import numpy as _np
+
+def _autoport_make(mod, seat):
+    pol=None
+    f=getattr(mod,"make_policy",None)
+    if callable(f):
+        try: pol=f(seat=seat)
+        except TypeError: pol=f()
+    if pol is None:
+        if callable(getattr(mod,"act",None)): pol=mod.act
+        elif isinstance(getattr(mod,"Policy",None),type): pol=mod.Policy()
+    if pol is None: raise AttributeError("no make_policy/act/Policy")
+    if callable(pol) and not hasattr(pol,"act"): return pol
+    a=getattr(pol,"act",None)
+    if callable(a): return a
+    if callable(pol): return pol
+    raise AttributeError("policy result not callable")
+
+_AP_TRACE = {}
+_AP_FILES = set()
+def _ap_register(fn):
+    _AP_FILES.add(fn)
+def _ap_clear(fn):
+    _AP_TRACE[fn] = set()
+def _ap_get(fn):
+    return sorted(_AP_TRACE.get(fn, ()))
+def _ap_tracer(frame, event, arg):
+    if event == "line":
+        fn = frame.f_code.co_filename
+        if fn in _AP_FILES:
+            s = _AP_TRACE.get(fn)
+            if s is None:
+                s = set(); _AP_TRACE[fn] = s
+            s.add(frame.f_lineno)
+    return _ap_tracer
+
+def _slime_obs(o):
+    return _np.asarray(o, dtype=_np.float64)   # a Python list of 12 floats -> the numpy vector the policy expects
+`;
+
+let _pyPromise = null, _counter = 0;
+
+// Load Pyodide + numpy + the runtime, once. In the browser, loadPyodide is pulled from the CDN <script>.
+function bootPy() {
+  if (_pyPromise) return _pyPromise;
+  _pyPromise = (async () => {
+    if (typeof loadPyodide !== 'function') {
+      await new Promise((res, rej) => {
+        const s = document.createElement('script');
+        s.src = CDN + 'pyodide.js'; s.onload = res;
+        s.onerror = () => rej(new Error('failed to load pyodide.js from CDN'));
+        document.head.appendChild(s);
+      });
+    }
+    const py = await loadPyodide({ indexURL: CDN });
+    await py.loadPackage('numpy');
+    py.runPython(RUNTIME_SRC);
+    return py;
+  })();
+  return _pyPromise;
+}
+
+// Compile one policy's source; returns { ok, factory? }. factory() -> a fresh actor:
+//   { act(obs12) -> [f,b,j], reset(), firedLines() -> Set<lineno> }
+async function makePyFactory(source, name) {
+  let py;
+  try { py = await bootPy(); } catch (e) { return { ok: false, reason: 'pyodide boot failed: ' + (e.message || e) }; }
+
+  const cnt = _counter++;
+  const ns = `__slime_${cnt}`;
+  const fname = String(name || 'policy').replace(/[^A-Za-z0-9_]/g, '_') + '__' + cnt + '.py';   // settrace matches this
+  const remake = py.runPython('(lambda ns: _autoport_make(globals()[ns], 0))');                 // a fresh seat-0 actor
+  try {
+    py.runPython(
+      `import types as _t\n${ns} = _t.ModuleType(${JSON.stringify(ns)})\n`
+      + `exec(compile(${JSON.stringify(source)}, ${JSON.stringify(fname)}, "exec"), ${ns}.__dict__)\n`,
+    );
+    const probe = remake(ns); probe.destroy && probe.destroy();   // confirm the policy's entry point resolves
+  } catch (e) {
+    return { ok: false, reason: 'policy load failed: ' + String(e.message || e).split('\n')[0] };
+  }
+
+  const apClear = py.globals.get('_ap_clear');
+  const apGet = py.globals.get('_ap_get');
+  py.globals.get('_ap_register')(fname);
+  const mkObs = py.globals.get('_slime_obs');
+  const traceOn = py.runPython('lambda: __import__("sys").settrace(_ap_tracer)');
+  const traceOff = py.runPython('lambda: __import__("sys").settrace(None)');
+  const now = () => (typeof performance !== 'undefined' ? performance.now() : Date.now());
+
+  const factory = () => {
+    let act = remake(ns);
+    // adaptive firing-line: trace every frame for cheap policies; auto-throttle a heavy one (claude's MPC)
+    // so tracing never tanks the framerate; its highlight just refreshes less often.
+    let every = 1, since = 99, warm = 0;
+    return {
+      _lines: new Set(),
+      act(obs12) {
+        const lst = py.toPy(obs12);          // JS array -> Python list
+        const arg = mkObs(lst); lst.destroy();
+        const traced = (++since >= every);
+        if (traced) { since = 0; apClear(fname); traceOn(); }
+        const t0 = now();
+        let r;
+        try { r = act(arg); } finally { if (traced) traceOff(); arg.destroy && arg.destroy(); }
+        const dt = now() - t0;
+        if (traced) {
+          const lj = apGet(fname);
+          this._lines = new Set(Array.from(lj.toJs ? lj.toJs() : lj));
+          lj.destroy && lj.destroy();
+        }
+        if (warm < 3) warm++; else if (dt > 12) every = Math.min(every + 1, 30);   // throttle expensive policies
+        const out = (r && r.toJs) ? Array.from(r.toJs()) : Array.from(r);
+        r && r.destroy && r.destroy();
+        return [out[0] > 0 ? 1 : 0, out[1] > 0 ? 1 : 0, out[2] > 0 ? 1 : 0];
+      },
+      reset() { act && act.destroy && act.destroy(); act = remake(ns); },
+      firedLines() { return this._lines; },
+    };
+  };
+  return { ok: true, factory };
+}
+
+// ===== manifest.js =====
+// manifest.js: load the curated policy list + each policy's source. Dual-path so the SAME code runs in the
+// built single file (everything inlined as window.__POLICIES__ / __POLICY_SRC__) and in the modular dev page
+// (served, fetched from the parent dir). '../' reaches the demo root from web/ regardless of the server root.
+
+async function loadManifest() {
+  if (typeof window !== 'undefined' && window.__POLICIES__) return window.__POLICIES__;
+  return (await fetch('../policies.json')).json();
+}
+
+async function loadPolicySource(p) {
+  if (typeof window !== 'undefined' && window.__POLICY_SRC__ && window.__POLICY_SRC__[p.id]) {
+    return window.__POLICY_SRC__[p.id];
+  }
+  return (await fetch('../' + p.file)).text();
+}
+
+// Optional, HTTP-only: a git-ignored train/run/inventory.json mapping {run-name: champion-path} that the
+// trainer writes (paths relative to that file's own dir). Lets a served demo show retrained champions next
+// to the shipped policies. Returns [] when absent (file://, or not served), so the shipped page is
+// unaffected. The built page sits at the demo root, the dev page under web/, so the base path differs.
+// Each entry loads independently: a stale or missing champion is skipped, never sinking the whole list.
+async function loadExtraInventory() {
+  const base = (typeof window !== 'undefined' && window.__POLICIES__) ? 'train/run/' : '../train/run/';
+  let inventory;
+  try {
+    const res = await fetch(base + 'inventory.json', { cache: 'no-store' });
+    if (!res.ok) return [];
+    inventory = await res.json();
+  } catch {
+    return [];   // no inventory served (file://, or not served): the shipped policies only
+  }
+  const entries = [];
+  for (const [name, path] of Object.entries(inventory)) {
+    try {
+      const r = await fetch(base + path);
+      if (!r.ok) continue;   // a stale or missing champion file: skip just this entry, keep the rest
+      entries.push({ id: name + '-retrain', label: name + ' (retrained)', kind: 'code', source: await r.text() });
+    } catch {
+      // network error on this entry: skip it, keep the rest
+    }
+  }
+  return entries;
+}
+
+// ===== match.js =====
+// match.js: the running game. The env, the two sides' policies, the score, and the per-turn logic
+// ("how to run a turn"). Pure logic, no DOM, no rendering. createMatch({patched}) returns a controller
+// the app drives one turn at a time.
+
+
+const IDLE = { act: () => [0, 0, 0], reset() {} };      // a policy that does nothing (while Pyodide boots)
+const safeAct = (actor, obs) => { try { return actor.act(obs); } catch { return [0, 0, 0]; } };
+
+// one side. The RNN baseline is synchronous JS; a code policy boots Pyodide and swaps in when ready
+// (an IDLE placeholder plays meanwhile, so the loop never blocks). `token` drops a stale async load.
+function createSide() {
+  const side = { id: null, kind: null, label: null, source: null, actor: IDLE, loading: false, loadError: null, token: 0 };
+  side.select = entry => {
+    const token = ++side.token;
+    Object.assign(side, { id: entry.id, kind: entry.kind, label: entry.label, source: entry.source });
+    side.loadError = null;
+    if (entry.kind !== 'code') { side.actor = POLICY_FACTORY.rnn_baseline(); side.loading = false; return; }
+    side.actor = IDLE; side.loading = true;
+    makePyFactory(entry.source, entry.label)
+      .then(res => { if (side.token === token) { side.actor = (res && res.ok) ? res.factory() : IDLE; side.loadError = (res && res.ok) ? null : ((res && res.reason) || 'load failed'); side.loading = false; } })
+      .catch(() => { if (side.token === token) { side.loadError = 'load failed'; side.loading = false; } });
+  };
+  return side;
+}
+
+function createMatch({ patched }) {
+  const game = new Game(Math.random, { patched });
+  const sides = { L: createSide(), R: createSide() };
+  const last = { L: [0, 0, 0], R: [0, 0, 0] };          // last [fwd,back,jump] per side (for the panels)
+  const state = { scoreL: 0, scoreR: 0, flash: null, flashT: 0 };
+
+  function reset() {
+    state.scoreL = state.scoreR = 0; state.flash = null; state.flashT = 0;
+    game.left.life = game.right.life = C.MAXLIVES; game.reset(true);
+    sides.L.actor.reset && sides.L.actor.reset(); sides.R.actor.reset && sides.R.actor.reset();
+  }
+  function selectSide(which, entry) { sides[which].select(entry); reset(); }
+
+  // Run one turn. rightOverride = [f,b,j] forces the right action (a human is driving); null -> the right
+  // policy acts. A rally runs as long as it lasts (no cap, endless rallies are part of the show); a point
+  // updates the score; best-of-5-lives shows the win banner.
+  function step(rightOverride) {
+    if (state.flashT > 0) state.flashT--;
+    const aL = safeAct(sides.L.actor, game.obs('left'));
+    const aR = rightOverride || safeAct(sides.R.actor, game.obs('right'));
+    last.L = aL; last.R = aR;
+    const r = game.step(aL, aR);
+    if (r > 0) state.scoreR++;
+    else if (r < 0) state.scoreL++;
+    if (r !== 0 && (game.left.life <= 0 || game.right.life <= 0)) {
+      state.flash = game.left.life <= 0 ? (rightOverride ? 'YOU WIN' : 'RIGHT WINS') : 'LEFT WINS';
+      state.flashT = 90;
+      game.left.life = game.right.life = C.MAXLIVES; game.reset(true);
+      sides.L.actor.reset && sides.L.actor.reset(); sides.R.actor.reset && sides.R.actor.reset();
+    }
+  }
+
+  return { game, sides, last, state, step, reset, selectSide };
+}
+
+// ===== render.js =====
+// render.js: draws the court to a canvas: gradient field, coordinate grid, chalk floor, the net, the ball
+// (with a comet trail) and the two slimes, plus the env's true next-landing crosshair. Pure presentation:
+// it reads game state and never mutates it.
+
+
+const SCALE = 15;     // px per world unit
+const VIEW_H = 20;    // world units shown vertically
+const W = C.REF_W * SCALE;
+const H = VIEW_H * SCALE;
+
+const PALETTE = {
+  courtTop: '#f4f8fb', courtBot: '#e7eef4', vignette: 'rgba(70,95,120,0.08)',
+  grid: 'rgba(64,108,150,0.11)', gridMid: 'rgba(64,108,150,0.24)',
+  floor: '#dbe5ee', chalk: '#5f7384', shadow: 'rgba(40,60,80,0.14)',
+  mint: '#12a98e', mintDark: '#0b7d68', magenta: '#e23d7b', magentaDark: '#b32a60',
+  ball: '#33454f', ballDark: '#1d2a32', ballHi: '#8597a2',
+  trail: '70,92,108', target: '#8854d0', eye: '#17242c', text: '#2a3a45',
+};
+
+function createRenderer(canvas) {
+  const ctx = canvas.getContext('2d');
+  const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+  const reducedMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const TRAIL_MAX = reducedMotion ? 4 : 16;
+  const trail = [];
+  let frame = 0;
+
+  const wx = x => (x + C.REF_W / 2) * SCALE;   // world x -> canvas px
+  const wy = y => H - y * SCALE;               // world y (up) -> canvas px
+
+  function fit() {
+    const cssW = canvas.clientWidth, cssH = cssW * (H / W);
+    canvas.style.height = cssH + 'px';
+    canvas.width = Math.round(cssW * dpr);
+    canvas.height = Math.round(cssH * dpr);
+  }
+  fit();
+  window.addEventListener('resize', fit);
+
+  // Forward-integrate the live ball (env physics, wall + net bounces, slimes ignored) to its floor contact.
+  function predictLanding(game, patched) {
+    if (game.delay > 0) return null;
+    let x = game.ball.x, y = game.ball.y, vx = game.ball.vx, vy = game.ball.vy, px = x;
+    const r = game.ball.r, F = C.FRICTION, N = C.NUDGE * C.DT, mx = C.MAX_BALL;
+    for (let i = 0; i < 160; i++) {
+      vy += C.GRAVITY * C.DT;
+      const m2 = vx * vx + vy * vy;
+      if (m2 > mx * mx) { const m = Math.sqrt(m2); vx = vx / m * mx; vy = vy / m * mx; }
+      px = x; x += vx * C.DT; y += vy * C.DT;
+      if (x <= (r - C.REF_W / 2)) { vx *= -F; x = r - C.REF_W / 2 + N; }
+      if (x >= (C.REF_W / 2 - r)) { vx *= -F; x = C.REF_W / 2 - r - N; }
+      if (patched && y <= C.WALL_H) {
+        const NETX = C.WALL_W / 2, cx = Math.max(-NETX, Math.min(x, NETX)), cy = Math.max(C.REF_U, Math.min(y, C.WALL_H));
+        const ex = x - cx, ey = y - cy, e2 = ex * ex + ey * ey;
+        if (e2 < r * r) {
+          if (e2 < 1e-12) { const s = px >= 0 ? 1 : -1; x = s * (NETX + r) + s * N; vx = s * Math.abs(vx) * F; if (vy < 0) vy = -vy * F; }
+          else { const d = Math.sqrt(e2), nx = ex / d, ny = ey / d; x = cx + nx * r; y = cy + ny * r; const vn = vx * nx + vy * ny; vx = (vx - 2 * vn * nx) * F; vy = (vy - 2 * vn * ny) * F; }
+        }
+      }
+      if (y <= (r + C.REF_U)) return x;
+      if (y >= (C.REF_H - r)) { vy *= -F; y = C.REF_H - r - N; }
+    }
+    return null;
+  }
+
+  function drawSlime(game, agent, color, colorDark, dir, glow) {
+    const cx = wx(agent.x), cy = wy(agent.y), r = agent.r * SCALE;
+    if (glow) { ctx.strokeStyle = 'rgba(226,61,123,0.9)'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(cx, cy, r + 4, Math.PI, 0); ctx.stroke(); }
+    ctx.fillStyle = PALETTE.shadow;
+    ctx.beginPath(); ctx.ellipse(cx, wy(C.REF_U) + 2, r * 0.95, r * 0.32, 0, 0, Math.PI * 2); ctx.fill();
+    const grad = ctx.createLinearGradient(cx, cy - r, cx, cy);
+    grad.addColorStop(0, color); grad.addColorStop(1, colorDark);
+    ctx.fillStyle = grad;
+    ctx.beginPath(); ctx.arc(cx, cy, r, Math.PI, 0); ctx.closePath(); ctx.fill();
+    const ex = cx + dir * r * 0.42, ey = cy - r * 0.45;
+    const dx = wx(game.ball.x) - ex, dy = wy(game.ball.y) - ey, dd = Math.hypot(dx, dy) || 1;
+    ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(ex, ey, r * 0.22, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = PALETTE.eye; ctx.beginPath();
+    ctx.arc(ex + dx / dd * r * 0.09, ey + dy / dd * r * 0.09, r * 0.11, 0, Math.PI * 2); ctx.fill();
+  }
+
+  function draw(game, { patched, humanRight = false, flash = null, flashT = 0 }) {
+    frame++;
+    ctx.save(); ctx.scale(canvas.width / W, canvas.height / H);
+    const floorY = wy(C.REF_U);
+
+    const bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, PALETTE.courtTop); bg.addColorStop(1, PALETTE.courtBot);
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+    ctx.lineWidth = 1;
+    for (let gx = -C.REF_W / 2; gx <= C.REF_W / 2 + 0.01; gx += 4) {
+      const X = wx(gx); ctx.strokeStyle = Math.abs(gx) < 0.01 ? PALETTE.gridMid : PALETTE.grid;
+      ctx.beginPath(); ctx.moveTo(X, 0); ctx.lineTo(X, floorY); ctx.stroke();
+    }
+    for (let gy = 4; gy <= VIEW_H; gy += 4) {
+      const Y = wy(gy); ctx.strokeStyle = PALETTE.grid;
+      ctx.beginPath(); ctx.moveTo(0, Y); ctx.lineTo(W, Y); ctx.stroke();
+    }
+
+    ctx.fillStyle = PALETTE.floor; ctx.fillRect(0, floorY, W, H - floorY);
+    ctx.strokeStyle = PALETTE.chalk; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(0, floorY); ctx.lineTo(W, floorY); ctx.stroke();
+
+    const land = predictLanding(game, patched);
+    if (land != null) {
+      const lx = wx(land), pulse = reducedMotion ? 0 : (Math.sin(frame * 0.16) * 0.5 + 0.5);
+      ctx.save(); ctx.strokeStyle = PALETTE.target;
+      ctx.globalAlpha = 0.18; ctx.lineWidth = 1; ctx.setLineDash([3, 5]);
+      ctx.beginPath(); ctx.moveTo(lx, floorY - 34); ctx.lineTo(lx, floorY); ctx.stroke();
+      ctx.globalAlpha = 0.65 + 0.3 * pulse; ctx.lineWidth = 2; ctx.setLineDash([5, 4]);
+      ctx.beginPath(); ctx.arc(lx, floorY, 10 + 2 * pulse, 0, Math.PI * 2); ctx.stroke();
+      ctx.setLineDash([]); ctx.beginPath();
+      ctx.moveTo(lx - 15, floorY); ctx.lineTo(lx + 15, floorY);
+      ctx.moveTo(lx, floorY - 15); ctx.lineTo(lx, floorY - 3); ctx.stroke();
+      ctx.globalAlpha = 0.9; ctx.fillStyle = PALETTE.target;
+      ctx.beginPath(); ctx.arc(lx, floorY, 2.6, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    }
+
+    const nx = wx(0);
+    ctx.fillStyle = '#aab8c4';
+    ctx.fillRect(nx - C.WALL_W / 2 * SCALE, wy(C.WALL_H), C.WALL_W * SCALE, floorY - wy(C.WALL_H));
+    ctx.fillStyle = PALETTE.chalk;
+    ctx.beginPath(); ctx.arc(nx, wy(C.WALL_H), C.STUB_R * SCALE, 0, Math.PI * 2); ctx.fill();
+
+    if (game.delay > 0) trail.length = 0;
+    else { trail.push({ x: game.ball.x, y: game.ball.y }); if (trail.length > TRAIL_MAX) trail.shift(); }
+    ctx.lineCap = 'round';
+    for (let i = 0; i < trail.length - 1; i++) {
+      const a = (i + 1) / trail.length;
+      ctx.strokeStyle = `rgba(${PALETTE.trail},${(a * 0.45).toFixed(3)})`;
+      ctx.lineWidth = a * game.ball.r * SCALE * 1.05;
+      ctx.beginPath(); ctx.moveTo(wx(trail[i].x), wy(trail[i].y)); ctx.lineTo(wx(trail[i + 1].x), wy(trail[i + 1].y)); ctx.stroke();
+    }
+
+    const bx = wx(game.ball.x), by = wy(game.ball.y), br = game.ball.r * SCALE;
+    const ballGrad = ctx.createRadialGradient(bx - br * 0.3, by - br * 0.3, br * 0.15, bx, by, br);
+    ballGrad.addColorStop(0, PALETTE.ballHi); ballGrad.addColorStop(0.55, PALETTE.ball); ballGrad.addColorStop(1, PALETTE.ballDark);
+    ctx.fillStyle = ballGrad; ctx.beginPath(); ctx.arc(bx, by, br, 0, Math.PI * 2); ctx.fill();
+
+    drawSlime(game, game.left, PALETTE.mint, PALETTE.mintDark, 1, false);
+    drawSlime(game, game.right, PALETTE.magenta, PALETTE.magentaDark, -1, humanRight);
+
+    ctx.fillStyle = PALETTE.mint;
+    for (let i = 0; i < game.left.life; i++) { ctx.beginPath(); ctx.arc(18 + i * 14, 18, 4, 0, Math.PI * 2); ctx.fill(); }
+    ctx.fillStyle = PALETTE.magenta;
+    for (let i = 0; i < game.right.life; i++) { ctx.beginPath(); ctx.arc(W - 18 - i * 14, 18, 4, 0, Math.PI * 2); ctx.fill(); }
+
+    const vg = ctx.createRadialGradient(W / 2, H * 0.42, H * 0.32, W / 2, H * 0.5, H * 0.98);
+    vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, PALETTE.vignette);
+    ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
+
+    if (flashT > 0 && flash) {
+      ctx.globalAlpha = Math.min(1, flashT / 30);
+      const tw = 340, th = 50;
+      ctx.fillStyle = 'rgba(255,255,255,0.93)'; ctx.fillRect(W / 2 - tw / 2, H / 2 - th / 2, tw, th);
+      ctx.strokeStyle = 'rgba(18,169,142,0.6)'; ctx.lineWidth = 1; ctx.strokeRect(W / 2 - tw / 2, H / 2 - th / 2, tw, th);
+      ctx.fillStyle = PALETTE.text; ctx.font = '600 18px ui-monospace,Menlo,monospace';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(flash, W / 2, H / 2);
+      ctx.globalAlpha = 1;
+    }
+    ctx.restore();
+  }
+
+  return { draw };
+}
+
+// ===== panels.js =====
+// panels.js: one introspection readout per side. Buttons fired are shown first, then:
+//   - a code policy: its real Python with the line(s) executing this frame lit;
+//   - the RNN baseline: the observation in, the recurrent state in, and the logits out (the latent state =
+//     pre-threshold tanh outputs; the first 3 cross the threshold to become the buttons);
+//   - a human-driven side: the buttons being pressed.
+// createPanel(el) returns { update(view) }.
+//
+// view = { mode:'code'|'rnn'|'human', label, source, loading,
+//          firedLines:Set, acts:{obs,state,logits}, buttons:[f,b,j] }
+
+const KEYWORDS = new Set('def return if elif else for while in and or not import from as None True False break continue lambda class'.split(' '));
+const BUILTINS = new Set(['np', 'Math']);
+const EMPTY = new Set();
+const EMPTY_ARR = [];
+
+function escHtml(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+// line-based Python highlighter (our sources have no multi-line tokens)
+function highlight(line) {
+  let code = line, comment = '', inStr = false, q = '';
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (inStr) { if (ch === q) inStr = false; continue; }
+    if (ch === "'" || ch === '"' || ch === '`') { inStr = true; q = ch; continue; }
+    if (ch === '#') { code = line.slice(0, i); comment = line.slice(i); break; }
+  }
+  const re = /('(?:\\.|[^'])*'|"(?:\\.|[^"])*")|(\b\d+\.?\d*\b)|([A-Za-z_]\w*)|(\s+)|([^\sA-Za-z0-9_])/g;
+  let html = '', m;
+  while ((m = re.exec(code))) {
+    if (m[1] !== undefined) html += `<span class="tk-s">${escHtml(m[1])}</span>`;
+    else if (m[2] !== undefined) html += `<span class="tk-n">${m[2]}</span>`;
+    else if (m[3] !== undefined) html += KEYWORDS.has(m[3]) ? `<span class="tk-k">${m[3]}</span>` : (BUILTINS.has(m[3]) ? `<span class="tk-b">${m[3]}</span>` : escHtml(m[3]));
+    else html += escHtml(m[4] !== undefined ? m[4] : m[5]);
+  }
+  if (comment) html += `<span class="tk-c">${escHtml(comment)}</span>`;
+  return html;
+}
+
+function createPanel(el) {
+  let mode = null, label = null, source = null, loading = null;
+  let lineEls = null, obsCells = null, stateCells = null, logitCells = null, buttonCells = null;
+
+  const ttl = text => { const d = document.createElement('div'); d.className = 'ttl'; d.textContent = text; el.appendChild(d); };
+  const note = text => { const d = document.createElement('div'); d.className = 'pnote'; d.textContent = text; el.appendChild(d); };
+  function cells(n) {
+    const row = document.createElement('div'); row.className = 'units'; const out = [];
+    for (let i = 0; i < n; i++) { const u = document.createElement('span'); u.className = 'u'; row.appendChild(u); out.push(u); }
+    el.appendChild(row); return out;
+  }
+  function buttons(labelText) {
+    ttl(labelText);
+    const row = document.createElement('div'); row.className = 'units';
+    const out = ['fwd', 'back', 'jump'].map(t => { const b = document.createElement('span'); b.className = 'u btn3'; b.textContent = t; row.appendChild(b); return b; });
+    el.appendChild(row); return out;
+  }
+  function legend() {
+    const d = document.createElement('div'); d.className = 'legend';
+    d.innerHTML = '<span class="lk obs"></span>observation<span class="lk state"></span>recurrent state<span class="lk logit"></span>logits';
+    el.appendChild(d);
+  }
+
+  function rebuild(view) {
+    el.innerHTML = ''; lineEls = obsCells = stateCells = logitCells = buttonCells = null;
+    if (view.mode === 'human') {
+      buttonCells = buttons('buttons you press');
+      ttl('▸ you’re driving the magenta slime :-D');
+      note('Reselect the magenta model above (or press Q) to hand this slime back to a policy.');
+    } else if (view.mode === 'code') {
+      buttonCells = buttons('buttons fired');
+      ttl(view.label + ' · its real Python, running in your browser' + (view.loading ? ' (loading…)' : (view.loadError ? ' (can’t run in browser)' : '')));
+      const code = document.createElement('div'); code.className = 'code';
+      const inner = document.createElement('div'); inner.className = 'codeinner';
+      lineEls = (view.source || '').split('\n').map((raw, i) => { const d = document.createElement('div'); d.className = 'cline'; d.innerHTML = highlight(raw) || '&nbsp;'; inner.appendChild(d); return { el: d, n: i + 1 }; });
+      code.appendChild(inner); el.appendChild(code);
+      note('Runs unchanged in-browser via Pyodide (CPython→WASM). The highlighted lines are the ones executing each frame.');
+    } else if (view.mode === 'rnn') {
+      buttonCells = buttons('buttons fired');
+      ttl(view.label + ' · recurrent net (120 params)');
+      legend();
+      ttl('observation in (8)'); obsCells = cells(8);
+      ttl('recurrent state in (7)'); stateCells = cells(7);
+      ttl('logits out (7) · the latent state; first 3 → buttons'); logitCells = cells(7);
+    }
+    mode = view.mode; label = view.label; source = view.source; loading = view.loading;
+  }
+
+  // colour a cell row by value: opacity ~ |value|; `signed` shows sign (mint = +, slate = −).
+  function paint(arr, vals, rgb, signed) {
+    for (let i = 0; i < arr.length; i++) {
+      const v = vals[i] || 0, a = (0.12 + 0.85 * Math.min(1, Math.abs(v))).toFixed(3);
+      arr[i].style.background = `rgba(${signed && v < 0 ? '120,135,150' : rgb},${a})`;
+    }
+  }
+
+  function update(view) {
+    if (view.mode !== mode || view.label !== label || view.source !== source || view.loading !== loading) rebuild(view);
+    const b = view.buttons || EMPTY_ARR;
+    if (buttonCells) for (let i = 0; i < 3; i++) buttonCells[i].classList.toggle('on', !!b[i]);
+    if (mode === 'code' && lineEls) {
+      const lit = view.firedLines || EMPTY;
+      for (const ln of lineEls) ln.el.classList.toggle('on', lit.has(ln.n));
+    } else if (mode === 'rnn' && logitCells) {
+      const a = view.acts || { obs: EMPTY_ARR, state: EMPTY_ARR, logits: EMPTY_ARR };
+      paint(obsCells, a.obs, '64,108,150', false);     // observation (blue)
+      paint(stateCells, a.state, '192,125,30', false);  // recurrent state (amber)
+      paint(logitCells, a.logits, '15,158,133', true);  // logits: mint (+) / slate (−)
+    }
+  }
+
+  return { update };
+}
+
+// ===== controls.js =====
+// controls.js: human control of the right (magenta) slime via the keyboard: arrows or WASD to move,
+// up / space to jump. createHumanControls() returns { isHuman(), action(), release() }. The player takes
+// over on any input and reverts to self-play after ~7s of no input (or immediately on release()).
+
+const IDLE_MS = 7000;
+
+function createHumanControls() {
+  const keys = { left: false, right: false, jump: false };
+  let lastInput = -Infinity;
+
+  function onKey(down, e) {
+    let hit = true;
+    switch (e.code) {
+      case 'ArrowLeft': case 'KeyA': keys.left = down; break;
+      case 'ArrowRight': case 'KeyD': keys.right = down; break;
+      case 'ArrowUp': case 'KeyW': case 'Space': keys.jump = down; break;
+      default: hit = false;
+    }
+    if (hit) { e.preventDefault(); if (down) lastInput = performance.now(); }
+  }
+  window.addEventListener('keydown', e => onKey(true, e));
+  window.addEventListener('keyup', e => onKey(false, e));
+
+  const held = () => keys.left || keys.right || keys.jump;
+  return {
+    isHuman: () => held() || (performance.now() - lastInput < IDLE_MS),
+    action: () => [keys.left ? 1 : 0, keys.right ? 1 : 0, keys.jump ? 1 : 0],
+    release: () => { lastInput = -Infinity; keys.left = keys.right = keys.jump = false; },
+  };
+}
+
+// ===== app.js =====
+// app.js: composition root. Loads the roster, creates the match (logic), the renderer (render) and the
+// panels + controls (ui), then runs one loop: step the match, draw the court, refresh the panels + HUD.
+// All the substance lives in the modules it wires together; this file is just the glue.
+
+
+const TICKS_PER_SEC = 30;
+const KIND_BADGE = { code: 'heuristic', rnn: 'baseline' };   // -> the CSS badge colour
+const $ = s => document.querySelector(s);
+
+// the curated roster; each code policy carries its source (for the panel + Pyodide)
+async function loadRoster() {
+  const manifest = await loadManifest();
+  const order = [], byId = {};
+  for (const p of manifest) {
+    const entry = { id: p.id, label: p.label, kind: p.kind, source: null };
+    if (p.kind === 'code') entry.source = await loadPolicySource(p);
+    byId[p.id] = entry; order.push(p.id);
+  }
+  for (const e of await loadExtraInventory()) {   // reproduced champions: HTTP-only, optional, appended
+    if (!byId[e.id]) { byId[e.id] = e; order.push(e.id); }
+  }
+  const code = manifest.find(p => p.kind === 'code') || manifest[0];
+  const rnn = manifest.find(p => p.kind === 'rnn') || manifest[manifest.length - 1];
+  return { order, byId, defaultLeft: code.id, defaultRight: rnn.id };
+}
+
+// derive a panel view from a side's live state
+function panelView(side, action, isHuman) {
+  if (isHuman) return { mode: 'human', buttons: action };
+  if (side.kind === 'rnn') return { mode: 'rnn', label: side.label, acts: side.actor.getActs && side.actor.getActs(), buttons: action };
+  return { mode: 'code', label: side.label, source: side.source, loading: side.loading, loadError: side.loadError, firedLines: side.actor.firedLines && side.actor.firedLines(), buttons: action };
+}
+
+function setHud(which, side, isHuman) {
+  const name = $('#' + which + 'Name'), kind = $('#' + which + 'Kind'), score = $('#' + which + 'Score');
+  if (isHuman) { name.textContent = 'you'; name.classList.add('isyou'); kind.textContent = 'human'; kind.dataset.kind = ''; score.textContent = ''; return; }
+  name.textContent = side.label; name.classList.remove('isyou');
+  const badge = KIND_BADGE[side.kind] || ''; kind.textContent = badge || side.kind; kind.dataset.kind = badge;
+  score.textContent = '';
+}
+
+async function main() {
+  const roster = await loadRoster();
+  const match = createMatch({ patched: true });
+  const renderer = createRenderer($('#cv'));
+  const panel = { L: createPanel($('#panelL')), R: createPanel($('#panelR')) };
+  const human = createHumanControls();
+
+  const select = (which, id) => { match.selectSide(which, roster.byId[id]); if (which === 'R') human.release(); };
+  select('L', roster.defaultLeft);
+  select('R', roster.defaultRight);
+
+  // selectors + buttons
+  const selL = $('#selL'), selR = $('#selR');
+  const fill = (sel, cur) => { sel.innerHTML = roster.order.map(id => `<option value="${id}">${roster.byId[id].label}</option>`).join(''); sel.value = cur; };
+  fill(selL, match.sides.L.id); fill(selR, match.sides.R.id);
+  const youOpt = document.createElement('option'); youOpt.value = '__you'; youOpt.textContent = '▸ you (playing)'; youOpt.hidden = true; selR.appendChild(youOpt);
+  let paused = false, wasHuman = false;
+  selL.onchange = () => select('L', selL.value);
+  selR.onchange = () => { if (selR.value !== '__you') select('R', selR.value); };
+  const togglePause = () => { paused = !paused; $('#pause').textContent = paused ? '▶ play' : '⏸ pause'; };
+  $('#pause').onclick = togglePause;
+  $('#reset').onclick = () => match.reset();                 // reset the rally only; keep the current driver (ai / you)
+  window.addEventListener('keydown', e => {                  // P pause · R reset · Q hand the slime back to its policy
+    if (e.target && e.target.tagName === 'SELECT') return;
+    if (e.code === 'KeyP') togglePause();
+    else if (e.code === 'KeyR') match.reset();
+    else if (e.code === 'KeyQ') human.release();
+  });
+
+  // the loop: advance the match (logic), draw the court (render), refresh the panels + HUD (ui)
+  let acc = 0, prev = performance.now();
+  function frame(now) {
+    const dt = Math.min(0.1, (now - prev) / 1000); prev = now;
+    const humanNow = human.isHuman();
+    if (!paused) { acc += dt * TICKS_PER_SEC; let n = Math.floor(acc); acc -= n; while (n-- > 0) match.step(humanNow ? human.action() : null); }
+
+    renderer.draw(match.game, { patched: true, humanRight: humanNow, flash: match.state.flash, flashT: match.state.flashT });
+    panel.L.update(panelView(match.sides.L, match.last.L, false));
+    panel.R.update(panelView(match.sides.R, match.last.R, humanNow));
+    setHud('left', match.sides.L, false);
+    setHud('right', match.sides.R, humanNow);
+    $('#tally').textContent = `${match.state.scoreL} : ${match.state.scoreR}`;
+    const mode = $('#mode'); mode.textContent = humanNow ? '▸ YOU’RE IN · right slime' : '● SELF-PLAY'; mode.className = 'mode ' + (humanNow ? 'on' : '');
+    if (humanNow !== wasHuman) { selR.value = humanNow ? '__you' : match.sides.R.id; wasHuman = humanNow; }
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+main();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+[
+  { "id": "fugu",   "label": "Fugu",   "kind": "code", "file": "policies/fugu.py" },
+  { "id": "fugu-another-run",   "label": "Fugu (another run)",   "kind": "code", "file": "policies/fugu-another-run.py" },
+  { "id": "gemini", "label": "Gemini", "kind": "code", "file": "policies/gemini.py" },
+  { "id": "claude", "label": "Claude", "kind": "code", "file": "policies/claude.py" },
+  { "id": "rnn",    "label": "RNN baseline", "kind": "rnn" }
+]
