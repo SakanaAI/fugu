@@ -2,12 +2,14 @@
 
 This directory contains the scripts for reproducing 6 demos inspired by Twitter users' experiences with Sakana Fugu. Each demo was run across the following 4 models, for a total of 24 codex sessions.
 
-| key          | model                     | harness                                  | effort           |
-| ------------ | ------------------------- | ---------------------------------------- | ---------------- |
-| `fugu-ultra` | Sakana Fugu Ultra         | `codex-fugu` (Sakana provider)           | `xhigh`          |
-| `gpt55`      | OpenAI GPT-5.5            | `codex` then OpenRouter (Responses API)  | `xhigh`          |
-| `opus48`     | Anthropic Claude Opus 4.8 | `codex` then strip-proxy then OpenRouter | `xhigh`          |
-| `gemini`     | Google Gemini 3.1 Pro     | `codex` then OpenRouter                  | `high` (its max) |
+| key          | model                     | harness                                          | effort           |
+| ------------ | ------------------------- | ------------------------------------------------ | ---------------- |
+| `fugu-ultra` | Sakana Fugu Ultra         | `codex-fugu` (Sakana provider)[^codex]           | `xhigh`          |
+| `gpt55`      | OpenAI GPT-5.5            | `codex` 0.142.0 then OpenRouter (Responses API)  | `xhigh`          |
+| `opus48`     | Anthropic Claude Opus 4.8 | `codex` 0.142.0 then strip-proxy then OpenRouter | `xhigh`          |
+| `gemini`     | Google Gemini 3.1 Pro     | `codex` 0.142.0 then OpenRouter                  | `high` (its max) |
+
+[^codex]: `codex-fugu` installed from commit [`655675e`](https://github.com/SakanaAI/fugu/commit/655675ed7a4ebe14b8e712ab4d8a1b025510608f) (Codex 0.142.0).
 
 ## Environment setup
 
@@ -19,7 +21,19 @@ Run these steps from this directory.
    curl -fsSL https://sakana.ai/fugu/install | bash
    ```
 
-   The one-line installer supports Ubuntu and macOS. On Windows, or if the install does not complete, follow the [setup guide](https://console.sakana.ai/get-started#manually-setting-up-codex).
+   The one-line installer supports Ubuntu and macOS. On Windows, or if the install does not complete, follow this [guide](https://console.sakana.ai/get-started#manually-setting-up-codex).
+
+   To maximize reproducibility, match the exact versions used for this sweep: Codex 0.142.0 and the `codex-fugu` build at commit `655675e`.
+
+   The one-liner above always installs the latest `codex-fugu`, which may pin a newer Codex. For an exact match, install from that commit instead:
+
+   ```bash
+   git clone https://github.com/SakanaAI/fugu.git ~/.fugu
+   git -C ~/.fugu checkout 655675ed7a4ebe14b8e712ab4d8a1b025510608f
+   bash ~/.fugu/scripts/install.sh        # add --force if Codex is already at a different version
+   ```
+
+   The baseline models (`gpt55`, `opus48`, `gemini`) call the same Codex 0.142.0 binary through OpenRouter, so this single install covers all four harnesses. Newer Codex releases are forward-compatible and should also work, but they are not what these demos were produced with.
 
 2. Export your OpenRouter key, which covers all three baseline models.
 
@@ -115,4 +129,4 @@ Credit: [@KinasRemek](https://x.com/KinasRemek)
 
 A single HTML file chain-reaction machine that plays out on its own with no input. It links a rolling ball, falling dominoes, a lever, a spring launcher, a pendulum, and a pulley to test whether each model models real physics rather than faking the motion on fixed paths.
 
- The reproduced results for all six demos are available in the [user-demo-v1 release](https://github.com/SakanaAI/fugu/releases/tag/user-demo-v1).
+The reproduced results for all six demos are available in the [user-demo-v1 release](https://github.com/SakanaAI/fugu/releases/tag/user-demo-v1).
