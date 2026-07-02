@@ -3,7 +3,7 @@ BUNDLE_NAME="configs"
 BUNDLE_DESC="Sakana Fugu models (fugu / fugu-ultra), optimized — stream-resilience hardening + generic agent-conduct base_instructions; use with: codex -p fugu"
 BUNDLE_SCHEMA=1
 
-BUNDLE_CODEX_VERSION="0.142.4"
+BUNDLE_CODEX_VERSION="0.142.5"
 
 FILES=(
   "files/fugu.json::fugu.json"
