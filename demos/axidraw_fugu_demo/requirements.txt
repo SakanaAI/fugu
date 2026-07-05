@@ -1,0 +1,6 @@
+numpy
+opencv-python
+
+# Optional: install the official AxiDraw Python API/CLI for hardware plotting.
+# The demo still runs without it, but Send to AxiDraw is disabled.
+# pyaxidraw

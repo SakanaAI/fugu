@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AxiDraw Sakana Fugu Demo</title>
+    <script>
+      if (window.location.protocol === "file:") {
+        window.location.replace("http://127.0.0.1:8776/");
+      }
+    </script>
+    <link rel="stylesheet" href="./styles.css?v=20260623-plotter4" />
+  </head>
+  <body>
+    <main class="demoShell">
+      <header class="demoHeader">
+        <div>
+          <h1>AxiDraw Sakana Fugu Demo</h1>
+        </div>
+        <p id="fuguStatus" class="systemStatus">Checking Sakana Fugu...</p>
+      </header>
+
+      <section class="demoGrid" aria-label="AxiDraw prompt-to-plot demo">
+        <section class="stagePanel" aria-labelledby="demoTitle">
+          <div class="plotSurface">
+            <img id="previewImage" alt="Generated AxiDraw artwork preview" />
+            <div id="stageOverlay" class="stageOverlay" hidden>
+              <span class="spinner" aria-hidden="true"></span>
+              <span id="stageOverlayText">Generating with Fugu...</span>
+            </div>
+          </div>
+
+          <div class="stageCaption">
+            <div>
+              <div class="label">Plot Preview</div>
+              <h2 id="demoTitle">No generated plot yet</h2>
+              <p id="demoDescription"></p>
+            </div>
+            <div id="metricStrip" class="metricStrip"></div>
+          </div>
+        </section>
+
+        <aside class="controlStack">
+          <section class="promptCard" aria-labelledby="composerTitle">
+            <div class="panelHeader">
+              <div>
+                <div class="label">Prompt</div>
+                <h2 id="composerTitle">Generate a plot</h2>
+              </div>
+              <button id="previewBtn" type="button">Plot Preview</button>
+            </div>
+            <textarea id="promptInput" rows="4" spellcheck="true">Draw one simple pufferfish with three bubbles.</textarea>
+
+            <div class="generateRow">
+              <button id="generateBtn" type="button" class="primary">Generate from Prompt</button>
+              <button id="plotBtn" type="button" class="plotter">Send to AxiDraw</button>
+              <button id="stopBtn" type="button" class="danger" hidden>Stop</button>
+            </div>
+            <p id="runStatus" class="runStatus" aria-live="polite">Ready.</p>
+
+            <details class="apiSettings">
+              <summary>API settings</summary>
+              <div class="inputGrid">
+                <label class="fieldGroup baseUrlField">
+                  <span class="fieldLabel">API base URL</span>
+                  <input
+                    id="baseUrlInput"
+                    type="url"
+                    autocomplete="off"
+                    spellcheck="false"
+                    list="baseUrlOptions"
+                    placeholder="Server default or custom /v1 endpoint"
+                  />
+                  <span id="baseUrlHelp" class="fieldHint">Default API endpoint.</span>
+                </label>
+                <label class="fieldGroup">
+                  <span class="fieldLabel">Fugu API key</span>
+                  <input id="apiKeyInput" type="password" autocomplete="off" placeholder="API key" />
+                  <span id="apiKeyHelp" class="fieldHint">Server key is used when configured.</span>
+                </label>
+                <label class="fieldGroup">
+                  <span class="fieldLabel">Model</span>
+                  <select id="modelSelect" aria-label="Sakana Fugu model">
+                    <option value="fugu">Sakana Fugu</option>
+                    <option value="fugu-ultra">Sakana Fugu Ultra</option>
+                  </select>
+                </label>
+                <div class="apiTestRow">
+                  <button id="testApiBtn" type="button">Test API</button>
+                  <span id="apiTestResult" class="fieldHint" aria-live="polite"></span>
+                </div>
+              </div>
+            </details>
+          </section>
+
+          <section class="cameraCard" aria-labelledby="cameraTitle">
+            <div class="panelHeader">
+              <div>
+                <div class="label">Webcam</div>
+                <h2 id="cameraTitle">Frame to plot</h2>
+              </div>
+              <label class="modeSelect">
+                <span class="fieldLabel">Mode</span>
+                <select id="cameraModeSelect" aria-label="Webcam plot mode">
+                  <option value="contour">Contour, fast</option>
+                  <option value="fugu">Fugu cleanup</option>
+                </select>
+              </label>
+            </div>
+            <video id="cameraPreview" autoplay muted playsinline></video>
+            <canvas id="cameraCanvas" hidden></canvas>
+            <div class="cameraButtons">
+              <button id="startCameraBtn" type="button">Start Camera</button>
+              <button id="cameraGenerateBtn" type="button" class="primary">Plot Webcam</button>
+            </div>
+            <p id="cameraStatus" class="cameraStatus">Camera off.</p>
+          </section>
+        </aside>
+      </section>
+
+      <details class="technicalDetails">
+        <summary>Job log</summary>
+        <div class="detailsGrid">
+          <div>
+            <div class="label">Preview Command</div>
+            <pre id="plotCommand"></pre>
+            <p id="hardwarePath" class="technicalNote">Loading controller...</p>
+          </div>
+          <div>
+            <div class="label">Progress</div>
+            <pre id="jobLog"></pre>
+          </div>
+        </div>
+      </details>
+    </main>
+    <script src="./app.js?v=20260623-plotter4"></script>
+  </body>
+</html>
