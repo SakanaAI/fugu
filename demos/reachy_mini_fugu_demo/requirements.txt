@@ -1,0 +1,4 @@
+gradio>=4.44,<6
+numpy>=1.26
+SpeechRecognition>=3.10
+reachy-mini==1.8.1
