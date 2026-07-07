@@ -1,0 +1,23 @@
+{
+  "metrics": {
+    "estimated_print_time": "23 Seconds",
+    "path_to_draw_m": 0.799,
+    "pen_up_travel_m": 0.617,
+    "total_movement_m": 1.416,
+    "estimate_runtime": "0.003 Seconds"
+  },
+  "warnings": [],
+  "raw_output": "Estimated print time: 23 Seconds\nLength of path to draw: 0.799 m\nPen-up travel distance: 0.617 m\nTotal movement distance: 1.416 m\nThis estimate took 0.003 Seconds\n\n",
+  "input_svg": "benchmark_results/fugu_ultra/geometric_turtle.svg",
+  "preview_svg": "benchmark_results/fugu_ultra/geometric_turtle.preview.svg",
+  "command": [
+    "axicli",
+    "benchmark_results/fugu_ultra/geometric_turtle.svg",
+    "-vT",
+    "-g3",
+    "-L1",
+    "-o",
+    "benchmark_results/fugu_ultra/geometric_turtle.preview.svg"
+  ],
+  "returncode": 0
+}

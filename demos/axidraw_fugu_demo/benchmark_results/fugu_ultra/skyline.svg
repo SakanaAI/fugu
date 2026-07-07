@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="297.0mm" height="210.0mm" viewBox="0 0 297.0 210.0">
+  <title>skyline_fugu_ultra</title>
+  <desc>Dry-run fixture for Fugu Ultra (xhigh) on skyline.</desc>
+  <g fill="none" stroke="black" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="42.4" y1="162.8" x2="247.4" y2="162.8" />
+    <polyline points="52.4,162.8 52.4,116.8 78.4,116.8 78.4,89.8 107.4,89.8 107.4,162.8 135.4,162.8 135.4,102.8 167.4,102.8 167.4,162.8 201.4,162.8 201.4,76.8 230.4,76.8 230.4,162.8" />
+    <circle cx="63.4" cy="56.8" r="11.0" />
+    <polyline points="87.4,129.8 97.4,129.8 97.4,140.8 87.4,140.8 87.4,129.8" />
+    <polyline points="181.4,117.8 190.4,117.8 190.4,128.8 181.4,128.8 181.4,117.8" />
+  </g>
+</svg>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="297.0mm" height="210.0mm" viewBox="0 0 297.0 210.0">
+  <title>geometric_turtle_opus</title>
+  <desc>Dry-run fixture for Claude Opus 4.8 (max) on geometric_turtle.</desc>
+  <g fill="none" stroke="black" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="152.6" cy="107.0" r="43.0" />
+    <circle cx="209.6" cy="104.0" r="13.0" />
+    <polyline points="118.6,93.0 152.6,75.0 186.6,93.0 172.6,128.0 132.6,128.0 118.6,93.0" />
+    <line x1="152.6" y1="75.0" x2="152.6" y2="149.0" />
+    <polyline points="116.6,141.0 94.6,160.0 127.6,154.0 187.6,141.0 210.6,160.0 177.6,154.0" />
+  </g>
+</svg>

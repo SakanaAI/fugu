@@ -1,0 +1,23 @@
+{
+  "metrics": {
+    "estimated_print_time": "20 Seconds",
+    "path_to_draw_m": 0.628,
+    "pen_up_travel_m": 0.691,
+    "total_movement_m": 1.319,
+    "estimate_runtime": "0.001 Seconds"
+  },
+  "warnings": [],
+  "raw_output": "Estimated print time: 20 Seconds\nLength of path to draw: 0.628 m\nPen-up travel distance: 0.691 m\nTotal movement distance: 1.319 m\nThis estimate took 0.001 Seconds\n\n",
+  "input_svg": "benchmark_results/opus/simple_fish.svg",
+  "preview_svg": "benchmark_results/opus/simple_fish.preview.svg",
+  "command": [
+    "axicli",
+    "benchmark_results/opus/simple_fish.svg",
+    "-vT",
+    "-g3",
+    "-L1",
+    "-o",
+    "benchmark_results/opus/simple_fish.preview.svg"
+  ],
+  "returncode": 0
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="297.0mm" height="210.0mm" viewBox="0 0 297.0 210.0">
+  <title>simple_fish_fugu</title>
+  <desc>Dry-run fixture for Fugu (xhigh) on simple_fish.</desc>
+  <g fill="none" stroke="black" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="66.2,104.0 96.2,82.0 149.2,79.0 194.2,105.0 149.2,131.0 96.2,128.0 66.2,104.0" />
+    <polyline points="194.2,105.0 234.2,80.0 227.2,105.0 234.2,130.0 194.2,105.0" />
+    <circle cx="102.2" cy="100.0" r="3.75" />
+    <line x1="124.2" y1="88.0" x2="116.2" y2="120.0" />
+    <polyline points="72.2,151.0 116.2,145.0 162.2,150.0 208.2,144.0" />
+  </g>
+</svg>

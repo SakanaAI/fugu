@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="297.0mm" height="210.0mm" viewBox="0 0 297.0 210.0">
+  <title>simple_fish_opus</title>
+  <desc>Dry-run fixture for Claude Opus 4.8 (max) on simple_fish.</desc>
+  <g fill="none" stroke="black" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="71.6,104.0 101.6,82.0 154.6,79.0 199.6,105.0 154.6,131.0 101.6,128.0 71.6,104.0" />
+    <polyline points="199.6,105.0 239.6,80.0 232.6,105.0 239.6,130.0 199.6,105.0" />
+    <circle cx="107.6" cy="100.0" r="4.2" />
+    <line x1="129.6" y1="88.0" x2="121.6" y2="120.0" />
+    <polyline points="77.6,151.0 121.6,145.0 167.6,150.0 213.6,144.0" />
+  </g>
+</svg>

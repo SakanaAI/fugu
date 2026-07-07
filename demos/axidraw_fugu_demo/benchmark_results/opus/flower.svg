@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="297.0mm" height="210.0mm" viewBox="0 0 297.0 210.0">
+  <title>flower_opus</title>
+  <desc>Dry-run fixture for Claude Opus 4.8 (max) on flower.</desc>
+  <g fill="none" stroke="black" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="151.6" y1="106.0" x2="151.6" y2="178.0" />
+    <circle cx="151.6" cy="86.0" r="13.0" />
+    <circle cx="127.6" cy="86.0" r="16.0" />
+    <circle cx="175.6" cy="86.0" r="16.0" />
+    <circle cx="151.6" cy="62.0" r="16.0" />
+    <polyline points="151.6,142.0 121.6,128.0 135.6,155.0 151.6,142.0 181.6,128.0 167.6,155.0 151.6,142.0" />
+  </g>
+</svg>

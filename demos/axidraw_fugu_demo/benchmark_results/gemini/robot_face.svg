@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="297.0mm" height="210.0mm" viewBox="0 0 297.0 210.0">
+  <title>robot_face_gemini</title>
+  <desc>Dry-run fixture for Gemini 3.1 Pro on robot_face.</desc>
+  <g fill="none" stroke="black" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="86.8,60.8 213.8,60.8 223.8,72.8 223.8,148.8 212.8,160.8 87.8,160.8 76.8,148.8 76.8,72.8 86.8,60.8" />
+    <circle cx="118.8" cy="100.8" r="11.6" />
+    <circle cx="182.8" cy="100.8" r="11.6" />
+    <polyline points="112.8,132.8 133.8,142.8 166.8,142.8 187.8,132.8" />
+    <line x1="150.3" y1="60.8" x2="150.3" y2="35.8" />
+    <circle cx="150.3" cy="29.8" r="5.5" />
+  </g>
+</svg>

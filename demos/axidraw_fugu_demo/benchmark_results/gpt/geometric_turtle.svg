@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="297.0mm" height="210.0mm" viewBox="0 0 297.0 210.0">
+  <title>geometric_turtle_gpt</title>
+  <desc>Dry-run fixture for GPT-5.5 on geometric_turtle.</desc>
+  <g fill="none" stroke="black" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="149.0" cy="108.2" r="42.5" />
+    <circle cx="206.0" cy="105.2" r="13.0" />
+    <polyline points="115.0,94.2 149.0,76.2 183.0,94.2 169.0,129.2 129.0,129.2 115.0,94.2" />
+    <line x1="149.0" y1="76.2" x2="149.0" y2="150.2" />
+    <polyline points="113.0,142.2 91.0,161.2 124.0,155.2 184.0,142.2 207.0,161.2 174.0,155.2" />
+  </g>
+</svg>

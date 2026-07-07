@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="297.0mm" height="210.0mm" viewBox="0 0 297.0 210.0">
+  <title>robot_face_gpt</title>
+  <desc>Dry-run fixture for GPT-5.5 on robot_face.</desc>
+  <g fill="none" stroke="black" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="85.0,63.2 212.0,63.2 222.0,75.2 222.0,151.2 211.0,163.2 86.0,163.2 75.0,151.2 75.0,75.2 85.0,63.2" />
+    <circle cx="117.0" cy="103.2" r="11.4" />
+    <circle cx="181.0" cy="103.2" r="11.4" />
+    <polyline points="111.0,135.2 132.0,145.2 165.0,145.2 186.0,135.2" />
+    <line x1="148.5" y1="63.2" x2="148.5" y2="38.2" />
+    <circle cx="148.5" cy="32.2" r="5.5" />
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="297.0mm" height="210.0mm" viewBox="0 0 297.0 210.0">
+  <title>flower_gpt</title>
+  <desc>Dry-run fixture for GPT-5.5 on flower.</desc>
+  <g fill="none" stroke="black" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="148.0" y1="107.2" x2="148.0" y2="179.2" />
+    <circle cx="148.0" cy="87.2" r="12.5" />
+    <circle cx="124.0" cy="87.2" r="16.0" />
+    <circle cx="172.0" cy="87.2" r="16.0" />
+    <circle cx="148.0" cy="63.2" r="16.0" />
+    <polyline points="148.0,143.2 118.0,129.2 132.0,156.2 148.0,143.2 178.0,129.2 164.0,156.2 148.0,143.2" />
+  </g>
+</svg>

@@ -1,0 +1,23 @@
+{
+  "metrics": {
+    "estimated_print_time": "23 Seconds",
+    "path_to_draw_m": 0.805,
+    "pen_up_travel_m": 0.629,
+    "total_movement_m": 1.435,
+    "estimate_runtime": "0.002 Seconds"
+  },
+  "warnings": [],
+  "raw_output": "Estimated print time: 23 Seconds\nLength of path to draw: 0.805 m\nPen-up travel distance: 0.629 m\nTotal movement distance: 1.435 m\nThis estimate took 0.002 Seconds\n\n",
+  "input_svg": "benchmark_results/opus/geometric_turtle.svg",
+  "preview_svg": "benchmark_results/opus/geometric_turtle.preview.svg",
+  "command": [
+    "axicli",
+    "benchmark_results/opus/geometric_turtle.svg",
+    "-vT",
+    "-g3",
+    "-L1",
+    "-o",
+    "benchmark_results/opus/geometric_turtle.preview.svg"
+  ],
+  "returncode": 0
+}

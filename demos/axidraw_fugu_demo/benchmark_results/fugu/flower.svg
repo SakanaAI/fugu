@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="297.0mm" height="210.0mm" viewBox="0 0 297.0 210.0">
+  <title>flower_fugu</title>
+  <desc>Dry-run fixture for Fugu (xhigh) on flower.</desc>
+  <g fill="none" stroke="black" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="146.2" y1="106.0" x2="146.2" y2="178.0" />
+    <circle cx="146.2" cy="86.0" r="12.25" />
+    <circle cx="122.2" cy="86.0" r="16.0" />
+    <circle cx="170.2" cy="86.0" r="16.0" />
+    <circle cx="146.2" cy="62.0" r="16.0" />
+    <polyline points="146.2,142.0 116.2,128.0 130.2,155.0 146.2,142.0 176.2,128.0 162.2,155.0 146.2,142.0" />
+  </g>
+</svg>

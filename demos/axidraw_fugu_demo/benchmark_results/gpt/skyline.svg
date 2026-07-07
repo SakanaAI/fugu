@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="297.0mm" height="210.0mm" viewBox="0 0 297.0 210.0">
+  <title>skyline_gpt</title>
+  <desc>Dry-run fixture for GPT-5.5 on skyline.</desc>
+  <g fill="none" stroke="black" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="46.0" y1="165.2" x2="251.0" y2="165.2" />
+    <polyline points="56.0,165.2 56.0,119.2 82.0,119.2 82.0,92.2 111.0,92.2 111.0,165.2 139.0,165.2 139.0,105.2 171.0,105.2 171.0,165.2 205.0,165.2 205.0,79.2 234.0,79.2 234.0,165.2" />
+    <circle cx="67.0" cy="59.2" r="11.0" />
+    <polyline points="91.0,132.2 101.0,132.2 101.0,143.2 91.0,143.2 91.0,132.2" />
+    <polyline points="185.0,120.2 194.0,120.2 194.0,131.2 185.0,131.2 185.0,120.2" />
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="297.0mm" height="210.0mm" viewBox="0 0 297.0 210.0">
+  <title>robot_face_fugu_ultra</title>
+  <desc>Dry-run fixture for Fugu Ultra (xhigh) on robot_face.</desc>
+  <g fill="none" stroke="black" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="81.4,60.8 208.4,60.8 218.4,72.8 218.4,148.8 207.4,160.8 82.4,160.8 71.4,148.8 71.4,72.8 81.4,60.8" />
+    <circle cx="113.4" cy="100.8" r="11.0" />
+    <circle cx="177.4" cy="100.8" r="11.0" />
+    <polyline points="107.4,132.8 128.4,142.8 161.4,142.8 182.4,132.8" />
+    <line x1="144.9" y1="60.8" x2="144.9" y2="35.8" />
+    <circle cx="144.9" cy="29.8" r="5.5" />
+  </g>
+</svg>

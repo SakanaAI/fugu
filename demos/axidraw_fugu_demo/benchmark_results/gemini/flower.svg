@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="297.0mm" height="210.0mm" viewBox="0 0 297.0 210.0">
+  <title>flower_gemini</title>
+  <desc>Dry-run fixture for Gemini 3.1 Pro on flower.</desc>
+  <g fill="none" stroke="black" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="149.8" y1="104.8" x2="149.8" y2="176.8" />
+    <circle cx="149.8" cy="84.8" r="12.75" />
+    <circle cx="125.8" cy="84.8" r="16.0" />
+    <circle cx="173.8" cy="84.8" r="16.0" />
+    <circle cx="149.8" cy="60.8" r="16.0" />
+    <polyline points="149.8,140.8 119.8,126.8 133.8,153.8 149.8,140.8 179.8,126.8 165.8,153.8 149.8,140.8" />
+  </g>
+</svg>

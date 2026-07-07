@@ -1,0 +1,127 @@
+{
+  "aggregate": {
+    "model": "opus",
+    "display_name": "Claude Opus 4.8 (max)",
+    "mode": "dry_run",
+    "prompt_count": 5,
+    "valid_json": 5,
+    "sanitized_success": 5,
+    "svg_generated": 5,
+    "preview_generated": 5,
+    "average_command_count": 5.4,
+    "average_estimated_pen_distance_mm": 757.0,
+    "page_bounds_violations": 0,
+    "average_latency_ms": null,
+    "failure_count": 0,
+    "notes": [
+      "dry-run fixture response"
+    ]
+  },
+  "prompts": [
+    {
+      "prompt": "simple_fish",
+      "request": "Draw a simple fish using clean pen-plotter line art.",
+      "valid_json": true,
+      "sanitized_success": true,
+      "svg_generated": true,
+      "preview_generated": true,
+      "command_count": 5,
+      "estimated_pen_distance_mm": 628.4,
+      "page_bounds_violations": 0,
+      "latency_ms": null,
+      "notes": [
+        "dry-run fixture response"
+      ],
+      "failure_reason": null,
+      "artifacts": {
+        "svg": "benchmark_results/opus/simple_fish.svg",
+        "preview_svg": "benchmark_results/opus/simple_fish.preview.svg",
+        "preview_report": "benchmark_results/opus/simple_fish.preview.report.json"
+      }
+    },
+    {
+      "prompt": "robot_face",
+      "request": "Draw a friendly robot face with simple geometric features.",
+      "valid_json": true,
+      "sanitized_success": true,
+      "svg_generated": true,
+      "preview_generated": true,
+      "command_count": 6,
+      "estimated_pen_distance_mm": 755.2,
+      "page_bounds_violations": 0,
+      "latency_ms": null,
+      "notes": [
+        "dry-run fixture response"
+      ],
+      "failure_reason": null,
+      "artifacts": {
+        "svg": "benchmark_results/opus/robot_face.svg",
+        "preview_svg": "benchmark_results/opus/robot_face.preview.svg",
+        "preview_report": "benchmark_results/opus/robot_face.preview.report.json"
+      }
+    },
+    {
+      "prompt": "flower",
+      "request": "Draw a single flower with stem, leaves, and several petals.",
+      "valid_json": true,
+      "sanitized_success": true,
+      "svg_generated": true,
+      "preview_generated": true,
+      "command_count": 6,
+      "estimated_pen_distance_mm": 623.5,
+      "page_bounds_violations": 0,
+      "latency_ms": null,
+      "notes": [
+        "dry-run fixture response"
+      ],
+      "failure_reason": null,
+      "artifacts": {
+        "svg": "benchmark_results/opus/flower.svg",
+        "preview_svg": "benchmark_results/opus/flower.preview.svg",
+        "preview_report": "benchmark_results/opus/flower.preview.report.json"
+      }
+    },
+    {
+      "prompt": "geometric_turtle",
+      "request": "Draw a geometric turtle with shell pattern and small legs.",
+      "valid_json": true,
+      "sanitized_success": true,
+      "svg_generated": true,
+      "preview_generated": true,
+      "command_count": 5,
+      "estimated_pen_distance_mm": 805.6,
+      "page_bounds_violations": 0,
+      "latency_ms": null,
+      "notes": [
+        "dry-run fixture response"
+      ],
+      "failure_reason": null,
+      "artifacts": {
+        "svg": "benchmark_results/opus/geometric_turtle.svg",
+        "preview_svg": "benchmark_results/opus/geometric_turtle.preview.svg",
+        "preview_report": "benchmark_results/opus/geometric_turtle.preview.report.json"
+      }
+    },
+    {
+      "prompt": "skyline",
+      "request": "Draw a compact city skyline with a moon and simple windows.",
+      "valid_json": true,
+      "sanitized_success": true,
+      "svg_generated": true,
+      "preview_generated": true,
+      "command_count": 5,
+      "estimated_pen_distance_mm": 972.1,
+      "page_bounds_violations": 0,
+      "latency_ms": null,
+      "notes": [
+        "dry-run fixture response"
+      ],
+      "failure_reason": null,
+      "artifacts": {
+        "svg": "benchmark_results/opus/skyline.svg",
+        "preview_svg": "benchmark_results/opus/skyline.preview.svg",
+        "preview_report": "benchmark_results/opus/skyline.preview.report.json"
+      }
+    }
+  ]
+}

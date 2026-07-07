@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="297.0mm" height="210.0mm" viewBox="0 0 297.0 210.0">
+  <title>simple_fish_gpt</title>
+  <desc>Dry-run fixture for GPT-5.5 on simple_fish.</desc>
+  <g fill="none" stroke="black" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="68.0,105.2 98.0,83.2 151.0,80.2 196.0,106.2 151.0,132.2 98.0,129.2 68.0,105.2" />
+    <polyline points="196.0,106.2 236.0,81.2 229.0,106.2 236.0,131.2 196.0,106.2" />
+    <circle cx="104.0" cy="101.2" r="3.9" />
+    <line x1="126.0" y1="89.2" x2="118.0" y2="121.2" />
+    <polyline points="74.0,152.2 118.0,146.2 164.0,151.2 210.0,145.2" />
+  </g>
+</svg>

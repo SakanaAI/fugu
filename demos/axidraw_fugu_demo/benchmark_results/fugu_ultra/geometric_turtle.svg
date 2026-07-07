@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="297.0mm" height="210.0mm" viewBox="0 0 297.0 210.0">
+  <title>geometric_turtle_fugu_ultra</title>
+  <desc>Dry-run fixture for Fugu Ultra (xhigh) on geometric_turtle.</desc>
+  <g fill="none" stroke="black" stroke-width="0.35" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="145.4" cy="105.8" r="42.0" />
+    <circle cx="202.4" cy="102.8" r="13.0" />
+    <polyline points="111.4,91.8 145.4,73.8 179.4,91.8 165.4,126.8 125.4,126.8 111.4,91.8" />
+    <line x1="145.4" y1="73.8" x2="145.4" y2="147.8" />
+    <polyline points="109.4,139.8 87.4,158.8 120.4,152.8 180.4,139.8 203.4,158.8 170.4,152.8" />
+  </g>
+</svg>

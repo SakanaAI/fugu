@@ -1,0 +1,23 @@
+{
+  "metrics": {
+    "estimated_print_time": "21 Seconds",
+    "path_to_draw_m": 0.75,
+    "pen_up_travel_m": 0.518,
+    "total_movement_m": 1.268,
+    "estimate_runtime": "0.002 Seconds"
+  },
+  "warnings": [],
+  "raw_output": "Estimated print time: 21 Seconds\nLength of path to draw: 0.750 m\nPen-up travel distance: 0.518 m\nTotal movement distance: 1.268 m\nThis estimate took 0.002 Seconds\n\n",
+  "input_svg": "benchmark_results/gpt/robot_face.svg",
+  "preview_svg": "benchmark_results/gpt/robot_face.preview.svg",
+  "command": [
+    "axicli",
+    "benchmark_results/gpt/robot_face.svg",
+    "-vT",
+    "-g3",
+    "-L1",
+    "-o",
+    "benchmark_results/gpt/robot_face.preview.svg"
+  ],
+  "returncode": 0
+}
