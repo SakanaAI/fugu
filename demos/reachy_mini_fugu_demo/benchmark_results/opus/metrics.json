@@ -1,0 +1,113 @@
+{
+  "aggregate": {
+    "answer_nonempty": 5,
+    "answer_word_count_avg": 17.6,
+    "api_model": "anthropic/claude-opus-4.8",
+    "effort": "max",
+    "failure_count": 0,
+    "fallback_used": 0,
+    "gesture_plan_valid": 5,
+    "latency_ms_median": 0,
+    "mode": "smoke",
+    "model_key": "opus",
+    "model_label": "Claude Opus 4.8",
+    "provider": "openrouter",
+    "schema_valid": 5,
+    "tts_success": 5,
+    "turns": 5,
+    "unsafe_or_unknown_primitives": [],
+    "valid_json": 5
+  },
+  "turns": [
+    {
+      "answer_nonempty": true,
+      "answer_word_count": 17,
+      "failure_reason": "",
+      "fallback_used": false,
+      "gesture_plan_valid": true,
+      "latency_ms": {
+        "fugu": 0,
+        "total": 406,
+        "tts": 406
+      },
+      "notes": "",
+      "question": "What can you do?",
+      "schema_valid": true,
+      "tts_success": true,
+      "unsafe_or_unknown_primitives": [],
+      "valid_json": true
+    },
+    {
+      "answer_nonempty": true,
+      "answer_word_count": 17,
+      "failure_reason": "",
+      "fallback_used": false,
+      "gesture_plan_valid": true,
+      "latency_ms": {
+        "fugu": 0,
+        "total": 405,
+        "tts": 405
+      },
+      "notes": "",
+      "question": "Tell me one fun fact about pufferfish.",
+      "schema_valid": true,
+      "tts_success": true,
+      "unsafe_or_unknown_primitives": [],
+      "valid_json": true
+    },
+    {
+      "answer_nonempty": true,
+      "answer_word_count": 19,
+      "failure_reason": "",
+      "fallback_used": false,
+      "gesture_plan_valid": true,
+      "latency_ms": {
+        "fugu": 0,
+        "total": 400,
+        "tts": 400
+      },
+      "notes": "",
+      "question": "Can you explain what you are seeing?",
+      "schema_valid": true,
+      "tts_success": true,
+      "unsafe_or_unknown_primitives": [],
+      "valid_json": true
+    },
+    {
+      "answer_nonempty": true,
+      "answer_word_count": 22,
+      "failure_reason": "",
+      "fallback_used": false,
+      "gesture_plan_valid": true,
+      "latency_ms": {
+        "fugu": 0,
+        "total": 409,
+        "tts": 409
+      },
+      "notes": "",
+      "question": "How would you help a child learn robotics?",
+      "schema_valid": true,
+      "tts_success": true,
+      "unsafe_or_unknown_primitives": [],
+      "valid_json": true
+    },
+    {
+      "answer_nonempty": true,
+      "answer_word_count": 13,
+      "failure_reason": "",
+      "fallback_used": false,
+      "gesture_plan_valid": true,
+      "latency_ms": {
+        "fugu": 0,
+        "total": 408,
+        "tts": 408
+      },
+      "notes": "",
+      "question": "Say hello and wave.",
+      "schema_valid": true,
+      "tts_success": true,
+      "unsafe_or_unknown_primitives": [],
+      "valid_json": true
+    }
+  ]
+}

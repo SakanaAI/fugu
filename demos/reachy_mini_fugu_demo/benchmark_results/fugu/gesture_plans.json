@@ -1,0 +1,219 @@
+[
+  {
+    "answer": "I can listen to typed or robot questions, answer briefly, speak back, and choose gentle Reachy gestures.",
+    "confidence": "partial",
+    "debug": {
+      "fugu": "live",
+      "fugu_api_mode": "chat_completions",
+      "fugu_max_output_tokens": 512,
+      "fugu_model": "fugu",
+      "fugu_reasoning_effort": "xhigh",
+      "latency_ms": {
+        "fugu": 0,
+        "total": 403,
+        "tts": 403
+      },
+      "transcription": "typed"
+    },
+    "emotion": "happy",
+    "gesture_plan": [
+      {
+        "args": {},
+        "primitive": "idle",
+        "t_ms": 0
+      },
+      {
+        "args": {},
+        "primitive": "nod",
+        "t_ms": 300
+      },
+      {
+        "args": {
+          "text": "I can listen, answer, speak, and move gently."
+        },
+        "primitive": "speak",
+        "t_ms": 900
+      },
+      {
+        "args": {},
+        "primitive": "idle",
+        "t_ms": 3300
+      }
+    ],
+    "question": "What can you do?"
+  },
+  {
+    "answer": "Pufferfish can inflate by taking in water or air, making themselves much harder for predators to swallow.",
+    "confidence": "partial",
+    "debug": {
+      "fugu": "live",
+      "fugu_api_mode": "chat_completions",
+      "fugu_max_output_tokens": 512,
+      "fugu_model": "fugu",
+      "fugu_reasoning_effort": "xhigh",
+      "latency_ms": {
+        "fugu": 0,
+        "total": 405,
+        "tts": 405
+      },
+      "transcription": "typed"
+    },
+    "emotion": "curious",
+    "gesture_plan": [
+      {
+        "args": {},
+        "primitive": "idle",
+        "t_ms": 0
+      },
+      {
+        "args": {},
+        "primitive": "curious_tilt",
+        "t_ms": 300
+      },
+      {
+        "args": {
+          "text": "Pufferfish can puff up like a round balloon."
+        },
+        "primitive": "speak",
+        "t_ms": 900
+      },
+      {
+        "args": {},
+        "primitive": "idle",
+        "t_ms": 3300
+      }
+    ],
+    "question": "Tell me one fun fact about pufferfish."
+  },
+  {
+    "answer": "In this simulation I do not receive camera frames, so I can only describe what the operator tells me.",
+    "confidence": "partial",
+    "debug": {
+      "fugu": "live",
+      "fugu_api_mode": "chat_completions",
+      "fugu_max_output_tokens": 512,
+      "fugu_model": "fugu",
+      "fugu_reasoning_effort": "xhigh",
+      "latency_ms": {
+        "fugu": 0,
+        "total": 421,
+        "tts": 421
+      },
+      "transcription": "typed"
+    },
+    "emotion": "thinking",
+    "gesture_plan": [
+      {
+        "args": {},
+        "primitive": "idle",
+        "t_ms": 0
+      },
+      {
+        "args": {},
+        "primitive": "curious_tilt",
+        "t_ms": 300
+      },
+      {
+        "args": {
+          "text": "I do not have a camera frame in this simulation."
+        },
+        "primitive": "speak",
+        "t_ms": 900
+      },
+      {
+        "args": {},
+        "primitive": "idle",
+        "t_ms": 3300
+      }
+    ],
+    "question": "Can you explain what you are seeing?"
+  },
+  {
+    "answer": "I would let a child ask questions, show one safe movement at a time, and connect each motion to a simple idea.",
+    "confidence": "partial",
+    "debug": {
+      "fugu": "live",
+      "fugu_api_mode": "chat_completions",
+      "fugu_max_output_tokens": 512,
+      "fugu_model": "fugu",
+      "fugu_reasoning_effort": "xhigh",
+      "latency_ms": {
+        "fugu": 0,
+        "total": 434,
+        "tts": 434
+      },
+      "transcription": "typed"
+    },
+    "emotion": "happy",
+    "gesture_plan": [
+      {
+        "args": {},
+        "primitive": "idle",
+        "t_ms": 0
+      },
+      {
+        "args": {},
+        "primitive": "nod",
+        "t_ms": 300
+      },
+      {
+        "args": {
+          "text": "We can learn one safe robot idea at a time."
+        },
+        "primitive": "speak",
+        "t_ms": 900
+      },
+      {
+        "args": {},
+        "primitive": "idle",
+        "t_ms": 3300
+      }
+    ],
+    "question": "How would you help a child learn robotics?"
+  },
+  {
+    "answer": "Hello, I am Reachy Mini. I am waving with a small friendly motion.",
+    "confidence": "partial",
+    "debug": {
+      "fugu": "live",
+      "fugu_api_mode": "chat_completions",
+      "fugu_max_output_tokens": 512,
+      "fugu_model": "fugu",
+      "fugu_reasoning_effort": "xhigh",
+      "latency_ms": {
+        "fugu": 0,
+        "total": 420,
+        "tts": 420
+      },
+      "transcription": "typed"
+    },
+    "emotion": "excited",
+    "gesture_plan": [
+      {
+        "args": {},
+        "primitive": "idle",
+        "t_ms": 0
+      },
+      {
+        "args": {
+          "duration": 0.8
+        },
+        "primitive": "antenna_pulse",
+        "t_ms": 300
+      },
+      {
+        "args": {
+          "text": "Hello, I am Reachy Mini."
+        },
+        "primitive": "speak",
+        "t_ms": 900
+      },
+      {
+        "args": {},
+        "primitive": "idle",
+        "t_ms": 3300
+      }
+    ],
+    "question": "Say hello and wave."
+  }
+]

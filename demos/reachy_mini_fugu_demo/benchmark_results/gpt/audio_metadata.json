@@ -1,0 +1,62 @@
+[
+  {
+    "audio_blob_committed": false,
+    "channels": 1,
+    "duration_seconds": 6.111,
+    "exists": true,
+    "generated": true,
+    "note": "Generated audio cache files are local runtime outputs and are not repository artifacts.",
+    "path": ".cache/benchmark/gpt/audio/reachy_fugu_07b70319c697a427.wav",
+    "question": "What can you do?",
+    "sample_rate": 22050,
+    "size_bytes": 273570
+  },
+  {
+    "audio_blob_committed": false,
+    "channels": 1,
+    "duration_seconds": 5.514,
+    "exists": true,
+    "generated": true,
+    "note": "Generated audio cache files are local runtime outputs and are not repository artifacts.",
+    "path": ".cache/benchmark/gpt/audio/reachy_fugu_db2f5e8963c22afb.wav",
+    "question": "Tell me one fun fact about pufferfish.",
+    "sample_rate": 22050,
+    "size_bytes": 247254
+  },
+  {
+    "audio_blob_committed": false,
+    "channels": 1,
+    "duration_seconds": 5.743,
+    "exists": true,
+    "generated": true,
+    "note": "Generated audio cache files are local runtime outputs and are not repository artifacts.",
+    "path": ".cache/benchmark/gpt/audio/reachy_fugu_466123ed251f019b.wav",
+    "question": "Can you explain what you are seeing?",
+    "sample_rate": 22050,
+    "size_bytes": 257342
+  },
+  {
+    "audio_blob_committed": false,
+    "channels": 1,
+    "duration_seconds": 6.127,
+    "exists": true,
+    "generated": true,
+    "note": "Generated audio cache files are local runtime outputs and are not repository artifacts.",
+    "path": ".cache/benchmark/gpt/audio/reachy_fugu_4be42af41b2cfdfa.wav",
+    "question": "How would you help a child learn robotics?",
+    "sample_rate": 22050,
+    "size_bytes": 274276
+  },
+  {
+    "audio_blob_committed": false,
+    "channels": 1,
+    "duration_seconds": 4.223,
+    "exists": true,
+    "generated": true,
+    "note": "Generated audio cache files are local runtime outputs and are not repository artifacts.",
+    "path": ".cache/benchmark/gpt/audio/reachy_fugu_73b35c349bbacbd1.wav",
+    "question": "Say hello and wave.",
+    "sample_rate": 22050,
+    "size_bytes": 190310
+  }
+]

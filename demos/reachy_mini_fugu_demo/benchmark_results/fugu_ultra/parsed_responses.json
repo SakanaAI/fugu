@@ -1,0 +1,169 @@
+[
+  {
+    "parsed_response": {
+      "answer": "I can listen to typed or robot questions, answer briefly, speak back, and choose gentle Reachy gestures.",
+      "citations": [],
+      "confidence": "partial",
+      "emotion": "happy",
+      "gesture_plan": [
+        {
+          "args": {},
+          "primitive": "idle",
+          "t_ms": 0
+        },
+        {
+          "args": {},
+          "primitive": "nod",
+          "t_ms": 300
+        },
+        {
+          "args": {
+            "text": "I can listen, answer, speak, and move gently."
+          },
+          "primitive": "speak",
+          "t_ms": 900
+        },
+        {
+          "args": {},
+          "primitive": "idle",
+          "t_ms": 3300
+        }
+      ]
+    },
+    "question": "What can you do?"
+  },
+  {
+    "parsed_response": {
+      "answer": "Pufferfish can inflate by taking in water or air, making themselves much harder for predators to swallow.",
+      "citations": [],
+      "confidence": "partial",
+      "emotion": "curious",
+      "gesture_plan": [
+        {
+          "args": {},
+          "primitive": "idle",
+          "t_ms": 0
+        },
+        {
+          "args": {},
+          "primitive": "curious_tilt",
+          "t_ms": 300
+        },
+        {
+          "args": {
+            "text": "Pufferfish can puff up like a round balloon."
+          },
+          "primitive": "speak",
+          "t_ms": 900
+        },
+        {
+          "args": {},
+          "primitive": "idle",
+          "t_ms": 3300
+        }
+      ]
+    },
+    "question": "Tell me one fun fact about pufferfish."
+  },
+  {
+    "parsed_response": {
+      "answer": "In this simulation I do not receive camera frames, so I can only describe what the operator tells me.",
+      "citations": [],
+      "confidence": "partial",
+      "emotion": "thinking",
+      "gesture_plan": [
+        {
+          "args": {},
+          "primitive": "idle",
+          "t_ms": 0
+        },
+        {
+          "args": {},
+          "primitive": "curious_tilt",
+          "t_ms": 300
+        },
+        {
+          "args": {
+            "text": "I do not have a camera frame in this simulation."
+          },
+          "primitive": "speak",
+          "t_ms": 900
+        },
+        {
+          "args": {},
+          "primitive": "idle",
+          "t_ms": 3300
+        }
+      ]
+    },
+    "question": "Can you explain what you are seeing?"
+  },
+  {
+    "parsed_response": {
+      "answer": "I would let a child ask questions, show one safe movement at a time, and connect each motion to a simple idea.",
+      "citations": [],
+      "confidence": "partial",
+      "emotion": "happy",
+      "gesture_plan": [
+        {
+          "args": {},
+          "primitive": "idle",
+          "t_ms": 0
+        },
+        {
+          "args": {},
+          "primitive": "nod",
+          "t_ms": 300
+        },
+        {
+          "args": {
+            "text": "We can learn one safe robot idea at a time."
+          },
+          "primitive": "speak",
+          "t_ms": 900
+        },
+        {
+          "args": {},
+          "primitive": "idle",
+          "t_ms": 3300
+        }
+      ]
+    },
+    "question": "How would you help a child learn robotics?"
+  },
+  {
+    "parsed_response": {
+      "answer": "Hello, I am Reachy Mini. I am waving with a small friendly motion.",
+      "citations": [],
+      "confidence": "partial",
+      "emotion": "excited",
+      "gesture_plan": [
+        {
+          "args": {},
+          "primitive": "idle",
+          "t_ms": 0
+        },
+        {
+          "args": {
+            "duration": 0.8
+          },
+          "primitive": "antenna_pulse",
+          "t_ms": 300
+        },
+        {
+          "args": {
+            "text": "Hello, I am Reachy Mini."
+          },
+          "primitive": "speak",
+          "t_ms": 900
+        },
+        {
+          "args": {},
+          "primitive": "idle",
+          "t_ms": 3300
+        }
+      ]
+    },
+    "question": "Say hello and wave."
+  }
+]
