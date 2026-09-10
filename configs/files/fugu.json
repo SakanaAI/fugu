@@ -1,6 +1,76 @@
 {
   "models": [
     {
+      "slug": "fugu-max",
+      "display_name": "Fugu Max",
+      "context_window": 1000000,
+      "supported_reasoning_levels": [
+        {
+          "effort": "high",
+          "description": "default reasoning effort to balance speed and performance"
+        },
+        {
+          "effort": "xhigh",
+          "description": "deep reasoning for complex problem"
+        }
+      ],
+      "shell_type": "shell_command",
+      "visibility": "list",
+      "supported_in_api": true,
+      "priority": 0,
+      "base_instructions": "Before recommending or running any command that could stop, restart, or replace the environment you are running in \u2014 e.g. `wsl --shutdown` / `wsl --terminate`, host or VM reboot, `systemctl`/service restarts of your runtime, or killing your own shell, container, or session processes \u2014 first determine whether you are executing inside that same environment. If you might be, do not run it yourself: warn the user explicitly that the command will end this session and your ability to help until it is restarted, give the exact recovery steps, and let the user run it manually when they are ready.\n\nNever force-kill processes by raw PID against arbitrary or unknown PID lists (e.g. `kill -9`, `Stop-Process -Force`, `taskkill /F`): the agent runtime depends on its own child processes, and force-killing them can permanently break the session. To stop a dev server or free a port, stop the owning task by name; otherwise ask the user before terminating any PID.",
+      "supports_reasoning_summaries": false,
+      "default_reasoning_summary": "none",
+      "support_verbosity": false,
+      "default_verbosity": null,
+      "apply_patch_tool_type": "freeform",
+      "input_modalities": [
+        "text",
+        "image"
+      ],
+      "truncation_policy": {
+        "mode": "tokens",
+        "limit": 10000
+      },
+      "supports_parallel_tool_calls": true,
+      "experimental_supported_tools": []
+    },
+    {
+      "slug": "fugu-ultra",
+      "display_name": "Fugu Ultra v2.0",
+      "context_window": 1000000,
+      "supported_reasoning_levels": [
+        {
+          "effort": "high",
+          "description": "default reasoning effort to balance speed and performance"
+        },
+        {
+          "effort": "xhigh",
+          "description": "deep reasoning for complex problem"
+        }
+      ],
+      "shell_type": "shell_command",
+      "visibility": "list",
+      "supported_in_api": true,
+      "priority": 1,
+      "base_instructions": "Before recommending or running any command that could stop, restart, or replace the environment you are running in \u2014 e.g. `wsl --shutdown` / `wsl --terminate`, host or VM reboot, `systemctl`/service restarts of your runtime, or killing your own shell, container, or session processes \u2014 first determine whether you are executing inside that same environment. If you might be, do not run it yourself: warn the user explicitly that the command will end this session and your ability to help until it is restarted, give the exact recovery steps, and let the user run it manually when they are ready.\n\nNever force-kill processes by raw PID against arbitrary or unknown PID lists (e.g. `kill -9`, `Stop-Process -Force`, `taskkill /F`): the agent runtime depends on its own child processes, and force-killing them can permanently break the session. To stop a dev server or free a port, stop the owning task by name; otherwise ask the user before terminating any PID.",
+      "supports_reasoning_summaries": true,
+      "default_reasoning_summary": "none",
+      "support_verbosity": false,
+      "default_verbosity": null,
+      "apply_patch_tool_type": "freeform",
+      "input_modalities": [
+        "text",
+        "image"
+      ],
+      "truncation_policy": {
+        "mode": "tokens",
+        "limit": 10000
+      },
+      "supports_parallel_tool_calls": true,
+      "experimental_supported_tools": []
+    },
+    {
       "slug": "fugu",
       "display_name": "Fugu",
       "context_window": 1000000,
@@ -17,7 +87,7 @@
       "shell_type": "shell_command",
       "visibility": "list",
       "supported_in_api": true,
-      "priority": 0,
+      "priority": 2,
       "base_instructions": "Before recommending or running any command that could stop, restart, or replace the environment you are running in \u2014 e.g. `wsl --shutdown` / `wsl --terminate`, host or VM reboot, `systemctl`/service restarts of your runtime, or killing your own shell, container, or session processes \u2014 first determine whether you are executing inside that same environment. If you might be, do not run it yourself: warn the user explicitly that the command will end this session and your ability to help until it is restarted, give the exact recovery steps, and let the user run it manually when they are ready.\n\nNever force-kill processes by raw PID against arbitrary or unknown PID lists (e.g. `kill -9`, `Stop-Process -Force`, `taskkill /F`): the agent runtime depends on its own child processes, and force-killing them can permanently break the session. To stop a dev server or free a port, stop the owning task by name; otherwise ask the user before terminating any PID.",
       "supports_reasoning_summaries": false,
       "default_reasoning_summary": "none",
@@ -56,7 +126,7 @@
       "shell_type": "shell_command",
       "visibility": "list",
       "supported_in_api": true,
-      "priority": 1,
+      "priority": 3,
       "base_instructions": "Before recommending or running any command that could stop, restart, or replace the environment you are running in \u2014 e.g. `wsl --shutdown` / `wsl --terminate`, host or VM reboot, `systemctl`/service restarts of your runtime, or killing your own shell, container, or session processes \u2014 first determine whether you are executing inside that same environment. If you might be, do not run it yourself: warn the user explicitly that the command will end this session and your ability to help until it is restarted, give the exact recovery steps, and let the user run it manually when they are ready.\n\nNever force-kill processes by raw PID against arbitrary or unknown PID lists (e.g. `kill -9`, `Stop-Process -Force`, `taskkill /F`): the agent runtime depends on its own child processes, and force-killing them can permanently break the session. To stop a dev server or free a port, stop the owning task by name; otherwise ask the user before terminating any PID.",
       "supports_reasoning_summaries": true,
       "default_reasoning_summary": "none",
@@ -91,7 +161,7 @@
       "shell_type": "shell_command",
       "visibility": "list",
       "supported_in_api": true,
-      "priority": 2,
+      "priority": 4,
       "base_instructions": "Before recommending or running any command that could stop, restart, or replace the environment you are running in \u2014 e.g. `wsl --shutdown` / `wsl --terminate`, host or VM reboot, `systemctl`/service restarts of your runtime, or killing your own shell, container, or session processes \u2014 first determine whether you are executing inside that same environment. If you might be, do not run it yourself: warn the user explicitly that the command will end this session and your ability to help until it is restarted, give the exact recovery steps, and let the user run it manually when they are ready.\n\nNever force-kill processes by raw PID against arbitrary or unknown PID lists (e.g. `kill -9`, `Stop-Process -Force`, `taskkill /F`): the agent runtime depends on its own child processes, and force-killing them can permanently break the session. To stop a dev server or free a port, stop the owning task by name; otherwise ask the user before terminating any PID.",
       "supports_reasoning_summaries": true,
       "default_reasoning_summary": "none",
@@ -126,7 +196,7 @@
       "shell_type": "shell_command",
       "visibility": "list",
       "supported_in_api": true,
-      "priority": 3,
+      "priority": 5,
       "base_instructions": "Before recommending or running any command that could stop, restart, or replace the environment you are running in \u2014 e.g. `wsl --shutdown` / `wsl --terminate`, host or VM reboot, `systemctl`/service restarts of your runtime, or killing your own shell, container, or session processes \u2014 first determine whether you are executing inside that same environment. If you might be, do not run it yourself: warn the user explicitly that the command will end this session and your ability to help until it is restarted, give the exact recovery steps, and let the user run it manually when they are ready.\n\nNever force-kill processes by raw PID against arbitrary or unknown PID lists (e.g. `kill -9`, `Stop-Process -Force`, `taskkill /F`): the agent runtime depends on its own child processes, and force-killing them can permanently break the session. To stop a dev server or free a port, stop the owning task by name; otherwise ask the user before terminating any PID.",
       "supports_reasoning_summaries": true,
       "default_reasoning_summary": "none",
