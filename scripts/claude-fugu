@@ -5,6 +5,9 @@ KEY_REGEX='^fish_[0-9a-f]{64}$'
 ENV_FILE="${CLAUDE_FUGU_ENV_FILE:-$HOME/.claude/.fugu-env}"
 CODEX_ENV_FILE="${FUGU_ENV_FILE:-${CODEX_HOME:-$HOME/.codex}/.env}"
 
+REFRESH=0
+[ "${1:-}" = "--refresh-settings" ] && { REFRESH=1; shift; }
+
 for f in "$ENV_FILE" "$CODEX_ENV_FILE"; do
   [ -n "${SAKANA_API_KEY:-}" ] && break
   [ -f "$f" ] && . "$f" 2>/dev/null || true
@@ -23,18 +26,149 @@ if [ -z "${SAKANA_API_KEY:-}" ]; then
   printf 'Saved SAKANA_API_KEY to %s (0600).\n' "$ENV_FILE" >&2
 fi
 
-command -v claude >/dev/null 2>&1 || { printf 'claude not found on PATH; install Claude Code first: https://claude.com/claude-code\n' >&2; exit 127; }
+if ! printf '%s' "$SAKANA_API_KEY" | grep -qE "$KEY_REGEX"; then
+  printf 'claude-fugu: invalid SAKANA_API_KEY.\n' >&2
+  exit 1
+fi
+
+[ "$REFRESH" = 1 ] || command -v claude >/dev/null 2>&1 || { printf 'claude not found on PATH; install Claude Code first: https://claude.com/claude-code\n' >&2; exit 127; }
+
+MAX_MODEL='fugu-max[1m]'
+MAX_NAME='Fugu Max'
+MAX_DESC='Maximum-capability Fugu model'
+ULTRA_MODEL='fugu-ultra[1m]'
+ULTRA_NAME='Fugu Ultra'
+ULTRA_DESC='Highest-capability generally available Fugu model'
+ULTRA_PIN_MODEL='fugu-ultra-v1.1[1m]'
+ULTRA_PIN_NAME='Fugu Ultra v1.1'
+ULTRA_PIN_DESC='Pinned Ultra release'
+FUGU_MODEL='fugu[1m]'
+FUGU_NAME='Fugu'
+FUGU_DESC='General-purpose multi-agent model'
+FUGU_BG_DESC='Same model as Fugu; also serves background tasks'
+CYBER_MODEL='fugu-cyber[1m]'
+CYBER_NAME='Fugu Cyber'
+CYBER_DESC='Approval required - apply: https://forms.gle/vQecc93rAA3wif3f6'
+
+BASE_URL="${CLAUDE_FUGU_BASE_URL:-https://api.sakana.ai}"
+if ! printf '%s' "$BASE_URL" | grep -Eq '^https?://[A-Za-z0-9._:/-]+$'; then
+  printf 'claude-fugu: invalid CLAUDE_FUGU_BASE_URL=%s\n' "$BASE_URL" >&2
+  exit 2
+fi
+
+SUBAGENT_MODEL="${CLAUDE_FUGU_SUBAGENT_MODEL:-$FUGU_MODEL}"
+
+if ! printf '%s' "$SUBAGENT_MODEL" | grep -Eq '^[A-Za-z0-9._:/@-]+(\[1m\])?$'; then
+  printf 'claude-fugu: invalid CLAUDE_FUGU_SUBAGENT_MODEL=%s\n' "$SUBAGENT_MODEL" >&2
+  exit 2
+fi
+
+FUGU_SETTINGS_FILE="${CLAUDE_FUGU_SETTINGS_FILE:-$HOME/.claude/.fugu-settings.json}"
+(umask 077; mkdir -p "$(dirname "$FUGU_SETTINGS_FILE")")
+
+render_settings() {
+  printf '{\n'
+  printf '  "model": "%s",\n' "$MAX_MODEL"
+  printf '  "effortLevel": "high",\n'
+  printf '  "env": {\n'
+  printf '    "ANTHROPIC_BASE_URL": "%s",\n' "$BASE_URL"
+  printf '    "ANTHROPIC_AUTH_TOKEN": "%s",\n' "$SAKANA_API_KEY"
+  printf '    "ANTHROPIC_DEFAULT_OPUS_MODEL": "%s",\n' "$MAX_MODEL"
+  printf '    "ANTHROPIC_DEFAULT_OPUS_MODEL_NAME": "%s",\n' "$MAX_NAME"
+  printf '    "ANTHROPIC_DEFAULT_OPUS_MODEL_DESCRIPTION": "%s",\n' "$MAX_DESC"
+  printf '    "ANTHROPIC_DEFAULT_SONNET_MODEL": "%s",\n' "$FUGU_MODEL"
+  printf '    "ANTHROPIC_DEFAULT_SONNET_MODEL_NAME": "%s",\n' "$FUGU_NAME"
+  printf '    "ANTHROPIC_DEFAULT_SONNET_MODEL_DESCRIPTION": "%s",\n' "$FUGU_DESC"
+  printf '    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "%s",\n' "$FUGU_MODEL"
+  printf '    "ANTHROPIC_DEFAULT_HAIKU_MODEL_NAME": "%s",\n' "$FUGU_NAME"
+  printf '    "ANTHROPIC_DEFAULT_HAIKU_MODEL_DESCRIPTION": "%s",\n' "$FUGU_BG_DESC"
+  printf '    "ANTHROPIC_DEFAULT_FABLE_MODEL": "%s",\n' "$ULTRA_MODEL"
+  printf '    "ANTHROPIC_DEFAULT_FABLE_MODEL_NAME": "%s",\n' "$ULTRA_NAME"
+  printf '    "ANTHROPIC_DEFAULT_FABLE_MODEL_DESCRIPTION": "%s",\n' "$ULTRA_DESC"
+  printf '    "ANTHROPIC_CUSTOM_MODEL_OPTION": "%s",\n' "$ULTRA_PIN_MODEL"
+  printf '    "ANTHROPIC_CUSTOM_MODEL_OPTION_NAME": "%s",\n' "$ULTRA_PIN_NAME"
+  printf '    "ANTHROPIC_CUSTOM_MODEL_OPTION_DESCRIPTION": "%s",\n' "$ULTRA_PIN_DESC"
+  printf '    "CLAUDE_CODE_SUBAGENT_MODEL": "%s"\n' "$SUBAGENT_MODEL"
+  printf '  },\n'
+  printf '  "modelPicker": {\n'
+  printf '    "replaceBuiltInOptions": true,\n'
+  printf '    "options": [\n'
+  printf '      {"model": "%s", "label": "%s", "description": "%s"},\n' "$MAX_MODEL" "$MAX_NAME" "$MAX_DESC"
+  printf '      {"model": "%s", "label": "%s", "description": "%s"},\n' "$ULTRA_MODEL" "$ULTRA_NAME" "$ULTRA_DESC"
+  printf '      {"model": "%s", "label": "%s", "description": "%s"},\n' "$ULTRA_PIN_MODEL" "$ULTRA_PIN_NAME" "$ULTRA_PIN_DESC"
+  printf '      {"model": "%s", "label": "%s", "description": "%s"},\n' "$FUGU_MODEL" "$FUGU_NAME" "$FUGU_DESC"
+  printf '      {"model": "%s", "label": "%s", "description": "%s"}\n' "$CYBER_MODEL" "$CYBER_NAME" "$CYBER_DESC"
+  printf '    ]\n'
+  printf '  }\n'
+  printf '}\n'
+}
+
+settings_tmp() {
+  FUGU_SETTINGS_TMP="$(mktemp "${FUGU_SETTINGS_FILE}.tmp.XXXXXX")"
+  trap 'rm -f "$FUGU_SETTINGS_TMP"' EXIT HUP INT TERM
+}
+settings_commit() {
+  mv -f "$FUGU_SETTINGS_TMP" "$FUGU_SETTINGS_FILE"
+  trap - EXIT HUP INT TERM
+}
+
+sync_setting() {
+  grep -qF "\"$1\": \"$2\"" "$FUGU_SETTINGS_FILE" && return 0
+  if ! grep -qE "^[[:space:]]*\"$1\":" "$FUGU_SETTINGS_FILE"; then
+    printf 'claude-fugu: %s not found in %s; run: claude-fugu --refresh-settings\n' "$1" "$FUGU_SETTINGS_FILE" >&2
+    return 0
+  fi
+  settings_tmp
+  sed -E "s|^([[:space:]]*\"$1\":[[:space:]]*\")[^\"]*(\".*)\$|\1$2\2|" "$FUGU_SETTINGS_FILE" > "$FUGU_SETTINGS_TMP"
+  settings_commit
+}
+
+if [ "$REFRESH" = 1 ]; then
+  settings_tmp
+  render_settings > "$FUGU_SETTINGS_TMP"
+  if [ -f "$FUGU_SETTINGS_FILE" ]; then
+    if cmp -s "$FUGU_SETTINGS_TMP" "$FUGU_SETTINGS_FILE"; then
+      rm -f "$FUGU_SETTINGS_TMP"; trap - EXIT HUP INT TERM
+      printf 'claude-fugu: %s is up to date.\n' "$FUGU_SETTINGS_FILE" >&2
+      exit 0
+    fi
+    FUGU_SETTINGS_BAK="$(mktemp "${FUGU_SETTINGS_FILE}.bak.$(date +%Y%m%d%H%M%S).XXXX")"
+    cp -p "$FUGU_SETTINGS_FILE" "$FUGU_SETTINGS_BAK"
+    printf 'claude-fugu: %s exists and differs from the launcher defaults; backed up to %s before overwrite.\n' "$FUGU_SETTINGS_FILE" "$FUGU_SETTINGS_BAK" >&2
+  fi
+  settings_commit
+  printf 'claude-fugu: wrote %s (0600).\n' "$FUGU_SETTINGS_FILE" >&2
+  exit 0
+fi
+
+if [ -f "$FUGU_SETTINGS_FILE" ]; then
+  sync_setting ANTHROPIC_AUTH_TOKEN "$SAKANA_API_KEY"
+  if [ -n "${CLAUDE_FUGU_BASE_URL:-}" ]; then sync_setting ANTHROPIC_BASE_URL "$BASE_URL"; fi
+  if [ -n "${CLAUDE_FUGU_SUBAGENT_MODEL:-}" ]; then sync_setting CLAUDE_CODE_SUBAGENT_MODEL "$SUBAGENT_MODEL"; fi
+else
+  settings_tmp
+  render_settings > "$FUGU_SETTINGS_TMP"
+  settings_commit
+  printf 'claude-fugu: wrote %s (0600). Edit it to customize; claude-fugu --refresh-settings resets it.\n' "$FUGU_SETTINGS_FILE" >&2
+fi
 
 exec env \
-  ANTHROPIC_BASE_URL="https://api.sakana.ai" \
+  ANTHROPIC_BASE_URL="$BASE_URL" \
   ANTHROPIC_AUTH_TOKEN="$SAKANA_API_KEY" \
-  ANTHROPIC_DEFAULT_FABLE_MODEL="fugu-cyber[1m]" \
-  ANTHROPIC_DEFAULT_FABLE_MODEL_DESCRIPTION="Cybersecurity-focused model" \
-  ANTHROPIC_DEFAULT_OPUS_MODEL="fugu-ultra[1m]" \
-  ANTHROPIC_DEFAULT_OPUS_MODEL_DESCRIPTION="Highest-capability model for complex, challenging tasks" \
-  ANTHROPIC_DEFAULT_SONNET_MODEL="fugu[1m]" \
-  ANTHROPIC_DEFAULT_SONNET_MODEL_DESCRIPTION="General-purpose model for everyday tasks" \
-  ANTHROPIC_DEFAULT_HAIKU_MODEL="fugu[1m]" \
-  ANTHROPIC_DEFAULT_HAIKU_MODEL_DESCRIPTION="Same as the other fugu[1m]" \
-  CLAUDE_CODE_SUBAGENT_MODEL="fugu[1m]" \
-  claude "$@"
+  ANTHROPIC_DEFAULT_OPUS_MODEL="$MAX_MODEL" \
+  ANTHROPIC_DEFAULT_OPUS_MODEL_NAME="$MAX_NAME" \
+  ANTHROPIC_DEFAULT_OPUS_MODEL_DESCRIPTION="$MAX_DESC" \
+  ANTHROPIC_DEFAULT_SONNET_MODEL="$FUGU_MODEL" \
+  ANTHROPIC_DEFAULT_SONNET_MODEL_NAME="$FUGU_NAME" \
+  ANTHROPIC_DEFAULT_SONNET_MODEL_DESCRIPTION="$FUGU_DESC" \
+  ANTHROPIC_DEFAULT_HAIKU_MODEL="$FUGU_MODEL" \
+  ANTHROPIC_DEFAULT_HAIKU_MODEL_NAME="$FUGU_NAME" \
+  ANTHROPIC_DEFAULT_HAIKU_MODEL_DESCRIPTION="$FUGU_BG_DESC" \
+  ANTHROPIC_DEFAULT_FABLE_MODEL="$ULTRA_MODEL" \
+  ANTHROPIC_DEFAULT_FABLE_MODEL_NAME="$ULTRA_NAME" \
+  ANTHROPIC_DEFAULT_FABLE_MODEL_DESCRIPTION="$ULTRA_DESC" \
+  ANTHROPIC_CUSTOM_MODEL_OPTION="$ULTRA_PIN_MODEL" \
+  ANTHROPIC_CUSTOM_MODEL_OPTION_NAME="$ULTRA_PIN_NAME" \
+  ANTHROPIC_CUSTOM_MODEL_OPTION_DESCRIPTION="$ULTRA_PIN_DESC" \
+  CLAUDE_CODE_SUBAGENT_MODEL="$SUBAGENT_MODEL" \
+  claude --settings "$FUGU_SETTINGS_FILE" "$@"

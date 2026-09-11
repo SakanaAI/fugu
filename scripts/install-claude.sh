@@ -36,6 +36,7 @@ Options:
       --set-key     Reconfigure only the stored Sakana API key, then exit.
       --reconfigure Overwrite an existing stored key during install.
       --remove      Remove the installed claude-fugu launcher, then exit.
+                    (Keeps ~/.claude/.fugu-env and ~/.claude/.fugu-settings.json.)
       --dry-run     Print intended actions without writing files.
   -h, --help        Show this help and exit.
 
@@ -160,6 +161,19 @@ install_launcher() {
   command -v claude-fugu >/dev/null 2>&1 || log_warn "claude-fugu installed to ${CLAUDE_FUGU_INSTALL_DIR}, but that directory is not on PATH."
 }
 
+write_settings() {
+  local dest="$CLAUDE_FUGU_INSTALL_DIR/claude-fugu"
+  if [ "$DRY_RUN" = 1 ]; then
+    log_info "[dry-run] would write the claude-fugu settings layer (claude-fugu --refresh-settings)"
+    return 0
+  fi
+  if CLAUDE_FUGU_ENV_FILE="$CLAUDE_FUGU_ENV_FILE" bash "$dest" --refresh-settings; then
+    log_ok "Settings layer ready (edit it to customize; re-run this installer or claude-fugu --refresh-settings to reset)."
+  else
+    log_warn "Could not write the settings layer; claude-fugu will create it on first run."
+  fi
+}
+
 remove_launcher() {
   local dest="$CLAUDE_FUGU_INSTALL_DIR/claude-fugu"
   if [ ! -e "$dest" ]; then
@@ -182,6 +196,7 @@ main() {
   esac
   setup_key
   install_launcher
+  write_settings
   if command -v claude >/dev/null 2>&1; then
     log_ok "Claude Code found. Run: claude-fugu"
   else

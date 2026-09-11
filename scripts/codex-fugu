@@ -12,8 +12,8 @@ LOCK_FILE="$STATE_DIR/.lock"
 NOTICES_FILE="$STATE_DIR/notices"
 THROTTLE_SECS="${CODEX_FUGU_CHECK_INTERVAL:-3600}"
 
-NOTICE_ID="fugu-default-model-2026-06"
-NOTICE_MSG="Fugu is designed to provide the best balance of cost and performance, it is the go-to model in codex-fugu. Choose Fugu Ultra only for complex tasks where quality is your top priority."
+NOTICE_ID="fugu-default-model-2026-09"
+NOTICE_MSG="Fugu Max is now the default model in codex-fugu. Use /model to switch at any time: Fugu is designed to provide the best balance of cost and performance, and the list also offers Fugu Ultra (v2.0, v1.1, v1.0) and Fugu Cyber."
 
 DO_STATUS=0; DO_RECHECK=0; DO_CHECK=0; DO_NO_UPDATE=0; DO_SET_KEY=0
 CODEX_ARGS=()
