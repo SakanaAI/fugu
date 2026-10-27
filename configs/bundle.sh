@@ -2,6 +2,8 @@
 BUNDLE_NAME="configs"
 BUNDLE_DESC="Sakana Fugu models (fugu-max / fugu-ultra / fugu / fugu-ultra-v1.1 / fugu-ultra-v1.0 / fugu-cyber), optimized — stream-resilience hardening + generic agent-conduct base_instructions; use with: codex -p fugu"
 BUNDLE_SCHEMA=1
+BUNDLE_DEFAULT_MODEL="fugu-max"
+BUNDLE_MODEL_CATALOG="files/fugu.json"
 
 BUNDLE_CODEX_VERSION="0.162.1"
 

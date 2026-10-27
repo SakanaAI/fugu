@@ -6,6 +6,7 @@ readonly RELEASE_INSTALL_BASE="https://github.com/openai/codex/releases/download
 readonly GH_LATEST_API="https://api.github.com/repos/openai/codex/releases/latest"
 readonly NPM_REGISTRY_URL="https://registry.npmjs.org/@openai/codex"
 readonly SUPPORT_URL="https://console.sakana.ai/get-started"
+readonly DEFAULT_SAKANA_BASE_URL="https://api.sakana.ai/v1"
 
 FUGU_OS="$(uname -s 2>/dev/null || echo unknown)"
 _is_macos() { [ "$FUGU_OS" = "Darwin" ]; }
@@ -27,6 +28,9 @@ CODEX_BACKUP_KEEP="${CODEX_BACKUP_KEEP:-10}"
 
 FUGU_CONFIGS_DIR="${FUGU_CONFIGS_DIR:-}"
 FUGU_ENV_FILE="${FUGU_ENV_FILE:-$CODEX_HOME/.env}"
+SAKANA_BASE_URL="${SAKANA_BASE_URL:-}"
+FUGU_MODEL="${FUGU_MODEL:-}"
+readonly DEFAULT_FUGU_MODEL="fugu-max"
 readonly FUGU_KEY_PROMPT_TRIES=3
 readonly BUNDLE_ID="configs"
 
@@ -41,8 +45,21 @@ CONFIG_NAME=""
 CONFIG_ACTION=""
 RECONFIGURE=0
 BUNDLE_WARNINGS=0
+BUNDLE_PROVIDER_DEPLOY_FAILED=0
 BUNDLE_DIR=""
 BUNDLE_CODEX_VERSION=""
+BUNDLE_DEFAULT_MODEL=""
+BUNDLE_MODEL_CATALOG=""
+FUGU_MODEL_RESOLVED=0
+FUGU_MODEL_EXPLICIT=0
+FUGU_MODEL_CLI_EXPLICIT=0
+SAKANA_BASE_URL_CLI_EXPLICIT=0
+SAKANA_BASE_URL_BEFORE=""
+SAKANA_BASE_URL_LINE_OWNED=0
+SAKANA_BASE_URL_REQUESTED=0
+SAKANA_BASE_URL_RECORD=""
+FUGU_MODEL_PINNED=0
+ENV_KEYS_TO_PERSIST=()
 FORCE=0
 _RUN_BACKUP_DONE=0
 
@@ -108,12 +125,19 @@ config bundle (configs/) that wires up the Sakana provider.
 Options:
   -y, --yes                 Assume "yes" to all prompts (non-interactive).
       --pinned-version X.Y.Z Pin a specific Codex version instead of the bundle's.
+      --model MODEL         Set (and keep) the default Fugu model (must exist in fugu.json);
+                            --model default follows the bundle's default again.
+      --base-url URL        Set the Sakana API endpoint (http:// or https://);
+                            https://api.sakana.ai/v1 returns to production.
       --no-backup           Do not back up existing config before switching.
       --dry-run             Resolve + detect + print intended actions only.
       --remove-config       Reverse the deployed config bundle, then exit.
       --set-key             Re-prompt for + persist the bundle's API key(s), then exit
                             (no version-pin/deploy; secure 0600 store in $CODEX_HOME/.env).
-      --reconfigure         Re-prompt / overwrite even if already configured.
+                            With --base-url URL, also move the provider block to URL
+                            (config.toml only), so the key and endpoint change together.
+      --reconfigure         Re-prompt / overwrite even if already configured; on a
+                            terminal, also offers the API endpoint.
       --force               Deploy the bundle even if Codex isn't at the bundle's
                             target version (also authorizes a non-interactive switch).
   -h, --help                Show this help and exit.
@@ -129,6 +153,10 @@ Environment:
   FUGU_FORCE=1              Same as --force.
   FUGU_CONFIGS_DIR          Bundles root (default: <repo>/configs).
   FUGU_ENV_FILE             0600 secret store, dotenvy KEY=VALUE (default: ~/.codex/.env).
+  FUGU_MODEL                Default model; honoured on a fresh install or with --reconfigure
+                            (an existing install ignores it: use --model).
+  SAKANA_BASE_URL           API endpoint; honoured on a fresh install or with --reconfigure
+                            (an existing install, --set-key and --remove-config ignore it).
   <PROVIDER_KEY>=...        Provide a bundle's API key non-interactively (e.g. SAKANA_API_KEY).
 EOF
 }
@@ -142,11 +170,16 @@ parse_args() {
   FORCE="${FUGU_FORCE:-0}"
   CONFIG_NAME="$BUNDLE_ID"
   CONFIG_ACTION="install"
+  [ -n "${FUGU_MODEL:-}" ] && FUGU_MODEL_EXPLICIT=1
   while [ "$#" -gt 0 ]; do
     case "$1" in
       -y | --yes) ASSUME_YES=1 ;;
       --pinned-version) shift; [ "$#" -ge 1 ] || die "--pinned-version requires a value"; PINNED_VERSION_OVERRIDE="$1" ;;
       --pinned-version=*) PINNED_VERSION_OVERRIDE="${1#*=}" ;;
+      --model) shift; [ "$#" -ge 1 ] || die "--model requires a value"; FUGU_MODEL="$1"; FUGU_MODEL_EXPLICIT=1; FUGU_MODEL_CLI_EXPLICIT=1 ;;
+      --model=*) FUGU_MODEL="${1#*=}"; FUGU_MODEL_EXPLICIT=1; FUGU_MODEL_CLI_EXPLICIT=1 ;;
+      --base-url) shift; [ "$#" -ge 1 ] || die "--base-url requires a value"; SAKANA_BASE_URL="$1"; SAKANA_BASE_URL_CLI_EXPLICIT=1 ;;
+      --base-url=*) SAKANA_BASE_URL="${1#*=}"; SAKANA_BASE_URL_CLI_EXPLICIT=1 ;;
       --no-backup) SKIP_BACKUP=1 ;;
       --dry-run) DRY_RUN=1 ;;
       --remove-config) CONFIG_ACTION="remove" ;;
@@ -158,6 +191,31 @@ parse_args() {
     esac
     shift
   done
+
+  if [ "$CONFIG_ACTION" = "install" ] && [ -f "$CODEX_HOME/.fugu/state" ] && [ "$RECONFIGURE" != "1" ]; then
+    if [ "$FUGU_MODEL_CLI_EXPLICIT" != "1" ]; then
+      [ -z "$FUGU_MODEL" ] || log_warn "Ignoring FUGU_MODEL from the environment on an existing install; use --model MODEL (or --reconfigure) to change the default model."
+      FUGU_MODEL=""
+      FUGU_MODEL_EXPLICIT=0
+    fi
+    if [ "$SAKANA_BASE_URL_CLI_EXPLICIT" != "1" ]; then
+      [ -z "$SAKANA_BASE_URL" ] || _ambient_sakana_base_url_in_effect || \
+        log_warn "Ignoring SAKANA_BASE_URL from the environment on an existing install; use --base-url URL (or --reconfigure) to change the endpoint."
+      SAKANA_BASE_URL=""
+    fi
+  fi
+  if [ "$CONFIG_ACTION" != "install" ]; then
+    FUGU_MODEL=""; FUGU_MODEL_EXPLICIT=0
+    if [ "$SAKANA_BASE_URL_CLI_EXPLICIT" != "1" ]; then
+      [ -z "$SAKANA_BASE_URL" ] || [ "$CONFIG_ACTION" != "setkey" ] || _ambient_sakana_base_url_in_effect || \
+        log_warn "Ignoring SAKANA_BASE_URL from the environment; use --set-key --base-url URL to change the endpoint and key together."
+      SAKANA_BASE_URL=""
+    fi
+  fi
+}
+
+_ambient_sakana_base_url_in_effect() {
+  [ "$(_canon_sakana_base_url "$SAKANA_BASE_URL")" = "$(_sakana_base_url_before)" ]
 }
 
 normalize_version() {
@@ -465,6 +523,7 @@ resolve_bundle_dir() {
 load_manifest() {
   local dir="$1"
   BUNDLE_NAME=""; BUNDLE_DESC=""; BUNDLE_SCHEMA=""; BUNDLE_RUN_HINT=""; BUNDLE_CODEX_VERSION=""
+  BUNDLE_DEFAULT_MODEL=""; BUNDLE_MODEL_CATALOG=""
   FILES=(); INJECTS=(); ENV_KEYS=()
   BUNDLE_DIR="$dir"
   . "$dir/bundle.sh"
@@ -478,22 +537,68 @@ load_manifest() {
   fi
 }
 
+resolve_fugu_model() {
+  local saved="" catalog="" candidate=""
+  [ "${FUGU_MODEL_RESOLVED:-0}" = "0" ] || return 0
+  [ -n "${BUNDLE_MODEL_CATALOG:-}" ] || {
+    [ "${FUGU_MODEL_EXPLICIT:-0}" = "0" ] || die "This config bundle does not support selecting a default model."
+    return 0
+  }
+  catalog="$BUNDLE_DIR/$BUNDLE_MODEL_CATALOG"
+  [ -f "$catalog" ] || die "Bundle model catalog not found: ${catalog}."
+
+  if [ "${FUGU_MODEL_EXPLICIT:-0}" = "1" ]; then
+    [ -n "${FUGU_MODEL:-}" ] || die "--model/FUGU_MODEL requires a non-empty model name."
+    if [ "$FUGU_MODEL" = "default" ]; then
+      log_info "Using the bundle's default Fugu model (not pinned)."
+    else
+      candidate="$FUGU_MODEL"
+      FUGU_MODEL_PINNED=1
+    fi
+  elif [ -f "$(_state_path)" ]; then
+    [ -r "$(_state_path)" ] || \
+      log_warn "Cannot read $(_state_path); a default model chosen earlier with --model is not kept. Use --model MODEL to choose it again."
+    saved="$(sed -n 's/^model=//p' "$(_state_path)" 2>/dev/null | tail -n1 || true)"
+    if [ -n "$saved" ] && _single_line "$saved" && printf '%s' "$saved" | grep -qE '^[A-Za-z0-9][A-Za-z0-9._-]*$' && \
+       grep -qF "\"slug\": \"${saved}\"" "$catalog"; then
+      candidate="$saved"
+      FUGU_MODEL_PINNED=1
+    elif [ -n "$saved" ]; then
+      log_warn "Saved Fugu model is no longer available ('${saved}'); using the bundle default ${BUNDLE_DEFAULT_MODEL:-} instead."
+    fi
+  fi
+  FUGU_MODEL="${candidate:-${BUNDLE_DEFAULT_MODEL:-}}"
+  [ -n "$FUGU_MODEL" ] || die "Bundle '${BUNDLE_NAME}' does not declare a default model."
+  _single_line "$FUGU_MODEL" || die "Invalid Fugu model name: a model name is a single line."
+  printf '%s' "$FUGU_MODEL" | grep -qE '^[A-Za-z0-9][A-Za-z0-9._-]*$' \
+    || die "Invalid Fugu model name: '${FUGU_MODEL}'."
+  grep -qF "\"slug\": \"${FUGU_MODEL}\"" "$catalog" \
+    || die "Unknown Fugu model '${FUGU_MODEL}'; choose a model listed in ${BUNDLE_MODEL_CATALOG}."
+  FUGU_MODEL_RESOLVED=1
+  log_info "Default Fugu model: ${FUGU_MODEL}"
+}
+
 load_manifest_for() {
   local d; d="$(resolve_bundle_dir)"; load_manifest "$d"
 }
 
 render_template() {
-  local src="$1" dest="$2"
-  FUGU_TPL_HOME="$(_abs_codex_home)" awk '
-    BEGIN { home = ENVIRON["FUGU_TPL_HOME"]; tok = "{{CODEX_HOME}}"; n = length(tok) }
-    {
-      out = ""; line = $0
-      while ((i = index(line, tok)) > 0) {
-        out = out substr(line, 1, i - 1) home
+  local src="$1" dest="$2" render_model="${FUGU_MODEL:-$DEFAULT_FUGU_MODEL}"
+  FUGU_TPL_HOME="$(_abs_codex_home)" FUGU_TPL_SAKANA_BASE_URL="$SAKANA_BASE_URL" FUGU_TPL_MODEL="$render_model" awk '
+    function replace_all(line, token, value, out, i, n) {
+      out = ""; n = length(token)
+      while ((i = index(line, token)) > 0) {
+        out = out substr(line, 1, i - 1) value
         line = substr(line, i + n)
       }
-      print out line
+      return out line
     }
+    BEGIN {
+      home = ENVIRON["FUGU_TPL_HOME"]
+      base_url = ENVIRON["FUGU_TPL_SAKANA_BASE_URL"]
+      model = ENVIRON["FUGU_TPL_MODEL"]
+    }
+    { print replace_all(replace_all(replace_all($0, "{{CODEX_HOME}}", home), "{{SAKANA_BASE_URL}}", base_url), "{{FUGU_MODEL}}", model) }
   ' "$src" > "$dest"
 }
 
@@ -521,7 +626,7 @@ detect_install_method() {
   local c; c="$(command -v codex 2>/dev/null || true)"
   [ -n "$c" ] || { printf 'unknown'; return 0; }
   case "$(file -bL "$c" 2>/dev/null || true)" in
-    *ELF*) printf 'standalone'; return 0 ;;
+    *ELF*|*Mach-O*) printf 'standalone'; return 0 ;;
   esac
   if head -n1 "$c" 2>/dev/null | grep -q 'node'; then printf 'npm'; else printf 'unknown'; fi
 }
@@ -544,10 +649,27 @@ record_fugu_state() {
     printf 'branch=%s\n'          "$branch"
     printf 'install_method=%s\n'  "$method"
     printf 'deployed_format=%s\n' "${DEPLOYED_FORMAT:-}"
+    if [ "${FUGU_MODEL_PINNED:-0}" = "1" ]; then
+      printf 'model=%s\n'         "${FUGU_MODEL:-}"
+    fi
+    if [ -n "${SAKANA_BASE_URL_RECORD:-}" ]; then
+      printf 'sakana_base_url=%s\n' "$SAKANA_BASE_URL_RECORD"
+    fi
     printf 'updated_utc=%s\n'     "$(date -u +%Y%m%dT%H%M%SZ 2>/dev/null || echo unknown)"
   } > "$tmp"
   mv -f "$tmp" "$sp"; chmod 600 "$sp" 2>/dev/null || true
   log_info "Recorded Fugu state in ${sp}."
+}
+
+_state_set_sakana_base_url() {
+  [ "${DRY_RUN:-0}" = "1" ] && return 0
+  local sp tmp; sp="$(_state_path)"
+  [ -f "$sp" ] || return 0
+  [ -r "$sp" ] || { log_warn "Cannot read ${sp}; its endpoint record was not updated."; return 0; }
+  tmp="$(mktemp "${TMPDIR:-/tmp}/fugu-state.XXXXXX")" || return 0
+  chmod 600 "$tmp" 2>/dev/null || true
+  { grep -v '^sakana_base_url=' "$sp" || true; [ -z "$1" ] || printf 'sakana_base_url=%s\n' "$1"; } > "$tmp"
+  mv -f "$tmp" "$sp"; chmod 600 "$sp" 2>/dev/null || true
 }
 
 advance_fugu_install_ref() {
@@ -751,9 +873,11 @@ key_already_persisted() {
 }
 
 _export_from_env_file() {
-  [ -f "$FUGU_ENV_FILE" ] || return 0
-  . "$FUGU_ENV_FILE" 2>/dev/null || true
-  export "${1?}" 2>/dev/null || true
+  local var="${1?}" value=""
+  value="$(read_persisted_env_value "$var" 2>/dev/null || true)"
+  [ -n "$value" ] || return 0
+  printf -v "$var" '%s' "$value"
+  export "$var"
 }
 
 persist_api_key() {
@@ -784,6 +908,272 @@ remove_api_key() {
   fi
 }
 
+read_persisted_env_value() {
+  local var="$1" line value
+  [ -f "$FUGU_ENV_FILE" ] || return 1
+  line="$(grep -E "^(export )?${var}=" "$FUGU_ENV_FILE" 2>/dev/null | tail -n1)"
+  [ -n "$line" ] || return 1
+  value="${line#export }"; value="${value#${var}=}"; value="${value%$'\r'}"
+  case "$value" in
+    \"*) value="${value#\"}"; value="${value%%\"*}" ;;
+    \'*) value="${value#\'}"; value="${value%%\'*}" ;;
+    *)   value="$(printf '%s' "$value" | sed 's/[[:space:]][[:space:]]*#.*$//;s/[[:space:]]*$//')" ;;
+  esac
+  printf '%s' "$value"
+}
+
+_single_line() { case "$1" in *$'\n'* | *$'\r'*) return 1 ;; esac; return 0; }
+
+valid_sakana_base_url() {
+  _single_line "$1" && printf '%s' "$1" | grep -qE '^https?://[A-Za-z0-9][A-Za-z0-9._:-]*(/[A-Za-z0-9._~:/-]*)?$'
+}
+
+_sakana_url_canon() {
+  local url="$1" scheme rest hostport path host port=""
+  case "$url" in *://*) ;; *) printf '%s' "$url"; return 0 ;; esac
+  scheme="$(printf '%s' "${url%%://*}" | tr '[:upper:]' '[:lower:]')"
+  rest="${url#*://}"; hostport="${rest%%/*}"; path="${rest#"$hostport"}"
+  host="$(printf '%s' "${hostport%%:*}" | tr '[:upper:]' '[:lower:]')"
+  case "$hostport" in *:*) port="${hostport#*:}" ;; esac
+  { [ "$scheme" = https ] && [ "$port" = 443 ]; } && port=""
+  { [ "$scheme" = http ] && [ "$port" = 80 ]; } && port=""
+  while [ "${path%/}" != "$path" ]; do path="${path%/}"; done
+  printf '%s://%s%s%s' "$scheme" "$host" "${port:+:$port}" "$path"
+}
+_sakana_url_host() { local c; c="$(_sakana_url_canon "$1")"; c="${c#*://}"; c="${c%%/*}"; printf '%s' "${c%%:*}"; }
+_sakana_url_is_production_host() { [ "$(_sakana_url_host "$1")" = "$(_sakana_url_host "$DEFAULT_SAKANA_BASE_URL")" ]; }
+
+_trim_sakana_base_url() {
+  local value
+  value="$(printf '%s' "$1" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+  while [ "${value%/}" != "$value" ]; do value="${value%/}"; done
+  printf '%s' "$value"
+}
+
+_canon_sakana_base_url() {
+  local value
+  value="$(_trim_sakana_base_url "$1")"
+  case "$value" in *://*) value="$(printf '%s' "${value%%://*}" | tr '[:upper:]' '[:lower:]')://${value#*://}" ;; esac
+  if valid_sakana_base_url "$value"; then _sakana_url_canon "$value"; fi
+  return 0
+}
+
+_normalize_sakana_base_url() {
+  local value
+  value="$(_canon_sakana_base_url "$1")"
+  [ -n "$value" ] || die "Invalid Sakana API base URL${2:+ $2} (expected http:// or https:// without spaces or quotes)."
+  printf '%s' "$value"
+}
+
+_provider_table_base_url() {
+  awk -v want="$1" '
+    $0 == "# >>> fugu:model_providers.sakana >>>" { inm = 1; intbl = 0; next }
+    $0 == "# <<< fugu:model_providers.sakana <<<" { inm = 0; intbl = 0; next }
+    /^[ \t]*\[/ { t = $0; sub(/[ \t]*#.*$/, "", t); gsub(/[ \t\r]/, "", t)
+                  intbl = (t == "[model_providers.sakana]"); next }
+    intbl && ((want == "managed") == (inm == 1)) && /^[ \t]*base_url[ \t]*=/ {
+      v = $0; sub(/^[^=]*=[ \t]*/, "", v); q = substr(v, 1, 1)
+      if (q == "\"" || q == "\047") { v = substr(v, 2); i = index(v, q); if (i) { print substr(v, 1, i - 1); exit } }
+    }' "$CODEX_HOME/config.toml" 2>/dev/null || true
+}
+_managed_block_present() { grep -qxF '# >>> fugu:model_providers.sakana >>>' "$CODEX_HOME/config.toml" 2>/dev/null; }
+
+_sakana_base_url_before() {
+  local url
+  url="$(_canon_sakana_base_url "$(_provider_table_base_url managed)")"
+  [ -n "$url" ] || url="$(_canon_sakana_base_url "$(_provider_table_base_url user)")"
+  printf '%s' "${url:-$DEFAULT_SAKANA_BASE_URL}"
+}
+
+_recorded_sakana_base_url() {
+  local url
+  [ -f "$(_state_path)" ] || return 0
+  url="$(_canon_sakana_base_url "$(sed -n 's/^sakana_base_url=//p' "$(_state_path)" 2>/dev/null | tail -n1)")"
+  [ "$url" = "$DEFAULT_SAKANA_BASE_URL" ] || printf '%s' "$url"
+}
+
+_saved_sakana_base_url() {
+  local recorded saved
+  saved="$(_canon_sakana_base_url "$(read_persisted_env_value SAKANA_BASE_URL 2>/dev/null || true)")"
+  [ -n "$saved" ] && [ "$saved" != "$DEFAULT_SAKANA_BASE_URL" ] || return 0
+  recorded="$(_recorded_sakana_base_url)"
+  if [ -n "$recorded" ]; then
+    if [ "$saved" = "$recorded" ]; then printf '%s' "$saved"; fi
+  elif [ "$saved" = "$(_canon_sakana_base_url "$(_provider_table_base_url managed)")" ]; then
+    printf '%s' "$saved"
+  fi
+  return 0
+}
+
+_sakana_base_url_line_owned() {
+  read_persisted_env_value SAKANA_BASE_URL >/dev/null 2>&1 || return 1
+  [ -n "$(_recorded_sakana_base_url)" ] || [ -n "$(_saved_sakana_base_url)" ]
+}
+
+check_saved_sakana_base_url() {
+  local recorded saved
+  [ -z "$SAKANA_BASE_URL" ] || return 0
+  recorded="$(_recorded_sakana_base_url)"
+  [ -n "$recorded" ] || return 0
+  saved="$(_saved_sakana_base_url)"
+  if [ -z "$saved" ]; then
+    die "The SAKANA_BASE_URL saved in ${FUGU_ENV_FILE} does not match the endpoint in ${CODEX_HOME}/config.toml (${recorded}); re-run with --base-url URL to choose one (e.g. --base-url ${recorded} to keep it)."
+  fi
+  if _managed_block_present && ! _bundle_renders_base_url; then
+    die "This config bundle cannot render the custom endpoint ${saved} saved for this install; deploy the matching configs, or re-run with --base-url ${DEFAULT_SAKANA_BASE_URL} to return to production."
+  fi
+}
+
+check_requested_endpoint_applicable() {
+  local value
+  [ -n "$SAKANA_BASE_URL" ] && [ "${DRY_RUN:-0}" != "1" ] || return 0
+  value="$(_normalize_sakana_base_url "$SAKANA_BASE_URL")"
+  [ "$value" != "$(_sakana_base_url_before)" ] || return 0
+  _provider_inject_refused || return 0
+  SAKANA_BASE_URL="$value"
+  log_warn "Found an existing '[model_providers.sakana]' in ${CODEX_HOME}/config.toml outside Fugu's managed markers; not editing it."
+  _endpoint_change_not_applied
+}
+
+_bundle_renders_base_url() {
+  local entry rest marker snippet
+  for entry in "${INJECTS[@]:-}"; do
+    [ -n "$entry" ] || continue
+    rest="${entry#*::}"; marker="${rest%%::*}"; snippet="${rest##*::}"
+    [ "$marker" = "model_providers.sakana" ] || continue
+    grep -qF '{{SAKANA_BASE_URL}}' "$BUNDLE_DIR/$snippet" 2>/dev/null && return 0
+  done
+  return 1
+}
+
+validate_requested_sakana_base_url() {
+  local value where=""
+  if [ "${SAKANA_BASE_URL_CLI_EXPLICIT:-0}" = "1" ] && [ -z "$SAKANA_BASE_URL" ]; then
+    die "--base-url requires a non-empty URL."
+  fi
+  [ -n "$SAKANA_BASE_URL" ] || return 0
+  [ "${SAKANA_BASE_URL_CLI_EXPLICIT:-0}" = "1" ] || where="in the SAKANA_BASE_URL environment variable"
+  value="$(_normalize_sakana_base_url "$SAKANA_BASE_URL" "$where")"
+  if [ "$value" != "$DEFAULT_SAKANA_BASE_URL" ] && ! _bundle_renders_base_url; then
+    die "This config bundle does not support selecting an API endpoint."
+  fi
+}
+
+load_sakana_base_url() {
+  local url
+  url="$(_recorded_sakana_base_url)"
+  [ -n "$url" ] || url="$(_saved_sakana_base_url)"
+  SAKANA_BASE_URL="${url:-$DEFAULT_SAKANA_BASE_URL}"
+}
+
+setup_sakana_base_url() {
+  local saved="" value="" prompt_default
+  if [ "${SAKANA_BASE_URL_CLI_EXPLICIT:-0}" = "1" ] && [ -z "$SAKANA_BASE_URL" ]; then
+    die "--base-url requires a non-empty URL."
+  fi
+  check_saved_sakana_base_url
+  saved="$(_saved_sakana_base_url)"
+  SAKANA_BASE_URL_LINE_OWNED=0; ! _sakana_base_url_line_owned || SAKANA_BASE_URL_LINE_OWNED=1
+  SAKANA_BASE_URL_BEFORE="$(_sakana_base_url_before)"
+  SAKANA_BASE_URL_REQUESTED=0
+  SAKANA_BASE_URL_RECORD="${saved:-$(_recorded_sakana_base_url)}"
+
+  local from_env=0
+  if [ -n "$SAKANA_BASE_URL" ]; then
+    value="$SAKANA_BASE_URL"; SAKANA_BASE_URL_REQUESTED=1
+    [ "${SAKANA_BASE_URL_CLI_EXPLICIT:-0}" = "1" ] || from_env=1
+  elif [ -n "$saved" ]; then
+    value="$saved"
+    [ -n "$(_recorded_sakana_base_url)" ] || \
+      log_warn "No endpoint record in $(_state_path); adopting ${saved}, which Fugu's provider block and the SAKANA_BASE_URL line in ${FUGU_ENV_FILE} both name, as this installer's custom endpoint."
+  else
+    value="$DEFAULT_SAKANA_BASE_URL"
+    local stays="$SAKANA_BASE_URL_BEFORE"
+    ! _managed_block_present || stays="$value"
+    if read_persisted_env_value SAKANA_BASE_URL >/dev/null 2>&1 && \
+       [ "$(_canon_sakana_base_url "$(read_persisted_env_value SAKANA_BASE_URL)")" != "$stays" ]; then
+      log_warn "Ignoring the SAKANA_BASE_URL line in ${FUGU_ENV_FILE}: this installer did not save it (the endpoint stays ${stays}). Use --base-url URL to change the endpoint."
+    fi
+  fi
+
+  if [ "${RECONFIGURE:-0}" = "1" ] && [ "${SAKANA_BASE_URL_CLI_EXPLICIT:-0}" != "1" ] && \
+     [ "${ASSUME_YES:-0}" != "1" ] && [ -t 0 ] && \
+     { _managed_block_present || [ -z "$(_provider_table_base_url user)" ]; }; then
+    prompt_default="$value"
+    printf 'Sakana API base URL [%s]: ' "$prompt_default" >&2
+    if ! IFS= read -r value; then value=""; printf '\n' >&2; fi
+    value="$(printf '%s' "$value" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+    [ -z "$value" ] || SAKANA_BASE_URL_REQUESTED=1
+    value="${value:-$prompt_default}"
+  fi
+
+  value="$(_normalize_sakana_base_url "$value")"
+  [ "$value" != "$DEFAULT_SAKANA_BASE_URL" ] || { SAKANA_BASE_URL="$value"; export SAKANA_BASE_URL; _warn_env_endpoint_change "$from_env"; return 0; }
+  if { [ "${SAKANA_BASE_URL_REQUESTED:-0}" = "1" ] || _managed_block_present; } && ! _bundle_renders_base_url; then
+    die "This config bundle does not support selecting an API endpoint."
+  fi
+  case "$(_sakana_url_host "$value")" in
+    localhost | 127.*) ;;
+    *) [ "${value%%://*}" != http ] || log_warn "The Sakana API endpoint uses plain http://; the API key is sent unencrypted." ;;
+  esac
+  log_info "Sakana API endpoint: ${value}"
+  SAKANA_BASE_URL="$value"
+  export SAKANA_BASE_URL
+  _warn_env_endpoint_change "$from_env"
+}
+
+_warn_env_endpoint_change() {
+  [ "$1" = "1" ] && [ -f "$(_state_path)" ] && [ "$SAKANA_BASE_URL" != "${SAKANA_BASE_URL_BEFORE:-$DEFAULT_SAKANA_BASE_URL}" ] || return 0
+  log_warn "Using SAKANA_BASE_URL from the environment (--reconfigure): the endpoint changes from ${SAKANA_BASE_URL_BEFORE} to ${SAKANA_BASE_URL}."
+}
+
+commit_sakana_base_url() {
+  local saved=""
+  saved="$(read_persisted_env_value SAKANA_BASE_URL 2>/dev/null || true)"
+  if [ "$SAKANA_BASE_URL" != "$DEFAULT_SAKANA_BASE_URL" ]; then
+    if [ -n "$saved" ] && [ "${SAKANA_BASE_URL_LINE_OWNED:-0}" != "1" ]; then
+      if [ "$(_canon_sakana_base_url "$saved")" = "$SAKANA_BASE_URL" ]; then
+        log_warn "Taking over the SAKANA_BASE_URL line in ${FUGU_ENV_FILE}, which this installer did not save: it now records ${SAKANA_BASE_URL} as its endpoint (--remove-config will remove the line)."
+      else
+        log_warn "Replacing the SAKANA_BASE_URL line in ${FUGU_ENV_FILE}, which this installer did not save, with ${SAKANA_BASE_URL}."
+      fi
+    fi
+    [ "$saved" != "$SAKANA_BASE_URL" ] || return 0
+    if [ "${DRY_RUN:-0}" = "1" ]; then
+      log_info "[dry-run] would persist the custom SAKANA_BASE_URL to ${FUGU_ENV_FILE}"
+    else
+      persist_api_key "SAKANA_BASE_URL" "$SAKANA_BASE_URL"
+    fi
+  elif [ "${SAKANA_BASE_URL_LINE_OWNED:-0}" = "1" ]; then
+    remove_api_key "SAKANA_BASE_URL"
+  fi
+}
+
+_sakana_endpoint_changes() {
+  [ "$SAKANA_BASE_URL" != "${SAKANA_BASE_URL_BEFORE:-$DEFAULT_SAKANA_BASE_URL}" ] || return 1
+  [ "${SAKANA_BASE_URL_REQUESTED:-0}" = "1" ] || _managed_block_present
+}
+
+_provider_inject_refused() {
+  local entry target rest marker snippet header
+  for entry in "${INJECTS[@]:-}"; do
+    [ -n "$entry" ] || continue
+    target="${entry%%::*}"; rest="${entry#*::}"; marker="${rest%%::*}"; snippet="${rest##*::}"
+    [ "$marker" = "model_providers.sakana" ] || continue
+    header="$(grep -m1 -E '^\[[A-Za-z0-9_."-]+\]' "$BUNDLE_DIR/$snippet" 2>/dev/null || true)"
+    [ -n "$header" ] && _block_conflicts "$CODEX_HOME/$target" "$marker" "$header" && return 0
+  done
+  return 1
+}
+
+_endpoint_change_not_applied() {
+  if [ "${DRY_RUN:-0}" = "1" ]; then
+    log_warn "[dry-run] the Fugu provider block could not be updated, so the endpoint change to ${SAKANA_BASE_URL} would fail."
+    return 0
+  fi
+  die "The Fugu provider block was not updated, so the endpoint change to ${SAKANA_BASE_URL} was not applied; SAKANA_API_KEY and SAKANA_BASE_URL were left unchanged. Merge [model_providers.sakana] in ${CODEX_HOME}/config.toml (see ${SUPPORT_URL}) and re-run."
+}
+
 setup_api_key() {
   local var="$1" url="$2" regex="$3" provider="$4" existing value="" tries=0
   existing="$(printenv "$var" 2>/dev/null || true)"
@@ -795,12 +1185,16 @@ setup_api_key() {
   fi
 
   if [ -n "$existing" ]; then
-    if printf '%s' "$existing" | grep -qE -- "$regex"; then
+    if _single_line "$existing" && printf '%s' "$existing" | grep -qE -- "$regex"; then
       value="$existing"; log_info "Using ${var} from the current environment."
     else
       die "${var} is set in the environment but does not match the expected format."
     fi
   elif [ "${ASSUME_YES:-0}" = "1" ]; then
+    if [ "$var" = "SAKANA_API_KEY" ] && [ "${RECONFIGURE:-0}" != "1" ] && existing="$(read_persisted_env_value "$var" 2>/dev/null)" && \
+       [ -n "$existing" ] && ! printf '%s' "$existing" | grep -qE -- "$regex"; then
+      die "The ${var} stored in ${FUGU_ENV_FILE} does not match the key format for ${SAKANA_BASE_URL:-$DEFAULT_SAKANA_BASE_URL}. If it belongs to a custom endpoint, re-run with --base-url URL; otherwise rotate it with --set-key."
+    fi
     die "${var} is required but not set, and --yes was given. Export ${var}=… or run interactively."
   else
     printf 'A %s API key is required for this bundle.\n' "$provider" >&2
@@ -817,11 +1211,26 @@ setup_api_key() {
     done
   fi
 
-  if [ "${DRY_RUN:-0}" = "1" ]; then log_info "[dry-run] would persist ${var} to ${FUGU_ENV_FILE}"; return 0; fi
-  persist_api_key "$var" "$value"
-  export "$var"="$value"
+  printf -v "$var" '%s' "$value"
+  export "$var"
+  ENV_KEYS_TO_PERSIST+=("$var")
   unset value existing
-  log_ok "${var} configured (stored 0600 in ${FUGU_ENV_FILE}; Codex loads it automatically)."
+  if [ "${DRY_RUN:-0}" = "1" ]; then
+    log_info "[dry-run] would persist ${var} to ${FUGU_ENV_FILE}"
+  elif [ "${CONFIG_ACTION:-install}" = "install" ]; then
+    log_info "${var} validated; it will be committed after configuration deploys successfully."
+  fi
+}
+
+commit_api_keys() {
+  local var value
+  [ "${DRY_RUN:-0}" = "1" ] && return 0
+  for var in "${ENV_KEYS_TO_PERSIST[@]:-}"; do
+    [ -n "$var" ] || continue
+    value="$(printenv "$var" 2>/dev/null || true)"
+    persist_api_key "$var" "$value"
+    log_ok "${var} configured (stored 0600 in ${FUGU_ENV_FILE}; Codex loads it automatically)."
+  done
 }
 
 install_bundle_inject() {
@@ -831,7 +1240,11 @@ install_bundle_inject() {
   tmp="$(mktemp "${TMPDIR:-/tmp}/fugu-snip.XXXXXX")"
   render_template "$BUNDLE_DIR/$snippet" "$tmp"
   body="$(cat "$tmp")"; rm -f "$tmp"
-  inject_managed_block "$CODEX_HOME/$target" "$marker" "$body" || BUNDLE_WARNINGS=$((BUNDLE_WARNINGS + 1))
+  if ! inject_managed_block "$CODEX_HOME/$target" "$marker" "$body"; then
+    BUNDLE_WARNINGS=$((BUNDLE_WARNINGS + 1))
+    [ "$marker" = "model_providers.sakana" ] && BUNDLE_PROVIDER_DEPLOY_FAILED=1
+  fi
+  return 0
 }
 
 install_bundle_envkey() {
@@ -839,12 +1252,17 @@ install_bundle_envkey() {
   var="${entry%%::*}";    rest="${entry#*::}"
   url="${rest%%::*}";     rest="${rest#*::}"
   regex="${rest%%::*}";   provider="${rest##*::}"
+  if [ "$var" = "SAKANA_API_KEY" ] && [ -n "$SAKANA_BASE_URL" ] && \
+     ! _sakana_url_is_production_host "$SAKANA_BASE_URL"; then
+    regex='^[A-Za-z0-9._~:/+=-]+$'
+  fi
   setup_api_key "$var" "$url" "$regex" "$provider"
 }
 
 reconfigure_bundle_key() {
   local entry
   load_manifest_for
+  load_sakana_base_url
   if [ "${#ENV_KEYS[@]}" -eq 0 ] || [ -z "${ENV_KEYS[0]:-}" ]; then
     log_info "The config bundle declares no API keys; nothing to configure."
     return 0
@@ -855,7 +1273,50 @@ reconfigure_bundle_key() {
     [ "${ASSUME_YES:-0}" = "1" ] || unset "${entry%%::*}"
     install_bundle_envkey "$entry"
   done
+  commit_api_keys
   log_ok "API key configuration complete."
+}
+
+reconfigure_bundle_key_and_endpoint() {
+  local entry rest marker provider_injects=0
+  load_manifest_for
+  CONFIG_NAME="$BUNDLE_ID"; BUNDLE_WARNINGS=0; BUNDLE_PROVIDER_DEPLOY_FAILED=0
+  if [ ! -f "$(_state_path)" ]; then
+    die "No Fugu install found in ${CODEX_HOME}; run install.sh (optionally with --base-url URL) first."
+  fi
+  [ -r "$(_state_path)" ] || die "Cannot read $(_state_path); fix its permissions, then re-run --set-key --base-url."
+  validate_requested_sakana_base_url
+  RECONFIGURE=1
+  setup_sakana_base_url
+
+  if [ "${#ENV_KEYS[@]}" -eq 0 ] || [ -z "${ENV_KEYS[0]:-}" ]; then
+    die "The config bundle declares no API keys."
+  fi
+  ENV_KEYS_TO_PERSIST=()
+  for entry in "${ENV_KEYS[@]:-}"; do
+    [ -n "$entry" ] || continue
+    [ "${ASSUME_YES:-0}" = "1" ] || unset "${entry%%::*}"
+    install_bundle_envkey "$entry"
+  done
+
+  for entry in "${INJECTS[@]:-}"; do
+    [ -n "$entry" ] || continue
+    rest="${entry#*::}"; marker="${rest%%::*}"
+    [ "$marker" = "model_providers.sakana" ] || continue
+    provider_injects=$((provider_injects + 1))
+    install_bundle_inject "$entry"
+  done
+  [ "$provider_injects" -gt 0 ] || die "This config bundle has no Sakana provider block to update."
+  if [ "${BUNDLE_PROVIDER_DEPLOY_FAILED:-0}" = "1" ] && _sakana_endpoint_changes; then
+    die "Fugu provider configuration was not updated; SAKANA_API_KEY and SAKANA_BASE_URL were left unchanged."
+  fi
+
+  commit_sakana_base_url
+  commit_api_keys
+  if [ "$SAKANA_BASE_URL" = "$DEFAULT_SAKANA_BASE_URL" ]; then _state_set_sakana_base_url ""
+  else _state_set_sakana_base_url "$SAKANA_BASE_URL"; fi
+  if [ "${DRY_RUN:-0}" = "1" ]; then log_info "[dry-run] API key and endpoint unchanged."
+  else log_ok "API key and endpoint configuration complete."; fi
 }
 
 remove_bundle_file() {
@@ -965,12 +1426,27 @@ migrate_old_formats() {
 install_config_bundle() {
   local name="$BUNDLE_ID" dir entry rest m d has_formats=0
   dir="$(resolve_bundle_dir)"
-  CONFIG_NAME="$name"; BUNDLE_WARNINGS=0; _RUN_BACKUP_DONE=0; DEPLOYED_FORMAT=""
+  CONFIG_NAME="$name"; BUNDLE_WARNINGS=0; BUNDLE_PROVIDER_DEPLOY_FAILED=0; _RUN_BACKUP_DONE=0; DEPLOYED_FORMAT=""
   load_manifest "$dir"
   if [ -n "$(list_formats "$dir")" ]; then
     has_formats=1; select_latest_format "$dir"; DEPLOYED_FORMAT="$FORMAT_LATEST_ID"
   fi
   log_info "Loading config bundle '${BUNDLE_NAME}': ${BUNDLE_DESC:-}"
+
+  resolve_fugu_model
+  setup_sakana_base_url
+
+  ENV_KEYS_TO_PERSIST=()
+  for entry in "${ENV_KEYS[@]:-}"; do [ -n "$entry" ] && install_bundle_envkey "$entry"; done
+  if [ "${DRY_RUN:-0}" != "1" ] && [ "${SAKANA_BASE_URL_REQUESTED:-0}" = "1" ] && _sakana_endpoint_changes && _provider_inject_refused; then
+    log_warn "Found an existing '[model_providers.sakana]' in ${CODEX_HOME}/config.toml outside Fugu's managed markers; not editing it."
+    _endpoint_change_not_applied
+  fi
+  if _sakana_endpoint_changes && [ -f "$FUGU_ENV_FILE" ] && \
+     ! printf '%s\n' "${ENV_KEYS_TO_PERSIST[@]:-}" | grep -qxF SAKANA_API_KEY && \
+     read_persisted_env_value SAKANA_API_KEY >/dev/null 2>&1; then
+    log_warn "The endpoint changes to ${SAKANA_BASE_URL} but the stored SAKANA_API_KEY is kept and will be sent there. To change both together, run: install.sh --set-key --base-url ${SAKANA_BASE_URL}"
+  fi
 
   for entry in "${FILES[@]:-}";   do [ -n "$entry" ] && install_bundle_file   "${entry%%::*}" "${entry##*::}"; done
   for entry in "${INJECTS[@]:-}"; do [ -n "$entry" ] && install_bundle_inject "$entry"; done
@@ -992,7 +1468,30 @@ install_config_bundle() {
     migrate_old_formats "$dir" "$FORMAT_LATEST_ID"
   fi
 
-  for entry in "${ENV_KEYS[@]:-}"; do [ -n "$entry" ] && install_bundle_envkey "$entry"; done
+  if [ "${BUNDLE_PROVIDER_DEPLOY_FAILED:-0}" = "1" ]; then
+    if [ "${SAKANA_BASE_URL_REQUESTED:-0}" = "1" ] && _sakana_endpoint_changes; then
+      _endpoint_change_not_applied
+    else
+      if _provider_inject_refused; then
+        log_warn "The Fugu provider block was not updated; your existing [model_providers.sakana] stays in effect."
+      elif [ -f "$CODEX_HOME/config.toml" ]; then
+        log_warn "The Fugu provider block was not updated; ${CODEX_HOME}/config.toml keeps its previous provider settings."
+      else
+        log_warn "The Fugu provider block was not updated; ${CODEX_HOME}/config.toml was not created."
+      fi
+      commit_api_keys
+      if [ "${SAKANA_BASE_URL_REQUESTED:-0}" = "1" ]; then
+        commit_sakana_base_url
+        SAKANA_BASE_URL_RECORD=""
+        [ "$SAKANA_BASE_URL" = "$DEFAULT_SAKANA_BASE_URL" ] || SAKANA_BASE_URL_RECORD="$SAKANA_BASE_URL"
+      fi
+    fi
+  else
+    commit_api_keys
+    commit_sakana_base_url
+    SAKANA_BASE_URL_RECORD=""
+    [ "$SAKANA_BASE_URL" = "$DEFAULT_SAKANA_BASE_URL" ] || SAKANA_BASE_URL_RECORD="$SAKANA_BASE_URL"
+  fi
 
   if [ "${BUNDLE_WARNINGS:-0}" -gt 0 ]; then
     log_warn "Config bundle '${name}' loaded with ${BUNDLE_WARNINGS} warning(s); see above and ${SUPPORT_URL}."
@@ -1008,6 +1507,7 @@ remove_config_bundle() {
   CONFIG_NAME="$name"
   load_manifest "$dir"
   log_info "Removing config bundle '${name}'."
+  local url_owned=0; ! _sakana_base_url_line_owned || url_owned=1
   for entry in "${INJECTS[@]:-}"; do
     [ -n "$entry" ] || continue
     target="${entry%%::*}"; rest="${entry#*::}"; marker="${rest%%::*}"
@@ -1038,6 +1538,7 @@ remove_config_bundle() {
     done < <(list_formats "$dir")
   fi
   for entry in "${ENV_KEYS[@]:-}"; do [ -n "$entry" ] && remove_api_key "${entry%%::*}"; done
+  [ "$url_owned" != 1 ] || remove_api_key "SAKANA_BASE_URL"
   local rp p line; rp="$(_receipt_path "$name")"
   if [ -f "$rp" ]; then
     while IFS= read -r line; do
@@ -1158,9 +1659,14 @@ run_next_stage() {
         install_config_bundle
         record_fugu_state     "$BUNDLE_ID" "${BUNDLE_CODEX_VERSION:-$pinned}"
         install_fugu_launcher "$BUNDLE_ID"
-      elif [ -f "$(_state_path)" ]; then
-        install_fugu_launcher "$BUNDLE_ID"
-        advance_fugu_install_ref
+      else
+        if [ "${FUGU_MODEL_EXPLICIT:-0}" = "1" ] || [ -n "${SAKANA_BASE_URL:-}" ]; then
+          log_warn "The requested default model / API endpoint was not applied because the config bundle was not deployed."
+        fi
+        if [ -f "$(_state_path)" ]; then
+          install_fugu_launcher "$BUNDLE_ID"
+          advance_fugu_install_ref
+        fi
       fi
       ;;
     *) : ;;
@@ -1186,13 +1692,24 @@ main() {
 
   case "${CONFIG_ACTION:-}" in
     remove) remove_config_bundle; exit 0 ;;
-    setkey) reconfigure_bundle_key; exit $? ;;
+    setkey)
+      if [ "${SAKANA_BASE_URL_CLI_EXPLICIT:-0}" = "1" ]; then
+        reconfigure_bundle_key_and_endpoint
+      else
+        reconfigure_bundle_key
+      fi
+      exit $?
+      ;;
   esac
 
   require_http_client
   local pinned=""
   if [ "${CONFIG_ACTION:-}" = "install" ]; then
     load_manifest_for
+    resolve_fugu_model
+    validate_requested_sakana_base_url
+    check_saved_sakana_base_url
+    check_requested_endpoint_applicable
     if [ -z "${PINNED_VERSION_OVERRIDE:-}" ] && [ -n "${BUNDLE_CODEX_VERSION:-}" ]; then
       pinned="$BUNDLE_CODEX_VERSION"
       log_info "Pinning to the config bundle's target Codex ${pinned}."

@@ -1,4 +1,4 @@
-model = "fugu-max"
+model = "{{FUGU_MODEL}}"
 model_reasoning_effort = "high"
 model_provider = "sakana"
 model_catalog_json = "{{CODEX_HOME}}/fugu.json"
