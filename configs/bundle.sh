@@ -5,7 +5,7 @@ BUNDLE_SCHEMA=1
 BUNDLE_DEFAULT_MODEL="fugu-max"
 BUNDLE_MODEL_CATALOG="files/fugu.json"
 
-BUNDLE_CODEX_VERSION="0.162.1"
+BUNDLE_CODEX_VERSION="0.165.0"
 
 FILES=(
   "files/fugu.json::fugu.json"
