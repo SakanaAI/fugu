@@ -1,4 +1,4 @@
-model = "fugu-max"
+model = "{{FUGU_MODEL}}"
 model_reasoning_effort = "high"
 model_provider = "sakana"
 model_catalog_json = "{{CODEX_HOME}}/fugu.json"
@@ -9,8 +9,10 @@ apps = false
 remote_plugin = false
 unbounded_connection_retries = false
 daemon_auto_start = false
-realtime_conversation = false
-worktrees = false
+
+[mcp_servers.codex_worktrees]
+command = "true"
+enabled = false
 
 [tui]
 screen_reader_detection_done = true

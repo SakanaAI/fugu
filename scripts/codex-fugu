@@ -12,8 +12,8 @@ LOCK_FILE="$STATE_DIR/.lock"
 NOTICES_FILE="$STATE_DIR/notices"
 THROTTLE_SECS="${CODEX_FUGU_CHECK_INTERVAL:-3600}"
 
-NOTICE_ID="fugu-default-model-2026-09"
-NOTICE_MSG="Fugu Max is now the default model in codex-fugu. Use /model to switch at any time: Fugu is designed to provide the best balance of cost and performance, and the list also offers Fugu Ultra (v2.0, v1.1, v1.0) and Fugu Cyber."
+NOTICE_ID="fugu-selectable-default-model-2026-10"
+NOTICE_MSG="Fugu Max is the fallback default model in codex-fugu when no install-time model is selected. Use install.sh --model to choose another default, or /model to switch at any time: Fugu is designed to provide the best balance of cost and performance, and the list also offers Fugu Ultra (v2.0, v1.1, v1.0) and Fugu Cyber."
 
 DO_STATUS=0; DO_RECHECK=0; DO_CHECK=0; DO_NO_UPDATE=0; DO_SET_KEY=0
 CODEX_ARGS=()
@@ -173,7 +173,7 @@ apply_update() {
   newref="$(git -C "$REPO_DIR" rev-parse --short HEAD 2>/dev/null || echo unknown)"
   local -a args=(--yes)
   [ "$bump" = 1 ] && args+=(--force)
-  if "$REPO_DIR/scripts/install.sh" "${args[@]}"; then
+  if SAKANA_BASE_URL= FUGU_MODEL= "$REPO_DIR/scripts/install.sh" "${args[@]}"; then
     local now_ver; now_ver="$(codex_version_of "${REAL_CODEX:-codex}" 2>/dev/null || true)"
     if [ -n "$REMOTE_TARGET" ] && [ -n "$now_ver" ] && [ "$now_ver" != "$REMOTE_TARGET" ]; then
       fug_warn "Configs not updated: this Fugu update targets Codex ${REMOTE_TARGET} but you have ${now_ver}, so the config bundle was not redeployed (only the launcher was refreshed)."
@@ -209,7 +209,7 @@ apply_rollback() {
     fug_warn "install.sh not found at ${REPO_DIR}/scripts; cannot roll back automatically."; return 1
   fi
   fug_info "rolling Codex back to ${DEPLOYED_TARGET} via install.sh…"
-  if "$REPO_DIR/scripts/install.sh" --pinned-version "$DEPLOYED_TARGET" --force --yes; then
+  if SAKANA_BASE_URL= FUGU_MODEL= "$REPO_DIR/scripts/install.sh" --pinned-version "$DEPLOYED_TARGET" --force --yes; then
     fug_ok "Codex rolled back to ${DEPLOYED_TARGET}."
   else
     fug_warn "rollback did not complete cleanly; review the messages above."; return 1
@@ -314,7 +314,7 @@ maybe_adopt() {
 }
 
 cmd_status() {
-  local real installed
+  local real installed model endpoint
   real="$(resolve_real_codex 2>/dev/null || true)"
   installed="$(codex_version_of "${real:-codex}" 2>/dev/null || true)"
   printf 'codex-fugu status\n'
@@ -326,6 +326,19 @@ cmd_status() {
     printf '  bundle            : %s\n' "$(st_get bundle)"
     printf '  deployed_target   : %s\n' "$(st_get deployed_target)"
     printf '  deployed_format   : %s\n' "$(st_get deployed_format)"
+    model="$(st_get model)"
+    if [ -n "$model" ]; then
+      model="${model} (pinned)"
+    elif [ -f "$CODEX_HOME/fugu.config.toml" ]; then
+      model="$(sed -n "s/^[[:space:]]*model[[:space:]]*=[[:space:]]*[\"']\\([A-Za-z0-9._-]*\\)[\"'].*\$/\\1/p" "$CODEX_HOME/fugu.config.toml" | head -n1)"
+      [ -z "$model" ] || model="${model} (bundle default)"
+    fi
+    printf '  default model     : %s\n' "${model:-unknown}"
+    endpoint="$(awk '$0 == "# >>> fugu:model_providers.sakana >>>" { b = 1; next } $0 == "# <<< fugu:model_providers.sakana <<<" { b = 0 }
+                     b && /^[ \t]*\[/ { t = $0; sub(/[ \t]*#.*$/, "", t); gsub(/[ \t\r]/, "", t); s = (t == "[model_providers.sakana]"); next }
+                     b && s && /^[ \t]*base_url[ \t]*=/ { sub(/^[^=]*=[ \t]*["\047]/, ""); sub(/["\047].*$/, ""); print; exit }' \
+                "$CODEX_HOME/config.toml" 2>/dev/null || true)"
+    printf '  API endpoint      : %s\n' "${endpoint:-unknown}"
     printf '  repo_dir          : %s\n' "$(st_get repo_dir)"
     printf '  branch            : %s\n' "$(st_get branch)"
     printf '  install_ref       : %s\n' "$(st_get install_ref)"
@@ -356,7 +369,14 @@ cmd_set_key() {
     fug_warn "install.sh not found at ${repo}/scripts; cannot configure the key."
     return 1
   fi
-  "$repo/scripts/install.sh" --set-key
+  local -a extra=()
+  case "${#CODEX_ARGS[@]}:${CODEX_ARGS[0]:-}" in
+    0:) ;;
+    1:--base-url=*) extra=("${CODEX_ARGS[0]}") ;;
+    2:--base-url)   extra=(--base-url "${CODEX_ARGS[1]}") ;;
+    *) fug_warn "--set-key accepts only --base-url URL; other arguments are not used (not shown, in case one is a key)."; return 2 ;;
+  esac
+  SAKANA_BASE_URL= FUGU_MODEL= "$repo/scripts/install.sh" --set-key ${extra[@]+"${extra[@]}"}
 }
 
 parse_flags() {

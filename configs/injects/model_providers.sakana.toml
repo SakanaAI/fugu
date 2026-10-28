@@ -1,6 +1,6 @@
 [model_providers.sakana]
 name = "Sakana API"
-base_url = "https://api.sakana.ai/v1"
+base_url = "{{SAKANA_BASE_URL}}"
 env_key = "SAKANA_API_KEY"
 wire_api = "responses"
 stream_idle_timeout_ms = 7200000
