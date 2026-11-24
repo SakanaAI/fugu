@@ -10,7 +10,7 @@ remote_plugin = false
 unbounded_connection_retries = false
 daemon_auto_start = false
 
-[mcp_servers.codex_worktrees]
+[mcp_servers.codex_tui]
 command = "true"
 enabled = false
 
